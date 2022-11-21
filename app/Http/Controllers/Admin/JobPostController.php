@@ -1,0 +1,127 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Admin\City;
+use Illuminate\Http\Request;
+use Laracasts\Flash\Flash;
+use App\Models\Admin\JobPost;
+use App\Models\Admin\Country;
+use App\Models\Admin\Department;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use Yajra\DataTables\Facades\DataTables;
+
+class JobPostController extends Controller
+{
+    public function index(Request $request)
+    {
+// dd($city);
+
+        if ($request->ajax()) {
+            $data = JobPost::with('department')->with('city')->select('*');
+
+            return DataTables::eloquent($data)
+                ->addIndexColumn()
+
+                ->addColumn('action', function ($data) {
+                    $user = Sentinel::getUser();
+                    $edit = '';
+                    $delete = '';
+                    if($user->hasAccess('user.edit.job-post'))
+                    $edit=button('edit',route('job-post.edit', $data->id));
+
+                    if($user->hasAccess('user.delete.job-post'))
+                    $delete = button('delete',route('job-post.delete', $data->id));
+
+                    return $edit.$delete;
+
+                })
+                ->addColumn('created_at', function ($data) {
+                    return date('d M Y', strtotime($data['created_at']));
+                })
+                ->addColumn('status', function($data) {
+                    return toggleButton('status',route('job-post.status', $data->id),$data);
+                 })
+                ->rawColumns(['action', 'status', 'download'])
+                ->make(true);
+        }
+        return view('admin.manage_career.job.index');
+
+    }
+    public function create()
+    {
+        $city =City::get()->pluck('city', 'cityId');
+        $department =Department::where('status',1)->get()->pluck('name','id');
+        return view('admin.manage_career.job.create',compact('department','city'));
+        
+    }
+    public function store(Request $request,$id=null)
+    {
+        $this->validate($request, [
+            
+            'job_title' => 'required|unique:job_posts,job_title,'. $id.',id,deleted_at,NULL',
+        ]);
+        if($id)
+        {
+            $data = JobPost::where('id',$id)->first();
+            $data->job_title = $request->job_title;
+            $data->cityId = $request->cityId;
+            $data->department_id = $request->department_id;
+            $data->experience = $request->experience;
+            $data->education = $request->education;
+            $data->job_purpose = $request->job_purpose;
+            $data->responsibilities = $request->responsibilities;
+            $data->status = $request->status;
+            $res =  $data->update();
+           
+        }
+        else{
+            $data = new JobPost;
+            $data->job_title = $request->job_title;
+            $data->cityId = $request->cityId;
+            $data->department_id = $request->department_id;
+            $data->experience = $request->experience;
+            $data->education = $request->education;
+            $data->job_purpose = $request->job_purpose;
+            $data->responsibilities = $request->responsibilities;
+            $data->status = $request->status;
+            $res =  $data->save();
+        }
+        if($data->save())
+        {
+         Flash::success( __('action.saved', ['type' => 'Job Post']));
+        }
+        return redirect()->route('job-post.index');
+    }
+    public function edit($id)
+    {
+        $city =City::get()->pluck('city', 'cityId');
+        $job = JobPost::find($id);
+        $department =Department::where('status',1)->get()->pluck('name','id');
+       
+        return view('admin.manage_career.job.edit',compact('job','department','city'));
+    }
+    public function delete($id = null)
+    {
+        $job  = JobPost::find($id);
+        $job->delete();
+        Flash::success(__('action.deleted', ['type' => 'Job Post']));
+        return redirect()->back();
+    }
+    public function status(Request $request)
+    {
+        $city  = JobPost::find($request->id);
+        if($request->val == 1)
+        {
+            $city->status = 0;
+            $city->save();
+        }
+        else{
+            $city->status = 1;
+            $city->save();
+        }
+        Flash::success( __('action.status', ['type' => 'Job Post']));
+
+    }
+}
