@@ -14,7 +14,7 @@ class AddManageTestTable extends Migration
     public function up()
     {
         Schema::table('manage_tests', function (Blueprint $table) {
-            $table->string('category_id')->after('alias_name')->nullable();
+            $table->string('category_id')->after('testCode')->nullable();
             $table->string('type')->after('category_id')->nullable();
         });
     }
