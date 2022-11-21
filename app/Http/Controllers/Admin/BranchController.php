@@ -56,7 +56,7 @@ class BranchController extends Controller
             'passCode'      =>    config('auth.passCode'),
         ]);
 
-        $response_data = json_decode($response->body())[0]->Data;
+        $response_data = json_decode($response->body())[0]['Data'];
 
         foreach ($response_data as $data) {
             Branch::updateOrCreate([
