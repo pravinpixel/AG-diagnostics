@@ -48,38 +48,38 @@ class BranchController extends Controller
         return view('admin.master.branch.index',compact('last_sync'));
     }
 
-    public function syncRequest()
-    {
+    // public function syncRequest()
+    // {
 
-        $response = Http::get('http://reports.anandlab.com/listest/labapi.asmx/GetBranchMaster', [
-            'CorporateID'   =>    config('auth.CorporateID'),
-            'passCode'      =>    config('auth.passCode'),
-        ]);
+    //     $response = Http::get('http://reports.anandlab.com/listest/labapi.asmx/GetBranchMaster', [
+    //         'CorporateID'   =>    config('auth.CorporateID'),
+    //         'passCode'      =>    config('auth.passCode'),
+    //     ]);
 
-        $response_data = json_decode($response->body())[0]['Data'];
+    //     $response_data = json_decode($response->body())[0]['Data'];
 
-        foreach ($response_data as $data) {
-            Branch::updateOrCreate([
-                "BranchId"              =>  $data->BranchId  ?? null,
-                "BranchCode"            =>  $data->BranchCode  ?? null,
-                "BranchName"            =>  $data->BranchName  ?? null,
-                "BranchCityId"          =>  $data->BranchCityId  ?? null,
-                "BranchCity"            =>  $data->BranchCity  ?? null,
-                "BranchAddress"         =>  $data->BranchAddress  ?? null,
-                "BrachContact"          =>  $data->BrachContact  ?? null,
-                "BranchEmail"           =>  $data->BranchEmail  ?? null,
-                "IsProcessingLocation"  =>  $data->IsProcessingLocation  ?? null,
-                "BranchTimings"         =>  $data->BranchTimings  ?? null,
-                "State"                 =>  $data->State  ?? null,
-                "Pincode"               =>  $data->Pincode ?? null,
-                "Country"               =>  "India"
-            ]);
-        }
+    //     foreach ($response_data as $data) {
+    //         Branch::updateOrCreate([
+    //             "BranchId"              =>  $data->BranchId  ?? null,
+    //             "BranchCode"            =>  $data->BranchCode  ?? null,
+    //             "BranchName"            =>  $data->BranchName  ?? null,
+    //             "BranchCityId"          =>  $data->BranchCityId  ?? null,
+    //             "BranchCity"            =>  $data->BranchCity  ?? null,
+    //             "BranchAddress"         =>  $data->BranchAddress  ?? null,
+    //             "BrachContact"          =>  $data->BrachContact  ?? null,
+    //             "BranchEmail"           =>  $data->BranchEmail  ?? null,
+    //             "IsProcessingLocation"  =>  $data->IsProcessingLocation  ?? null,
+    //             "BranchTimings"         =>  $data->BranchTimings  ?? null,
+    //             "State"                 =>  $data->State  ?? null,
+    //             "Pincode"               =>  $data->Pincode ?? null,
+    //             "Country"               =>  "India"
+    //         ]);
+    //     }
 
-        Flash::success( __('masters.sync_success'));
+    //     Flash::success( __('masters.sync_success'));
 
-        return redirect()->back();
-    } 
+    //     return redirect()->back();
+    // } 
 
     public function show($id)
     {

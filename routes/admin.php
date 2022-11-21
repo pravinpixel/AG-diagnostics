@@ -88,7 +88,7 @@ Route::middleware(['auth_users'])->group(function () {
         Route::get('master/branch', [BranchController::class, 'index'])->name('master.index');
         
         // Branch  Master
-        Route::post('master/branch', [BranchController::class, 'syncRequest'])->name('branch.sync');
+        // Route::post('master/branch', [BranchController::class, 'syncRequest'])->name('branch.sync');
         Route::get('master/branch/{id}', [BranchController::class, 'show'])->name('branch.show'); 
 
         // City Master

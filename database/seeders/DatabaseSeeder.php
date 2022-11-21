@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         
         Enquiries::factory()->count(45)->create();
 
-        $syncBranch = new BranchController(); $syncBranch->syncRequest();
+        // $syncBranch = new BranchController(); $syncBranch->syncRequest();
         $syncCity   = new CityController();   $syncCity->syncRequest();
         $syncTest   = new TestController();   $syncTest->syncRequest();
     }

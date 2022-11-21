@@ -42,7 +42,7 @@ class BranchCron extends Command
         // syncRequest
         Log::info("Start Fetching Branch Master ... ");
             $call = new BranchController();
-            $call->syncRequest();
+            // $call->syncRequest();
         Log::info("End of Fetching Branch Master ... :)");
 
     }
