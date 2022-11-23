@@ -19,41 +19,6 @@ class ManagePackageController extends Controller
 {
     public function index(Request $request)
     {
-        //*********** important auto load API funtion start *************
-
-
-        $key ='agdpixel';
-        $secret ='p1x3l@agd';
-        
-        // $responseState = Http::withBasicAuth($key,$secret)
-        // ->get('https://agdmatrix.dyndns.org/a/Pixel/States');
-        // $responseCity = Http::withBasicAuth($key,$secret)
-        // ->get('https://agdmatrix.dyndns.org/a/Pixel/Cities');
-        
-        // $responseTest = Http::withBasicAuth($key,$secret)
-        // ->get('https://agdmatrix.dyndns.org/a/Pixel/Tests');
-        $responsePackages = Http::withBasicAuth($key,$secret)
-        ->get('https://agdmatrix.dyndns.org/a/Pixel/Packages');
-        // $responseHomeVisitArea = Http::withBasicAuth($key,$secret)
-        // ->get('https://agdmatrix.dyndns.org/a/Pixel/HomeVisitAreas');
-        // $responseSampleCollectionCenters = Http::withBasicAuth($key,$secret)
-        // ->get('https://agdmatrix.dyndns.org/a/Pixel/SampleCollectionCenters');
-       
-        // $responseState = json_decode($responseState);
-        // $responseCity = json_decode($responseCity);
-        // $responseTest = json_decode($responseTest);
-        $responsePackages = json_decode($responsePackages);
-        // $responseHomeVisitArea = json_decode($responseHomeVisitArea);
-        // $responseSampleCollectionCenters = json_decode($responseSampleCollectionCenters);
-        
-        // $dataCity = insertApiCityData($responseCity);
-        // $dataState = insertApiStateData($responseState);
-        // $dataTest = insertApiTestData($responseTest);
-        $dataPackages = insertApiPackagesData($responsePackages);
-        // $dataHomeVisitArea = insertApiHomeVisitAreaData($responseHomeVisitArea);
-        // $dataSampleCollectionCenters = insertApiSampleCollectionCentersData($responseSampleCollectionCenters);
-
-        //*********** important auto load API funtion end ***********
 
      
         if($request->ajax()) {
@@ -93,25 +58,9 @@ class ManagePackageController extends Controller
     }
     public function store(Request $request,$id = null)
     {
-        // dd($request->all());
         if($id)
         {
             $data = ManagePackage::where('id',$id)->first();
-            // $data->primaryId = $request->primaryId;
-            // $data->packageName = $request->packageName;
-            // $data->packageCode = $request->packageCode;
-            // $data->cityId = $request->cityId;
-            // $data->cityName = $cityDetail['city'];
-
-            // $data->testLists = '('.$testLists.')';
-            // $data->testSchedule = $request->testSchedule;
-            // $data->sampleType = $request->sampleType;
-            // $data->ageRestrictions = $request->ageRestrictions;
-            // $data->preRequisties = $request->preRequisties;
-            // $data->reportAvailability = $request->reportAvailability;
-            // $data->fees = $request->fees;
-            // $data->homeVisit = $request->homeVisit;
-            // $data->discountFees = $request->discountFees;
 
             $data->meta_title = $request->meta_title;
             $data->meta_description = $request->meta_description;
@@ -130,31 +79,11 @@ class ManagePackageController extends Controller
         }
         else{
         
-            // $cityDetail = City::select('cityId','city')->where('cityId',$request['cityId'])->first();
-            // $testLists = implode(",",$request['testLists']);
             $data = new ManagePackage;
-            // $data->primaryId = $request->primaryId;
-            // $data->packageName = $request->packageName;
-            // $data->packageCode = $request->packageCode;
-            // $data->cityId = $request->cityId;
-            // $data->cityName = $cityDetail['city'];
-
-            // $data->testLists = '('.$testLists.')';
-            // $data->testSchedule = $request->testSchedule;
-            // $data->sampleType = $request->sampleType;
-            // $data->ageRestrictions = $request->ageRestrictions;
-            // $data->preRequisties = $request->preRequisties;
-            // $data->reportAvailability = $request->reportAvailability;
-            // $data->fees = $request->fees;
-            // $data->homeVisit = $request->homeVisit;
-            // $data->discountFees = $request->discountFees;
+          
             $data->meta_title = $request->meta_title;
             $data->meta_description = $request->meta_description;
             $data->meta_keyword = $request->meta_keyword;
-
-            // $test_include = json_encode($request->tests_included);
-            // dd($test_include);
-            // $data->tests_included = $test_include;
             $data->status = $request->status;
             $data->save();
 
@@ -171,7 +100,6 @@ class ManagePackageController extends Controller
         $condition =Condition::get()->pluck('condition', 'id');
         $test_include =ManageTest::get();
         $city =City::where('status',1)->get();
-        // dd($manage_package);
         return view('admin.manage_package.edit',compact('manage_package','specialty','organ','condition','test_include','city'));
     }
     public function delete($id = null)
