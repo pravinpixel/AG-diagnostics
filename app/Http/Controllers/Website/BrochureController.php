@@ -29,6 +29,15 @@ class BrochureController extends Controller
             $q->where('type','=',$type);
         })
         ->get();
+
+        foreach($brochure as $key=>$val)
+        {
+            if($val['brochure'])
+            {
+                $val['brochure'] = asset('upload/brochure/'.$val['brochure']);
+            }
+        }
+
         return response()->json(['data'=>$brochure]);
 
     }

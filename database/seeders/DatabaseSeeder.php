@@ -25,6 +25,13 @@ class DatabaseSeeder extends Seeder
             PackagesSeeder::class,
             SampleCollectionCentersSeeder::class,
             HomeVisitAreasSeeder::class,
+            BannerSeeder::class,
+            Brochure::class,
+            CurrentOpeningSeeder::class,
+            DepartmentsSeeder::class,
+            TestimonialsSeeder::class,
+            MediaSeeder::class,
+            EventSeeder::class,
             
            // AdminUserSeeder::class,
         ]);

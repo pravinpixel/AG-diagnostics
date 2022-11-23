@@ -18,7 +18,7 @@ class CreateNewsEventsTable extends Migration
             $table->string("event_name")->nullable();
             $table->string("type")->nullable();
             $table->string("start")->nullable();
-            $table->string("description")->nullable();
+            $table->longText("description")->nullable();
             $table->string("choose")->nullable();
             $table->string("news_image")->nullable();
             $table->string("photo")->nullable();

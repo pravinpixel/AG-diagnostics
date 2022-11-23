@@ -20,7 +20,7 @@ class MediaController extends Controller
         {
             if($val['pdf'])
             {
-            $val['pdf'] = asset('public/upload/media/feature/image/'.$val['pdf']);
+            $val['pdf'] = asset('upload/media/feature/image/'.$val['pdf']);
             }
         }
         return response()->json(['media'=>$media]);
@@ -30,7 +30,7 @@ class MediaController extends Controller
         $media = FeatureStories::find($id);
             if($media['pdf'])
             {
-                $media['pdf'] = asset('public/upload/media/feature/image/'. $media['pdf']);
+                $media['pdf'] = asset('upload/media/feature/image/'. $media['pdf']);
             }
         return response()->json(['media'=>$media]);
         

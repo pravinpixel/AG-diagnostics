@@ -7,7 +7,7 @@
 <div class="row mb-3">
     <label class="col-2 text-end col-form-label">Redirect URL</label>
     <div class="col-10">
-        {!! Form::url('Url', null, ['class' => 'form-control', 'autocomplete' => 'off', 'required']) !!}
+        {!! Form::url('Url', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
     </div>
 </div>
 <div class="row mb-3">

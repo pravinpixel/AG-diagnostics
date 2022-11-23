@@ -21,7 +21,7 @@ class CreateTestimonialsTable extends Migration
             $table->longText("description")->nullable();
             $table->string("video_url")->nullable();
             $table->string("given_by")->nullable();
-            $table->string("designation")->nullable();
+            $table->longText("designation")->nullable();
             $table->integer("status")->default(0);
             $table->softDeletes();
             $table->timestamps();

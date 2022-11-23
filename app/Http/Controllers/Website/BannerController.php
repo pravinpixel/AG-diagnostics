@@ -15,7 +15,7 @@ class BannerController extends Controller
             {
                 if($val['MobileImage'])
                 {
-                    $val['MobileImage'] = asset('public/upload/files/mobile_images/'.$val['MobileImage']);
+                    $val['MobileImage'] = asset($val['MobileImage']);
     
                 }
             }
@@ -23,7 +23,7 @@ class BannerController extends Controller
             {
                 if($val['DesktopImage'])
                 {
-                    $val['DesktopImage'] = asset('public/upload/files/desktop_images/'.$val['DesktopImage']);
+                    $val['DesktopImage'] = asset($val['DesktopImage']);
     
                 }
             }
