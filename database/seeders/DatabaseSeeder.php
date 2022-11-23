@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             SampleCollectionCentersSeeder::class,
             HomeVisitAreasSeeder::class,
             BannerSeeder::class,
-            Brochure::class,
+            BrochureSeeder::class,
             CurrentOpeningSeeder::class,
             DepartmentsSeeder::class,
             TestimonialsSeeder::class,
