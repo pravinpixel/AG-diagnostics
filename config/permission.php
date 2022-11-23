@@ -63,6 +63,14 @@ return $permissions_default = [
     'user.edit.home_visit'    =>  false,
     'user.delete.home_visit'  =>  false,
 
+    'user.view.home_visit_area'    =>  false,
+    'user.delete.home_visit_area'  =>  false,
+
+    'user.view.job-post'    =>  false,
+    'user.add.job-post'     =>  false,
+    'user.edit.job-post'    =>  false,
+    'user.delete.job-post'  =>  false,
+
     'user.view.test_booking'    =>  false,
     'user.add.test_booking'     =>  false,
     'user.edit.test_booking'    =>  false,
@@ -88,6 +96,19 @@ return $permissions_default = [
     'user.edit.contact_us'    =>  false,
     'user.delete.contact_us'  =>  false,
 
+    'user.view.department'    =>  false,
+    'user.add.department'     =>  false,
+    'user.edit.department'    =>  false,
+    'user.delete.department'  =>  false,
+    
+    'user.view.brochures'    =>  false,
+    'user.add.brochures'     =>  false,
+    'user.edit.brochures'    =>  false,
+    'user.delete.brochures'  =>  false,
+
+    'user.view.sample_collection'    =>  false,
+    'user.delete.sample_collection'  =>  false,
+    
     
     
     

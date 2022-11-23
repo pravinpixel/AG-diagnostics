@@ -18,8 +18,6 @@ class CareersController extends Controller
             $data = Careers::with('job')->select('*');
             return DataTables::eloquent($data)
                 ->addIndexColumn()
-
-
                 ->addColumn('download', function ($data) {
                     return '<a href="' . url('/') . '/website/upload/careers/' . $data['file'] . '" class="m-1  shadow-sm btn btn-sm text-primary btn-outline-light" title="Download" download> 
                     <i class="bi bi-download"></i>

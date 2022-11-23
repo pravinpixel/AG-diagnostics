@@ -34,7 +34,7 @@ class BrochureController extends Controller
         {
             if($val['brochure'])
             {
-                $val['brochure'] = asset('upload/brochure/'.$val['brochure']);
+                $val['brochure'] = asset('public/upload/brochure/'.$val['brochure']);
             }
         }
 
