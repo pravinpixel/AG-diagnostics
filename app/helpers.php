@@ -161,8 +161,15 @@ function insertApiCityData($data)
       }
       return "Sample Collection Centers data save successfully";
   }
-  
-  
+
+  function successCall()
+  {
+    return response()->json(['Status'=>200,'Errors'=>true,'Message'=>'Created Success']);
+  }
+  function failedCall($data)
+  {
+    return response()->json(['Status'=>200,'Errors'=>true,'Message'=>$data]);
+  }
 
 if(!function_exists('auth_id')) {
     function auth_id()

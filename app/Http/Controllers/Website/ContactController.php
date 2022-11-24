@@ -25,11 +25,10 @@ class ContactController extends Controller
         $validator = Validator::make($requests->all(), [
             'name' => 'required',
             'email' => 'required|regex:/(.+)@(.+)\.(.+)/i',
-            'phone' => 'required|min:10|max:10',
+            'phone' => 'required|numeric|digits:10',
         ]);
         if ($validator->fails()) {
-            $error = 1;
-            return response()->json(['error'=>$error,'message'=>$validator->messages()]);
+            return failedCall($validator->messages());
         }
       
         $data = new Contact;
@@ -41,8 +40,7 @@ class ContactController extends Controller
         $res = $data->save();
         if($res)
         {
-            $error = 0;
-            return response()->json(['error'=>$error,'message'=>"Contact Store Successfully."]);
+           return successCall();
         }
         $error = 1;
         return response()->json(['error'=>$error,'message'=>"something  went wrong."]);

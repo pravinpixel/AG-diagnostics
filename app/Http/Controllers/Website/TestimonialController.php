@@ -17,7 +17,7 @@ class TestimonialController extends Controller
         {
             if($val['photo'])
             {
-            $val['photo'] = asset($val['photo']);
+            $val['photo'] = asset('public/'.$val['photo']);
             }
         }
         return response()->json(['testimonial'=>$testimonial]);

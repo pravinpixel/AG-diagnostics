@@ -28,13 +28,12 @@ class CareersController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|regex:/(.+)@(.+)\.(.+)/i',
-            'phone' => 'required|min:10|max:10',
+            'phone' => 'required|numeric|digits:10',
             'job_id' => 'required',
             'file'   => 'mimes:doc,pdf,docx'
         ]);
         if ($validator->fails()) {
-            $error = 1;
-            return response()->json(['error'=>$error,'message'=>$validator->messages()]);
+            return failedCall($validator->messages());
         }
 
         $data = new Careers;
@@ -71,8 +70,7 @@ class CareersController extends Controller
         $res = $data->save();
     if($res)
         {
-            $error = 0;
-            return response()->json(['error'=>$error,'message'=>"Career Successfully Added."]);
+            return successCall();
         }
         $error = 1;
         return response()->json(['error'=>$error,'message'=>"something went wrong."]);
