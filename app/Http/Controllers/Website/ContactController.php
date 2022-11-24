@@ -8,6 +8,8 @@ use App\Models\Website\Contact;
 use Illuminate\Support\Facades\Mail;
 use Laracasts\Flash\Flash;
 use App\Mail\ContactUsMail;
+use Validator;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
 use Yajra\DataTables\Facades\DataTables;
 
 class ContactController extends Controller
@@ -19,11 +21,17 @@ class ContactController extends Controller
     }
     public function store(Request $requests)
     {
-        $this->validate($requests, [
+      
+        $validator = Validator::make($requests->all(), [
             'name' => 'required',
             'email' => 'required|regex:/(.+)@(.+)\.(.+)/i',
             'phone' => 'required|min:10|max:10',
         ]);
+        if ($validator->fails()) {
+            $error = 1;
+            return response()->json(['error'=>$error,'message'=>$validator->messages()]);
+        }
+      
         $data = new Contact;
         $data->name = $requests->name;
         $data->phone = $requests->phone;
@@ -31,23 +39,12 @@ class ContactController extends Controller
         $data->message = $requests->message;
         $data->status= 1;
         $res = $data->save();
-        // $details = [
-        //     "name" => $requests->full_name,
-        //     "phone" => $requests->phone,
-        //     "email" => $requests->email,
-        //     "message" => $requests->message,
-        // ];
-        // $emails = array("67santhosh@email.com", $requests->email);
-        // foreach ($emails as $email) {
-        // Mail::to($email)->send(new ContactUsMail($details));
-        // }
-        // return view('website.contact_us.thank-you');
         if($res)
         {
-            $error = 1;
+            $error = 0;
             return response()->json(['error'=>$error,'message'=>"Contact Store Successfully."]);
         }
-        $error = 0;
+        $error = 1;
         return response()->json(['error'=>$error,'message'=>"something  went wrong."]);
     }
 }

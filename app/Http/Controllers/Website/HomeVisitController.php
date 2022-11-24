@@ -11,19 +11,24 @@ use App\Mail\HomeVisitMail;
 use Facade\Ignition\Support\Packagist\Package;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\Facades\DataTables;
+use Validator;
 
 class HomeVisitController extends Controller
 {
     
     public function store(Request $request)
     {
-        // dd($request->all());
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'title' => 'required',
             'packageId' => 'required|numeric',
             'first_name' => 'required|string',
             'mobile' => 'required|min:10|max:10',
         ]);
+        
+        if ($validator->fails()) {
+            $error = 1;
+            return response()->json(['error'=>$error,'message'=>$validator->messages()]);
+        }
         $data = new HomeVisit;
         $data->packageId            = $request->packageId ;
         $data->title                = $request->title ;

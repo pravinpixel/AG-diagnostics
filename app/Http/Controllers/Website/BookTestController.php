@@ -10,6 +10,7 @@ use App\Models\Admin\Area;
 use Laracasts\Flash\Flash;
 use App\Mail\BookTestMail;
 use Yajra\DataTables\Facades\DataTables;
+use Validator;
 
 class BookTestController extends Controller
 {
@@ -22,13 +23,21 @@ class BookTestController extends Controller
     }
     public function store(Request $requests)
     {
-        // dd($requests->all());
-        $this->validate($requests, [
+        // $this->validate($requests, [
+        //     'full_name' => 'required',
+        //     'email' => 'required|regex:/(.+)@(.+)\.(.+)/i',
+        //     'mobile' => 'required|min:10|max:10',
+           
+        // ]);
+        $validator = Validator::make($requests->all(), [
             'full_name' => 'required',
             'email' => 'required|regex:/(.+)@(.+)\.(.+)/i',
             'mobile' => 'required|min:10|max:10',
-           
         ]);
+        if ($validator->fails()) {
+            $error = 1;
+            return response()->json(['error'=>$error,'message'=>$validator->messages()]);
+        }
         $datetime = $requests->dateTime;
         $date = date('d-m-Y', strtotime($requests->dateTime));
         $time = date('H:i', strtotime($requests->dateTime));
