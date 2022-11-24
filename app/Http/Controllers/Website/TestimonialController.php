@@ -10,7 +10,9 @@ class TestimonialController extends Controller
 {
     public function index()
     {
-        $testimonial = Testimonial::where('status',1)->get();
+        $testimonial = Testimonial::where('status',1)
+        ->select('id','title','date','type','description','video_url','photo','video_cover_image','given_by','designation')
+        ->get();
         foreach($testimonial as $key=>$val)
         {
             if($val['photo'])

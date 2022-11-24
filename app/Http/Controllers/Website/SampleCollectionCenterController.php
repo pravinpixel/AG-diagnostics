@@ -8,18 +8,13 @@ use Illuminate\Http\Request;
 
 class SampleCollectionCenterController extends Controller
 {
-    // public function index()
-    // {
-    //     $title = "Packages";
-    //     $lab = SampleCollectionCenters::where('status',1)->get();
-    //     return response()->json(['lab'=>$lab,'title'=>$title]);
-    // }
-    // findLabFilter
+  
     public function index(Request $request)
     {
         $search = $request['search'];
         $id = $request['cityId'];
         $data = SampleCollectionCenters::where('status',1)
+        ->select('id','centerId','localityId','location','timing','address','cityId','city','stateId','state','phone','email','latitude','longitude','googleReviewLink','whatsAppLink')
        
         ->when(!empty($id), function($q) use ($id){
             $q->where('cityId',$id);

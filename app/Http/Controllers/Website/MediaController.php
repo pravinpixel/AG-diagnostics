@@ -15,7 +15,9 @@ class MediaController extends Controller
 {
     public function index()
     {
-        $media = FeatureStories::get();
+        $media = FeatureStories::
+        select('id','story_title','date','story_url','description','pdf','video_link')
+        ->get();
         foreach($media as $key=>$val)
         {
             if($val['pdf'])
@@ -27,7 +29,9 @@ class MediaController extends Controller
     }
     public function mediaDetail($id)
     {
-        $media = FeatureStories::find($id);
+        $media = FeatureStories::
+        select('id','story_title','date','story_url','description','pdf','video_link')
+        ->find($id);
             if($media['pdf'])
             {
                 $media['pdf'] = asset('upload/media/feature/image/'. $media['pdf']);

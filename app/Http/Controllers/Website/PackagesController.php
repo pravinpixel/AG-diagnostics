@@ -18,7 +18,7 @@ class PackagesController extends Controller
     {
         $title = "Packages";
         $id = $request['cityId'];
-        $packages = ManagePackage::where('status',1)
+        $packages = ManagePackage::where('status',1)->select('id','primaryId','packageName','packageCode','cityId','cityName','testLists','testSchedule','sampleType','ageRestrictions','preRequisties','reportAvailability','comments','fees','homeVisit','discountFees','is_selected','meta_title','meta_description','meta_keyword')
         ->when(!empty($id), function($q) use ($id){
             $q->where('cityId',$id);
         })
@@ -41,18 +41,6 @@ class PackagesController extends Controller
         $data->email = $request->email ;
         $data->message = $request->message;
         $res = $data->save();
-        //    $details = [
-        //     "name" => $request->full_name,
-        //     "mobile" => $request->mobile,
-        //     "email" => $request->email,
-        //     "message" => $request->message,
-            
-        // ];
-        //     $emails = array("67santhosh@email.com", $request->email);
-        //     foreach ($emails as $email) {
-        //    Mail::to($email)->send(new PackagesMail($details));
-        //     }
-   
         if($res)
         {
             $error = 0;
@@ -65,7 +53,9 @@ class PackagesController extends Controller
     }
     public function selectedPackages()
     {
-        $selectedPackages = ManagePackage::where('status',1)->where('is_selected',1)->get();
+        $selectedPackages = ManagePackage::where('status',1)
+        ->select('id','primaryId','packageName','packageCode','cityId','cityName','testLists','testSchedule','sampleType','ageRestrictions','preRequisties','reportAvailability','comments','fees','homeVisit','discountFees','is_selected','meta_title','meta_description','meta_keyword')
+        ->where('is_selected',1)->get();
         return response()->json(['selectedPackages'=>$selectedPackages]); 
     }
     

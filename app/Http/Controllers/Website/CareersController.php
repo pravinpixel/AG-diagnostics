@@ -18,7 +18,8 @@ class CareersController extends Controller
 {
     public function getJobDetail($id)
     {
-        $jobDetail = JobPost::where('id',$id)->with('city')->first();
+        $jobDetail = JobPost::where('id',$id)->select('id','job_title','department_id','cityId','experience','education','job_purpose','responsibilities')
+        ->with('city')->first();
         return response()->json(['job'=>$jobDetail]);
     }
     public function jobApply(Request $request)

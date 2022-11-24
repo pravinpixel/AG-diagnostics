@@ -10,7 +10,9 @@ class BannerController extends Controller
 {
     public function index()
     {
-        $banner = Banners::get(); 
+        $banner = Banners::
+        select('id','Title','Content','Url','DesktopImage','MobileImage','OrderBy')
+        ->get(); 
             foreach($banner as $key=>$val)
             {
                 if($val['MobileImage'])

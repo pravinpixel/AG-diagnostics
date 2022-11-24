@@ -11,7 +11,7 @@ class HomeVisitAreaController extends Controller
 {
     public function index()
     {
-       $data = HomeVisitArea::where('status',1)->get();
+       $data = HomeVisitArea::where('status',1)->select('id','areaId','area','cityId','city','stateId','state')->get();
        return response()->json(['data'=>$data]);
     }
 }
