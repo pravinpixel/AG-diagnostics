@@ -32,11 +32,18 @@ class MediaController extends Controller
         $media = FeatureStories::
         select('id','story_title','date','story_url','description','pdf','video_link')
         ->find($id);
+        if(!empty($media))
+        {
             if($media['pdf'])
             {
                 $media['pdf'] = asset('public/upload/media/feature/image/'. $media['pdf']);
             }
-        return response()->json(['media'=>$media]);
+            return response()->json(['media'=>$media]);
+        }
+        else{
+            return response()->json(['Message'=>"Data not Find"]);
+        }
+            
         
     }
   

@@ -20,7 +20,13 @@ class CareersController extends Controller
     {
         $jobDetail = JobPost::where('id',$id)->select('id','job_title','department_id','cityId','experience','education','job_purpose','responsibilities')
         ->with('city')->first();
-        return response()->json(['job'=>$jobDetail]);
+        if(!empty($jobDetail))
+        {
+            return response()->json(['job'=>$jobDetail]);
+        }
+        else{
+            return response()->json(['Message'=>"Data not Find"]);
+        }
     }
     public function jobApply(Request $request)
     {

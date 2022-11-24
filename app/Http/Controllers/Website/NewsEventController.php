@@ -44,8 +44,15 @@ class NewsEventController extends Controller
         $event = NewsEvents::
         select('id','event_name','type','start','description','choose','news_image','photo','mobile_image','video_url','news_url','event_image','meta_title','meta_keyword','meta_description')
         ->find($id);
-        $event['photo'] = asset('public/upload/media/news_events/photo/'. $event['photo']);
-        $event['mobile_image'] = asset('public/upload/media/news_events/mobile_image/'. $event['mobile_image']);
-        return response()->json(['event'=>$event]);
+        if(!empty($event))
+        {
+            $event['photo'] = asset('public/upload/media/news_events/photo/'. $event['photo']);
+            $event['mobile_image'] = asset('public/upload/media/news_events/mobile_image/'. $event['mobile_image']);
+            return response()->json(['event'=>$event]);
+        }
+        else{
+            return response()->json(['Message'=>"Data not Find"]);
+        }
+        
     }
 }
