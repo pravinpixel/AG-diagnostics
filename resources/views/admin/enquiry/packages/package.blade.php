@@ -19,11 +19,7 @@
                         <th>Full Name</th>
                         <th>Mobile</th>
                         <th>Email</th>
-                        <th>Area</th>
-                        <th>Visit</th>
-                        <th>Test </th>
-                        <th>Appointment Date</th>
-                        <th>Message</th>
+                       <th>Message</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -48,10 +44,6 @@
                     {data:"name", name : "name"},
                     {data:"mobile", name : "mobile"},
                     {data:"email", name : "email"},
-                    {data:"areas.area", name : "areas.area"},
-                    {data:"visit", name : "visit"},
-                    {data:"test", name : "test"},
-                    {data:"date", name : "date"},
                     {data:"message", name : "message"},
                     {data:"action", name : "action",orderable: false},
                     

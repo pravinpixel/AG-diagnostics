@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             MediaSeeder::class,
             EventSeeder::class,
             TestSeeder::class,
+            CountrySeeder::class,
            // AdminUserSeeder::class,
         ]);
         
