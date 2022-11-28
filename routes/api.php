@@ -14,6 +14,7 @@ use App\Http\Controllers\Website\PackagesController;
 use App\Http\Controllers\Website\HomeVisitController;
 use App\Http\Controllers\Website\MediaController;
 use App\Http\Controllers\Website\NewsEventController;
+use App\Http\Controllers\Website\TestController;
 use App\Http\Controllers\Website\TestimonialController;
 
 /*
@@ -36,7 +37,7 @@ Route::post('/brochure', [BrochureController::class, 'index'])->name('brochure')
 Route::get('/selected-packages', [PackagesController::class, 'selectedPackages'])->name('selected-packages');
 Route::post('/packages', [PackagesController::class, 'index'])->name('packages');
 Route::post('/package', [PackagesController::class, 'store'])->name('package');
-
+Route::get('/test', [TestController::class, 'index'])->name('test');
 Route::post('/find-a-lab', [SampleCollectionCenterController::class, 'index'])->name('find-a-lab');
 // Route::post('/find-lab-filter', [SampleCollectionCenterController::class, 'findLabFilter'])->name('find-lab-filter');
 
