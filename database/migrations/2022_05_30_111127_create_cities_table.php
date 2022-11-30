@@ -12,7 +12,7 @@ class CreateCitiesTable extends Migration
      * @return void
      */
     public function up()
-    {
+    { 
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("country_id")->nullable();
