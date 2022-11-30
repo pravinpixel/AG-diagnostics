@@ -22,15 +22,15 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('branch:cron')->daily();
         $schedule->call(function (){
-            // insertApiStateData();
-            // insertApiCityData();
-            // insertApiTestData();
-            // insertApiPackagesData();
-            // insertApiHomeVisitAreaData();
-            // insertApiSampleCollectionCentersData();
-            info("Test call");
-            Log::info("TestInfo");
-        })->everyMinute();
+            insertApiStateData();
+            insertApiCityData();
+            insertApiTestData();
+            insertApiPackagesData();
+            insertApiHomeVisitAreaData();
+            insertApiSampleCollectionCentersData();
+            // info("Test call");
+            Log::info("Test Run");
+        })->daily();
     }
 
     /**
