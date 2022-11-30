@@ -55,9 +55,9 @@
 </div>
 
 <div class="row mb-3 video_url" id="">
-    <label class="col-2 text-end col-form-label">Video URL *</label>
+    <label class="col-2 text-end col-form-label">Video URL</label>
     <div class="col-10">
-        {!! Form::text('video_url', null, ['class' => 'form-control',"id"=>"video_url",  'autocomplete' => 'off','required']) !!}
+        {!! Form::text('video_url', null, ['class' => 'form-control',"id"=>"video_url",  'autocomplete' => 'off']) !!}
     </div>
 </div>
 

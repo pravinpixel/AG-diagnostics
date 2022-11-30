@@ -80,7 +80,7 @@
                     },
                 }).then((isConfirm) => {
                     if (isConfirm) {
-                        var url = '{{ route("home-visit-area.status", ":id") }}';
+                        var url = '{{ route("sample-collection-center.status", ":id") }}';
                         url = url.replace(':id',id);
                         $.ajax({
                         type: "GET",

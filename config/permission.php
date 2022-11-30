@@ -38,6 +38,21 @@ return $permissions_default = [
     'user.edit.manage_testimonial'    =>  false,
     'user.delete.manage_testimonial'  =>  false,
 
+    'user.view.manage_test'    =>  false,
+    'user.add.manage_test'     =>  false,
+    'user.edit.manage_test'    =>  false,
+    'user.delete.manage_test'  =>  false,
+
+    'user.view.manage_package'    =>  false,
+    'user.add.manage_package'     =>  false,
+    'user.edit.manage_package'    =>  false,
+    'user.delete.manage_package'  =>  false,
+
+    'user.view.banner'    =>  false,
+    'user.add.banner'     =>  false,
+    'user.edit.banner'    =>  false,
+    'user.delete.banner'  =>  false,
+
     'user.view.manage_country'    =>  false,
     'user.add.manage_country'     =>  false,
     'user.edit.manage_country'    =>  false,

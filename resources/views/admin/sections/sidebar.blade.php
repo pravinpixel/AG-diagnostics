@@ -1,6 +1,6 @@
 <div class="d-flex flex-column flex-shrink-0 text-white   side_bar" style="width: 280px;">
     <a href="{{ route('admin.dashboard') }}" class="d-flex shadow p-3 border-light align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" style="border-bottom: 1px solid #ffffff24 !important">
-        <img src="{{ asset('images/logo/logo.png') }}" alt="logo" width="90%" class="mx-auto">
+        <img src="{{ asset('images/logo/logo.jpg') }}" alt="logo" width="70%" class="mx-auto">
     </a>
     <ul class="nav nav-pills flex-column mb-auto mt-3 pt-0 p-3">
         <li class="nav-item">
@@ -33,7 +33,7 @@
             </a>
         </li>
         @endif
-        @if($user->hasAccess('user.view.manage_lab')||$user->hasAccess('user.add.manage_lab'))
+        @if($user->hasAccess('user.view.home_visit_area')||$user->hasAccess('user.view.sample_collection'))
         <li>
             <a href="{{ route('home-visit-area.index') }}" class="nav-link text-white {{ Route::is(['manage.index','manage.create','manage.edit','home-visit-area.index','sample-collection-center.index','sample-collection-center.view']) ? "active" : "" }}">
                 <i class="bi bi-sliders me-3"></i>Manage Lab
@@ -47,36 +47,43 @@
             </a>
         </li>
         @endif
+        @if($user->hasAccess('user.view.manage_test'))
         <li>
             <a href="{{ route('manage_test.index') }}" class="nav-link text-white {{ Route::is(['manage_test.index','manage_test.create','manage_test.edit']) ? "active" : "" }}">
                 <i class="bi bi-sliders me-3"></i>Manage Test
             </a>
         </li>
+        @endif
+        @if($user->hasAccess('user.view.manage_package'))
         <li>
             <a href="{{ route('manage_package.index') }}" class="nav-link text-white {{ Route::is(['manage_package.index','manage_package.view','manage_package.create','manage_package.edit']) ? "active" : "" }}">
                 <i class="bi bi-sliders me-3"></i>Manage Package
             </a>
         </li>
-        @if($user->hasAccess('user.view.manage_country')||$user->hasAccess('user.view.manage_state')||$user->hasAccess('user.view.manage_city')||$user->hasAccess('user.view.manage_area'))
+        @endif
+        @if($user->hasAccess('user.view.manage_country')||$user->hasAccess('user.view.manage_state')||$user->hasAccess('user.view.manage_city')|| $user->hasAccess('user.view.brochures'))
         <li>
             <a href="{{ route('banner.index') }}" class="nav-link text-white {{ Route::is(['master.index','branch.show','area.index','area.create','area.edit','city.index','city.create','city.edit','country.index','country.create','country.edit','brochures.index','brochures.create','brochures.edit','state.index','state.create','state.edit', 'banner.edit', 'test.edit' , 'banner.create', 'banner.index']) ? "active" : "" }}">
                 <i class="bi bi-sliders me-3"></i>Manage Master
             </a>
         </li>
         @endif
-        @if($user->hasAccess('user.view.home_visit')||$user->hasAccess('user.view.test_booking')||$user->hasAccess('user.view.packages')||$user->hasAccess('user.view.request_call_back')||$user->hasAccess('user.view.careers')||$user->hasAccess('user.view.contact_us'))
+        @if($user->hasAccess('user.view.home_visit')||$user->hasAccess('user.view.packages')||$user->hasAccess('user.view.contact_us'))
         <li>
             <a href="{{ route('home_visit.index') }}" class="nav-link text-white {{ Route::is(['home_visit.index','home_visit.view','book_test.index','contact_us.index','enquiry_request_call.index','enquiry_package.index']) ? "active" : "" }}">
                 <i class="bi bi-sliders me-3"></i>Manage Enquiries
             </a>
         </li>
         @endif
+        @if($user->hasAccess('user.view.careers')||$user->hasAccess('user.view.job-post')||$user->hasAccess('user.view.department')||$user->hasAccess('user.add.department'))
         <li>
             <a href="{{ route('admin_careers.index') }}" class="nav-link text-white {{ Route::is(['admin_careers.index','admin_careers.view','job-post.index','job-post.create','job-post.edit','department.index','department.create','department.edit']) ? "active" : "" }}">
                 <i class="bi bi-sliders me-3"></i>Manage Careers
             </a>
         </li>
-        
+        @endif
+
+        @if(Sentinel::getUser()->roles[0]->name == "Super Admin")
         <li>
             <a href="{{ route('admin.settings') }}" class="nav-link text-white {{ Route::is([
                     'admin.settings',
@@ -98,6 +105,7 @@
                 <i class="fa fa-cogs me-3"></i>Settings
             </a>
         </li>
+        @endif
     </ul>
     <!-- <hr>
     <div class="dropdown p-3 pt-0">

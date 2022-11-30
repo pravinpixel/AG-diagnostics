@@ -336,7 +336,7 @@ table td {
   font-size: 20px;
 }
 .root_admin .side_bar {
-  background-color: #1b012e !important;
+  background-color: #511972 !important;
 }
 .root_admin .side_bar .nav-link.active {
   background: linear-gradient(45deg, #62298b, #f1333c, #f39314);
