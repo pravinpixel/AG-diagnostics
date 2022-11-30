@@ -20,6 +20,15 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('branch:cron')->daily();
+        $schedule->call(function (){
+            // insertApiStateData();
+            // insertApiCityData();
+            // insertApiTestData();
+            // insertApiPackagesData();
+            // insertApiHomeVisitAreaData();
+            // insertApiSampleCollectionCentersData();
+            // info("Test call eveymin");
+        })->everyMinute();
     }
 
     /**
