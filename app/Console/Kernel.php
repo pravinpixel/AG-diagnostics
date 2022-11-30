@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
             // insertApiPackagesData();
             // insertApiHomeVisitAreaData();
             // insertApiSampleCollectionCentersData();
-            // info("Test call eveymin");
+            info("Test call");
         })->everyMinute();
     }
 
