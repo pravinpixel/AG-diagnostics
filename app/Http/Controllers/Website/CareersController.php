@@ -33,10 +33,10 @@ class CareersController extends Controller
        
         $validator = Validator::make($request->all(), [
             'name' => 'required',
+            'job_id' => 'required',
             'email' => 'required|regex:/(.+)@(.+)\.(.+)/i',
             'phone' => 'required|numeric|digits:10',
-            'job_id' => 'required',
-            'file'   => 'mimes:doc,pdf,docx'
+            'file'   => 'required|mimes:doc,pdf,docx'
         ]);
         if ($validator->fails()) {
             return failedCall($validator->messages());

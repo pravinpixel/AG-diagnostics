@@ -18,8 +18,8 @@
     <input type="hidden" name="status" value="0" checked="checked">
     <div class="col-10">
         {{-- {!! Form::checkbox('status',1,null, ['checked' => 'checked']) !!} --}}
-        @if(isset($feature))
-            @if($feature->status)
+        @if(isset($department))
+            @if($department->status)
                 <input type="checkbox" id="status" name="status" value="1" checked="checked">
             @else
                 <input type="checkbox" id="status" name="status" value="0" >
