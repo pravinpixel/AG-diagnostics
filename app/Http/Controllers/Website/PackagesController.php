@@ -10,6 +10,7 @@ use App\Mail\PackagesMail;
 use App\Models\Admin\ManagePackage;
 use App\Models\Website\Packages;
 use Illuminate\Support\Facades\Mail;
+use Validator;
 
 
 class PackagesController extends Controller
@@ -27,13 +28,15 @@ class PackagesController extends Controller
     }
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|regex:/(.+)@(.+)\.(.+)/i',
-            'mobile' => 'required|max:10',
             'packageId' => 'required',
+            'mobile' => 'required|numeric|digits:10',
         ]);
-       
+        if ($validator->fails()) {
+            return failedCall($validator->messages());
+        }
         $data = new Packages;
         $data->packageId = $request->packageId ;
         $data->name = $request->name ;
@@ -43,8 +46,7 @@ class PackagesController extends Controller
         $res = $data->save();
         if($res)
         {
-            $error = 0;
-            return response()->json(['error'=>$error,'message'=>"Packages Store Successfully."]);
+           return successCall();
         }
         $error = 1;
         return response()->json(['error'=>$error,'message'=>"something went wrong."]);
