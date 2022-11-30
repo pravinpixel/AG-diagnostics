@@ -15,12 +15,12 @@ class CitySeeder extends Seeder
      */
     public function run()
     {
-        $key ='agdpixel';
-        $secret ='p1x3l@agd';
-        $responseCity = Http::withBasicAuth($key,$secret)
-        ->get('https://agdmatrix.dyndns.org/a/Pixel/Cities');
-        $responseCity = json_decode($responseCity);
-        $dataCity = insertApiCityData($responseCity);
+        // $key ='agdpixel';
+        // $secret ='p1x3l@agd';
+        // $responseCity = Http::withBasicAuth($key,$secret)
+        // ->get('https://agdmatrix.dyndns.org/a/Pixel/Cities');
+        // $responseCity = json_decode($responseCity);
+        insertApiCityData();
 
     }
 }

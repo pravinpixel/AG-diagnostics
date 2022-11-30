@@ -14,12 +14,14 @@ class StatesSeeder extends Seeder
      */
     public function run()
     {
-        $key ='agdpixel';
-        $secret ='p1x3l@agd';
-        $responseState = Http::withBasicAuth($key,$secret)
-        ->get('https://agdmatrix.dyndns.org/a/Pixel/States');
-        $responseState = json_decode($responseState);
-        $dataState = insertApiStateData($responseState);
+        // $key ='agdpixel';
+        // $secret ='p1x3l@agd';
+        // $responseState = Http::withBasicAuth($key,$secret)
+        // ->get('https://agdmatrix.dyndns.org/a/Pixel/States');
+        // $responseState = json_decode($responseState);
+        insertApiStateData();
+        
+
 
 
     }

@@ -14,12 +14,12 @@ class PackagesSeeder extends Seeder
      */
     public function run()
     {
-        $key ='agdpixel';
-        $secret ='p1x3l@agd';
-        $responsePackages = Http::withBasicAuth($key,$secret)
-        ->get('https://agdmatrix.dyndns.org/a/Pixel/Packages');
-        $responsePackages = json_decode($responsePackages);
-        $dataPackages = insertApiPackagesData($responsePackages);
+        // $key ='agdpixel';
+        // $secret ='p1x3l@agd';
+        // $responsePackages = Http::withBasicAuth($key,$secret)
+        // ->get('https://agdmatrix.dyndns.org/a/Pixel/Packages');
+        // $responsePackages = json_decode($responsePackages);
+        insertApiPackagesData();
 
 
         

@@ -9,6 +9,9 @@ use App\Models\Admin\ManageTest;
 use App\Models\Admin\HomeVisit;
 use App\Models\Admin\HomeVisitArea;
 use App\Models\Admin\SampleCollectionCenters;
+use Laracasts\Flash\Flash;
+use Illuminate\Support\Facades\Http;
+
 
 if(!function_exists('asset_url')) {
     function asset_url($value)
@@ -22,30 +25,41 @@ if(!function_exists('asset_url')) {
     }
 }
 
-function insertApiCityData($data)
+function insertApiCityData()
   {
-      if(!is_null($data)) {
-        City::truncate();
-        foreach($data as $key =>$val){
+      $key ='agdpixel';
+      $secret ='p1x3l@agd';
+      $responseCity = Http::withBasicAuth($key,$secret)
+      ->get('https://agdmatrix.dyndns.org/a/Pixel/Cities');
+      $responseCity = json_decode($responseCity);
+      if(!is_null($responseCity)) {
+        // City::truncate();
+        foreach($responseCity as $key =>$val){
+          $stateData = State::where('stateId',$val->stateId)->select('id','stateId')->first();
+          
           $data = [
             'country_id' => "1",
             'cityId' => $val->cityId,
             'city' => $val->city,
             'stateId' => $val->stateId,
+            'state_id' => $stateData->id,
             'state' => $val->state,
             'status' => 1,
         ];
-        // dd($data);
-
          $res = City::updateOrCreate($data);
       }
       }
       return "City data save successfully";
   }
-  function insertApiStateData($data)
+  function insertApiStateData()
   {
-      if(!is_null($data)) {
-        foreach($data as $key =>$val){
+      $key ='agdpixel';
+      $secret ='p1x3l@agd';
+      $responseState = Http::withBasicAuth($key,$secret)
+      ->get('https://agdmatrix.dyndns.org/a/Pixel/States');
+      $responseState = json_decode($responseState);
+      if(!is_null($responseState)) {
+        foreach($responseState as $key =>$val){
           // State::truncate();
           $data = [
             'country_id' => "1",
@@ -58,10 +72,15 @@ function insertApiCityData($data)
       }
       return "State data save successfully";
   }
-  function insertApiTestData($data)
+  function insertApiTestData()
   {
-      if(!is_null($data)) {
-        foreach($data as $key =>$val){
+      $key ='agdpixel';
+      $secret ='p1x3l@agd';
+      $responseTest = Http::withBasicAuth($key,$secret)
+      ->get('https://agdmatrix.dyndns.org/a/Pixel/Tests');
+      $responseTest = json_decode($responseTest);
+      if(!is_null($responseTest)) {
+        foreach($responseTest as $key =>$val){
           // ManageTest::truncate();
           $data = [
             'primaryId'=>$val->primaryId,
@@ -86,10 +105,15 @@ function insertApiCityData($data)
       }
       return "Test data save successfully";
   }
-  function insertApiPackagesData($data)
+  function insertApiPackagesData()
   {
-      if(!is_null($data)) {
-        foreach($data as $key =>$val){
+      $key ='agdpixel';
+      $secret ='p1x3l@agd';
+      $responsePackages = Http::withBasicAuth($key,$secret)
+      ->get('https://agdmatrix.dyndns.org/a/Pixel/Packages');
+      $responsePackages = json_decode($responsePackages);
+      if(!is_null($responsePackages)) {
+        foreach($responsePackages as $key =>$val){
           // ManageTest::truncate();
           $data = [
             'primaryId'=>$val->primaryId,
@@ -114,10 +138,15 @@ function insertApiCityData($data)
       }
       return "Packages data save successfully";
   }
-  function insertApiHomeVisitAreaData($data)
+  function insertApiHomeVisitAreaData()
   {
-      if(!is_null($data)) {
-        foreach($data as $key =>$val){
+      $key ='agdpixel';
+      $secret ='p1x3l@agd';
+      $responseHomeVisitArea = Http::withBasicAuth($key,$secret)
+      ->get('https://agdmatrix.dyndns.org/a/Pixel/HomeVisitAreas');
+      $responseHomeVisitArea = json_decode($responseHomeVisitArea);
+      if(!is_null($responseHomeVisitArea)) {
+        foreach($responseHomeVisitArea as $key =>$val){
           // ManageTest::truncate();
           $data = [
             'areaId'=>$val->areaId,
@@ -133,10 +162,15 @@ function insertApiCityData($data)
       }
       return "Home Visit Area data save successfully";
   }
-  function insertApiSampleCollectionCentersData($data)
+  function insertApiSampleCollectionCentersData()
   {
-      if(!is_null($data)) {
-        foreach($data as $key =>$val){
+      $key ='agdpixel';
+      $secret ='p1x3l@agd';
+      $responseSampleCollectionCenters = Http::withBasicAuth($key,$secret)
+      ->get('https://agdmatrix.dyndns.org/a/Pixel/SampleCollectionCenters');
+      $responseSampleCollectionCenters = json_decode($responseSampleCollectionCenters);
+      if(!is_null($responseSampleCollectionCenters)) {
+        foreach($responseSampleCollectionCenters as $key =>$val){
           // ManageTest::truncate();
           $data = [
             'centerId'=>$val->centerId,
@@ -161,7 +195,11 @@ function insertApiCityData($data)
       }
       return "Sample Collection Centers data save successfully";
   }
-
+  
+  function errorMessage()
+  {
+    Flash::error( __('action.permission'));
+  }
   function successCall()
   {
     return response()->json(['Status'=>200,'Errors'=>true,'Message'=>'Created Success']);

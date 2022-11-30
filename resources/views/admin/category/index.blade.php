@@ -45,8 +45,8 @@
                 columns: [
                     {data: 'DT_RowIndex', name: 'id',orderable: false, searchable: false},
                     {data:"category", name : "category"},
-                    {data:"status", name : "status"},
-                    {data:"action", name : "action"},
+                    {data:"status", name : "status",orderable: false},
+                    {data:"action", name : "action",orderable: false},
                     
                 ],
             });

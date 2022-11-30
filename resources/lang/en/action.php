@@ -7,4 +7,8 @@ return [
     "saved"   => ":type Successfully Saved!",
     "status"  => ":type Successfully Updates",
     "image"     =>":type Successfully Added!",
+    "permission"     =>"Sorry! You are not allowed to access this module",
+    "existsMessage"     =>"You can't delete this record.",
+    
+    
 ];

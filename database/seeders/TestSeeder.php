@@ -14,12 +14,12 @@ class TestSeeder extends Seeder
      */
     public function run()
     {
-        $key ='agdpixel';
-        $secret ='p1x3l@agd';
-        $responseTest = Http::withBasicAuth($key,$secret)
-        ->get('https://agdmatrix.dyndns.org/a/Pixel/Tests');
-        $responseTest = json_decode($responseTest);
-        $dataTest = insertApiTestData($responseTest);
+        // $key ='agdpixel';
+        // $secret ='p1x3l@agd';
+        // $responseTest = Http::withBasicAuth($key,$secret)
+        // ->get('https://agdmatrix.dyndns.org/a/Pixel/Tests');
+        // $responseTest = json_decode($responseTest);
+        insertApiTestData();
 
     }
 }

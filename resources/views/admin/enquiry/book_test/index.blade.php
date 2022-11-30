@@ -22,7 +22,6 @@
                         <th>Full Name</th>
                         <th>Mobile</th>
                         <th>Email</th>
-                        <th>Location</th>
                         <th>Test </th>
                         <th>Visit</th>
                         <th>Appointment Date</th>
@@ -51,7 +50,6 @@
                     {data:"full_name", name : "full_name"},
                     {data:"mobile", name : "mobile"},
                     {data:"email", name : "email"},
-                    {data:"areas.area", name : "areas.area"},
                     {data:"test", name : "test"},
                     {data:"visit", name : "visit"},
                     {data:"date", name : "date"},

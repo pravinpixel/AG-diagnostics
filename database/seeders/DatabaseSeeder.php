@@ -19,8 +19,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class, 
-            CitySeeder::class,
+            CountrySeeder::class,
             StatesSeeder::class,
+            CitySeeder::class,
             PackagesSeeder::class,
             SampleCollectionCentersSeeder::class,
             HomeVisitAreasSeeder::class,
@@ -31,8 +32,7 @@ class DatabaseSeeder extends Seeder
             TestimonialsSeeder::class,
             MediaSeeder::class,
             EventSeeder::class,
-            TestSeeder::class,
-            CountrySeeder::class,
+            TestSeeder::class,           
            // AdminUserSeeder::class,
         ]);
         

@@ -14,12 +14,12 @@ class HomeVisitAreasSeeder extends Seeder
      */
     public function run()
     {
-        $key ='agdpixel';
-        $secret ='p1x3l@agd';
-        $responseHomeVisitArea = Http::withBasicAuth($key,$secret)
-        ->get('https://agdmatrix.dyndns.org/a/Pixel/HomeVisitAreas');
-        $responseHomeVisitArea = json_decode($responseHomeVisitArea);
-        $dataHomeVisitArea = insertApiHomeVisitAreaData($responseHomeVisitArea);
+        // $key ='agdpixel';
+        // $secret ='p1x3l@agd';
+        // $responseHomeVisitArea = Http::withBasicAuth($key,$secret)
+        // ->get('https://agdmatrix.dyndns.org/a/Pixel/HomeVisitAreas');
+        // $responseHomeVisitArea = json_decode($responseHomeVisitArea);
+        insertApiHomeVisitAreaData();
 
 
     }

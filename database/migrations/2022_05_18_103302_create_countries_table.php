@@ -19,7 +19,7 @@ class CreateCountriesTable extends Migration
             $table->text("country_code")->nullable();
             $table->text("iso_code_two")->nullable();
             $table->text("iso_code_three")->nullable();
-            $table->integer("status")->default(0);
+            $table->integer("status")->default(1);
             $table->softDeletes();
             $table->timestamps();
         });
