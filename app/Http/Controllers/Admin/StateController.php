@@ -14,6 +14,9 @@ class StateController extends Controller
 {
     public function index(Request $request)
     {
+        $user = Sentinel::getUser();
+        if($user->hasAccess('user.view.manage_state'))
+        {
         if($request->ajax()) {
            
             $data = State::with('country')->select('*');
@@ -24,13 +27,13 @@ class StateController extends Controller
                     $user = Sentinel::getUser();
                     $edit = '';
                     $delete = '';
-                    if($user->hasAccess('user.edit.manage_state'))
-                    $edit=button('edit',route('state.edit', $data->id));
+                    // if($user->hasAccess('user.edit.manage_state'))
+                    // $edit=button('edit',route('state.edit', $data->id));
 
                     if($user->hasAccess('user.delete.manage_state'))
                     $delete = button('delete',route('state.delete', $data->id));
 
-                    return $edit.$delete;
+                    return $delete;
 
                 })
                 // ->addColumn('country', function ($data) {
@@ -44,6 +47,31 @@ class StateController extends Controller
             ->make(true);
         }
         return view('admin.master.state.index');
+        }
+        else
+        {
+            // Flash::error( __('action.permission'));
+            if($user->hasAccess('user.view.banner')||$user->hasAccess('user.add.banner')){
+                return redirect()->route('banner.index');
+            }
+            else if($user->hasAccess('user.view.manage_country'))
+            {
+                return redirect()->route('country.index');
+            }
+            else if($user->hasAccess('user.view.manage_city'))
+            {
+                return redirect()->route('city.index');
+            }
+            else if($user->hasAccess('user.view.brochures')||$user->hasAccess('user.add.brochures'))
+            {
+                return redirect()->route('brochures.index');
+            }
+            
+            else{
+                Flash::error( __('action.permission'));
+                return redirect()->route('admin.dashboard');
+            }
+        }
     }
     public function create(Type $var = null)
     {
@@ -70,14 +98,23 @@ class StateController extends Controller
     }
     public function delete($id = null)
     {
-        $state  = State::find($id);
-        $state->delete();
-        Flash::success( __('action.deleted', ['type' => 'State']));
-        return redirect()->back();
+        // $state  = State::find($id);
+        // $state->forceDelete();
+        // // $state->delete();
+        // Flash::success( __('action.deleted', ['type' => 'State']));
+        // return redirect()->back();
+        try {
+            $state  = State::find($id)->forceDelete();
+            Flash::success( __('action.deleted', ['type' => 'State']));
+            return redirect()->back();
+        } catch(\Exception $exception){
+            // $errormsg = 'This data is' . $exception->getCode();
+            Flash::success( __('action.existsMessage'));
+            return redirect()->back();
+        }
     }
     public function status(Request $request)
     {
-        // dd($request->all());
         $state  = State::find($request->id);
         if($request->val == 1)
         {

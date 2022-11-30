@@ -13,6 +13,9 @@ class SampleCollectionCenterController extends Controller
 {
     public function index(Request $request)
     {
+        $user = Sentinel::getUser();
+        if($user->hasAccess('user.view.sample_collection'))
+        {
         if($request->ajax()) {
             $data = SampleCollectionCenters::select('*');
             return DataTables::eloquent($data)
@@ -38,6 +41,13 @@ class SampleCollectionCenterController extends Controller
             ->make(true);
         }
         return view('admin.manage_lab.samplecollection.index');
+        }
+        else
+        {
+            Flash::error( __('action.permission'));
+            return redirect()->route('admin.dashboard');
+
+        }
     }
     public function view($id)
     {

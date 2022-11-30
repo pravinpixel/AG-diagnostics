@@ -16,14 +16,13 @@ class JobPostController extends Controller
 {
     public function index(Request $request)
     {
-// dd($city);
-
+        $user = Sentinel::getUser();
+        if($user->hasAccess('user.view.job-post') || $user->hasAccess('user.add.job-post') )
+        {
         if ($request->ajax()) {
             $data = JobPost::with('department')->with('city')->select('*');
-
             return DataTables::eloquent($data)
                 ->addIndexColumn()
-
                 ->addColumn('action', function ($data) {
                     $user = Sentinel::getUser();
                     $edit = '';
@@ -47,6 +46,20 @@ class JobPostController extends Controller
                 ->make(true);
         }
         return view('admin.manage_career.job.index');
+        }
+        else{
+            if($user->hasAccess('user.view.careers'))
+            {
+                return redirect()->route('admin_careers.index');
+            }
+            else if($user->hasAccess('user.view.department')){
+                return redirect()->route('department.index');
+            }
+            else{
+                Flash::error( __('action.permission'));
+                return redirect()->route('admin.dashboard');
+            }
+        }
 
     }
     public function create()

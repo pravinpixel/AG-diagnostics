@@ -15,7 +15,7 @@
     @endif
     <?php $user = Sentinel::getUser();?>
     @if($user->hasAccess('user.view.media_news_event')||$user->hasAccess('user.add.media_news_event'))
- 
+
 
         <li class="nav-item">
             <a class="nav-link {{ Route::is(['events.index','events.create','events.edit']) ? "active" : "" }}" href="{{ route('events.index') }}">

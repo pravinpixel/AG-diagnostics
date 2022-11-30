@@ -8,20 +8,27 @@ use Illuminate\Http\Request;
 use Laracasts\Flash\Flash;
 use App\Models\Admin\ManageTest;
 use App\Models\Admin\TimingDay;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Yajra\DataTables\Facades\DataTables;
 
 class ManageTestController extends Controller
 {
     public function index(Request $request)
     {
-       
+        $user = Sentinel::getUser();
+        if($user->hasAccess('user.view.manage_test')||$user->hasAccess('user.add.manage_test'))
+        {
         if($request->ajax()) {
             $data = ManageTest::select('*');
             return DataTables::eloquent($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
+                    $user = Sentinel::getUser();
+                    $delete = '';
                     // return button('edit',route('manage_test.edit', $data->id));
-                    return button('delete',route('manage_test.delete', $data->id));
+                    if($user->hasAccess('user.delete.manage_test'))
+                    $delete = button('delete',route('manage_test.delete', $data->id));
+                    return $delete;
                 })
                 ->addColumn('status', function($data) {
                    return toggleButton('status',route('manage_test.edit', $data->id),$data);
@@ -30,6 +37,12 @@ class ManageTestController extends Controller
             ->make(true);
         }
         return view('admin.manage_test.index');
+    }
+    else
+    {
+        Flash::error( __('action.permission'));
+        return redirect()->route('admin.dashboard');
+    }
     }
     public function create()
     {

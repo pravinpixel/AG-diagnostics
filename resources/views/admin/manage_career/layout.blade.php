@@ -14,7 +14,7 @@
             </a> 
         </li>
         @endif
-        @if($user->hasAccess('user.view.job-post'))
+        @if($user->hasAccess('user.view.job-post') || $user->hasAccess('user.add.job-post'))
         <li class="nav-item d-flex">
             <a class="nav-link {{ Route::is('job-post.index','job-post.create','job-post.edit') ? "active" : "" }}" href="{{ route('job-post.index') }}">
                 <i class="fa-building fa me-2"></i>
@@ -22,7 +22,7 @@
             </a> 
         </li>
         @endif
-        @if($user->hasAccess('user.view.department'))
+        @if($user->hasAccess('user.view.department')||$user->hasAccess('user.add.department'))
         <li class="nav-item d-flex">
             <a class="nav-link {{ Route::is('department.index','department.create','department.edit') ? "active" : "" }}" href="{{ route('department.index') }}">
                 <i class="fa-building fa me-2"></i>

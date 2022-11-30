@@ -14,12 +14,12 @@ class SampleCollectionCentersSeeder extends Seeder
      */
     public function run()
     {
-        $key ='agdpixel';
-        $secret ='p1x3l@agd';
-        $responseSampleCollectionCenters = Http::withBasicAuth($key,$secret)
-        ->get('https://agdmatrix.dyndns.org/a/Pixel/SampleCollectionCenters');
-        $responseSampleCollectionCenters = json_decode($responseSampleCollectionCenters);
-        $dataSampleCollectionCenters = insertApiSampleCollectionCentersData($responseSampleCollectionCenters);
+        // $key ='agdpixel';
+        // $secret ='p1x3l@agd';
+        // $responseSampleCollectionCenters = Http::withBasicAuth($key,$secret)
+        // ->get('https://agdmatrix.dyndns.org/a/Pixel/SampleCollectionCenters');
+        // $responseSampleCollectionCenters = json_decode($responseSampleCollectionCenters);
+        insertApiSampleCollectionCentersData();
 
 
     }

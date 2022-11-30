@@ -13,29 +13,45 @@ class HomeVisitAreaController extends Controller
 {
     public function index(Request $request)
     {
-        // dd("s");
-        if($request->ajax()) {
-            $data = HomeVisitArea::select('*');
-            return DataTables::eloquent($data)
-                ->addIndexColumn()   
-                ->addColumn('action', function ($data) {
-                    $user = Sentinel::getUser();
-                    $delete = '';
-                    if($user->hasAccess('user.delete.home_visit_area'))
-                    $delete = button('delete',route('home-visit-area.delete', $data->id));
-
-                    return $delete;
-                })
-                ->addColumn('created_at', function ($data) {
-                    return date('d M Y', strtotime($data['created_at']));
-                })
-                ->addColumn('status', function($data) {
-                   return toggleButton('status',route('home-visit-area.status', $data->id),$data);
-                })
-            ->rawColumns(['action','status'])
-            ->make(true);
+        $user = Sentinel::getUser();
+        if($user->hasAccess('user.view.home_visit_area'))
+        {
+            if($request->ajax()) {
+                $data = HomeVisitArea::select('*');
+                return DataTables::eloquent($data)
+                    ->addIndexColumn()   
+                    ->addColumn('action', function ($data) {
+                        $user = Sentinel::getUser();
+                        $delete = '';
+                        if($user->hasAccess('user.delete.home_visit_area'))
+                        $delete = button('delete',route('home-visit-area.delete', $data->id));
+    
+                        return $delete;
+                    })
+                    ->addColumn('created_at', function ($data) {
+                        return date('d M Y', strtotime($data['created_at']));
+                    })
+                    ->addColumn('status', function($data) {
+                       return toggleButton('status',route('home-visit-area.status', $data->id),$data);
+                    })
+                ->rawColumns(['action','status'])
+                ->make(true);
+            }
+            return view('admin.manage_lab.home_visit_area.index');
         }
-        return view('admin.manage_lab.home_visit_area.index');
+        else
+        {
+            if($user->hasAccess('user.view.sample_collection'))
+            {
+                return redirect()->route('sample-collection-center.index');
+            }
+            else{
+                Flash::error( __('action.permission'));
+                return redirect()->route('admin.dashboard');
+            }
+            
+        }
+       
     }
     public function view($id)
     {

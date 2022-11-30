@@ -14,6 +14,9 @@ class BrochureController extends Controller
 {
     public function index(Request $request)
     {
+        $user = Sentinel::getUser();
+        if($user->hasAccess('user.view.brochures')||$user->hasAccess('user.add.brochures'))
+        {
         if($request->ajax())
         {
             $data = Brochure::select('*');
@@ -60,7 +63,30 @@ class BrochureController extends Controller
 
         }
         return view('admin.master.brochures.index');
-
+        }
+        else
+        {
+            // Flash::error( __('action.permission'));
+            if($user->hasAccess('user.view.banner')||$user->hasAccess('user.add.banner')){
+                return redirect()->route('banner.index');
+            }
+            else if($user->hasAccess('user.view.manage_country'))
+            {
+                return redirect()->route('country.index');
+            }
+            else if($user->hasAccess('user.view.manage_state'))
+            {
+                return redirect()->route('state.index');
+            }
+            else if($user->hasAccess('user.view.manage_city'))
+            {
+                return redirect()->route('city.index');
+            }
+            else{
+                Flash::error( __('action.permission'));
+                return redirect()->route('admin.dashboard');
+            }
+        }
     }
     public function create()
     {

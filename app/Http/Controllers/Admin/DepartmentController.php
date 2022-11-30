@@ -13,34 +13,51 @@ class DepartmentController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            $data = Department::select('*');
-            return DataTables::eloquent($data)
-                ->addIndexColumn()
+        $user = Sentinel::getUSer();
+        if($user->hasAccess('user.view.department') || $user->hasAccess('user.add.department'))
+        {
+            if ($request->ajax()) {
+                $data = Department::select('*');
+                return DataTables::eloquent($data)
+                    ->addIndexColumn()
+    
+                    ->addColumn('action', function ($data) {
+                        $user = Sentinel::getUser();
+                        $edit = '';
+                        $delete = '';
+                        if($user->hasAccess('user.edit.department'))
+                        $edit=button('edit',route('department.edit', $data->id));
+    
+                        if($user->hasAccess('user.delete.department'))
+                        $delete = button('delete',route('department.delete', $data->id));
 
-                ->addColumn('action', function ($data) {
-                    $user = Sentinel::getUser();
-                    $edit = '';
-                    $delete = '';
-                    if($user->hasAccess('user.edit.department'))
-                    $edit=button('edit',route('department.edit', $data->id));
-
-                    if($user->hasAccess('user.delete.department'))
-                    $delete = button('delete',route('department.delete', $data->id));
-
-                    return $edit.$delete;
-
-                })
-                ->addColumn('created_at', function ($data) {
-                    return date('d M Y', strtotime($data['created_at']));
-                })
-                ->addColumn('status', function($data) {
-                    return toggleButton('status',route('department.status', $data->id),$data);
-                 })
-                ->rawColumns(['action', 'status', 'download'])
-                ->make(true);
+                        return $edit.$delete;
+                    })
+                    ->addColumn('created_at', function ($data) {
+                        return date('d M Y', strtotime($data['created_at']));
+                    })
+                    ->addColumn('status', function($data) {
+                        return toggleButton('status',route('department.status', $data->id),$data);
+                     })
+                    ->rawColumns(['action', 'status', 'download'])
+                    ->make(true);
+            }
+            return view('admin.manage_career.department.index');
         }
-        return view('admin.manage_career.department.index');
+        else{
+            if($user->hasAccess('user.view.careers'))
+            {
+                return redirect()->route('admin_careers.index');
+            }
+            else if($user->hasAccess('user.view.job-post'))
+            {
+                return redirect()->route('job-post.index');
+            }
+            else{
+                Flash::error( __('action.permission'));
+                return redirect()->route('admin.dashboard');
+            }
+        }
 
     }
     public function create()

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banners;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -14,6 +15,9 @@ class BannerController extends Controller
 {
     public function index(Request $request)
     {
+        $user = Sentinel::getUser();
+        if($user->hasAccess('user.view.banner')||$user->hasAccess('user.add.banner'))
+        {
         if($request->ajax()) {
 
             $data = Banners::select([
@@ -40,13 +44,46 @@ class BannerController extends Controller
                     ';
                 })                
                 ->addColumn('action', function ($data) {
-                    return button('edit',route('banner.edit', $data->id)).button('delete',route('banner.delete', $data->id));
+                    $user = Sentinel::getUser();
+                    $edit = '';
+                    $delete = '';
+                    if($user->hasAccess('user.edit.banner'))
+                    $edit = button('edit',route('banner.edit', $data->id));
+
+                    if($user->hasAccess('user.delete.banner'))
+                    $delete = button('delete',route('banner.delete', $data->id));
+
+                    return $edit.$delete;
                 })
             ->rawColumns(['action','Mobile_Image','Desktop_Image'])
             ->make(true);
         }
-
         return view('admin.master.banner.index');
+        }
+        else
+        {
+            // Flash::error( __('action.permission'));
+            if($user->hasAccess('user.view.manage_country'))
+            {
+                return redirect()->route('country.index');
+            }
+            else if($user->hasAccess('user.view.manage_state'))
+            {
+                return redirect()->route('state.index');
+            }
+            else if($user->hasAccess('user.view.manage_city'))
+            {
+                return redirect()->route('city.index');
+            }
+            else if($user->hasAccess('user.view.brochures')||$user->hasAccess('user.add.brochures'))
+            {
+                return redirect()->route('brochures.index');
+            }
+            else{
+                Flash::error( __('action.permission'));
+                return redirect()->route('admin.dashboard');
+            }
+        }
     }
 
     public function create()

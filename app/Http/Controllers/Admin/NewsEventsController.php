@@ -16,33 +16,41 @@ class NewsEventsController extends Controller
 {
     public function index(Request $request)
     {
-    
-        if($request->ajax()) {
-            $data = NewsEvents::select('*');
-            return DataTables::eloquent($data)
-                ->addIndexColumn()              
-                ->addColumn('action', function ($data) {
+        $user = Sentinel::getUser();
+        if($user->hasAccess('user.view.media_news_event')||$user->hasAccess('user.add.media_news_event'))
+        {
+            if($request->ajax()) {
+                $data = NewsEvents::select('*');
+                return DataTables::eloquent($data)
+                    ->addIndexColumn()              
+                    ->addColumn('action', function ($data) {
 
-                    $user = Sentinel::getUser();
-                    $edit = '';
-                    $delete = '';
-                    if($user->hasAccess('user.edit.media_news_event'))
-                    $edit=button('edit',route('events.edit', $data->id));
+                        $user = Sentinel::getUser();
+                        $edit = '';
+                        $delete = '';
+                        if($user->hasAccess('user.edit.media_news_event'))
+                        $edit=button('edit',route('events.edit', $data->id));
 
-                    if($user->hasAccess('user.delete.media_news_event'))
-                    $delete = button('delete',route('events.delete', $data->id));
-                    return $edit.$delete;
-                })
-                ->addColumn('status', function($data) {
-                   return toggleButton('status',route('events.edit', $data->id),$data);
-                })
-                ->addColumn('multipleImage', function($data) {
-                    return button('multipleImage',route('events.multipleImage', $data->id),$data);
-                 })
-            ->rawColumns(['action','status','multipleImage'])
-            ->make(true);
+                        if($user->hasAccess('user.delete.media_news_event'))
+                        $delete = button('delete',route('events.delete', $data->id));
+                        return $edit.$delete;
+                    })
+                    ->addColumn('status', function($data) {
+                    return toggleButton('status',route('events.edit', $data->id),$data);
+                    })
+                    ->addColumn('multipleImage', function($data) {
+                        return button('multipleImage',route('events.multipleImage', $data->id),$data);
+                    })
+                ->rawColumns(['action','status','multipleImage'])
+                ->make(true);
+            }
+            return view('admin.media.news_events.index');
         }
-        return view('admin.media.news_events.index');
+        else
+        {
+            Flash::error( __('action.permission'));
+            return redirect()->route('admin.dashboard');
+        }
     }
     public function create(Type $var = null)
     {

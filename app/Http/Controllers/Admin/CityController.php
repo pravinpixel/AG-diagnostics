@@ -17,6 +17,9 @@ class CityController extends Controller
 {
     public function index(Request $request)
     {
+        $user = Sentinel::getUser();
+        if($user->hasAccess('user.view.manage_city'))
+        {
         if($request->ajax()) {
             $data = City::with('country')->with('state')->select('*');
             return DataTables::eloquent($data)
@@ -26,13 +29,13 @@ class CityController extends Controller
                     $user = Sentinel::getUser();
                     $edit = '';
                     $delete = '';
-                    if($user->hasAccess('user.edit.manage_city'))
-                    $edit = button('edit',route('city.edit', $data->id));
+                    // if($user->hasAccess('user.edit.manage_city'))
+                    // $edit = button('edit',route('city.edit', $data->id));
 
                     if($user->hasAccess('user.delete.manage_city'))
                     $delete = button('delete',route('city.delete', $data->id));
 
-                    return $edit.$delete;
+                    return $delete;
 
                 })
                 // ->addColumn('country', function ($data) {
@@ -46,6 +49,30 @@ class CityController extends Controller
             ->make(true);
         }
         return view('admin.master.city.index');
+        }
+        else
+        {
+            // Flash::error( __('action.permission'));
+            if($user->hasAccess('user.view.banner')||$user->hasAccess('user.add.banner')){
+                return redirect()->route('banner.index');
+            }
+            else if($user->hasAccess('user.view.manage_country'))
+            {
+                return redirect()->route('country.index');
+            }
+            else if($user->hasAccess('user.view.manage_state'))
+            {
+                return redirect()->route('state.index');
+            }
+            else if($user->hasAccess('user.view.brochures')||$user->hasAccess('user.add.brochures'))
+            {
+                return redirect()->route('brochures.index');
+            }
+            else{
+                Flash::error( __('action.permission'));
+                return redirect()->route('admin.dashboard');
+            }
+        }
     }
     public function create()
     {
@@ -73,7 +100,8 @@ class CityController extends Controller
     public function delete($id = null)
     {
         $city  = City::find($id);
-        $city->delete();
+        // $city->forceDelete();
+        $city->delete(); 
         Flash::success( __('action.deleted', ['type' => 'City']));
         return redirect()->back();
     }

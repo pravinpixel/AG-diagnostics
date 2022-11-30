@@ -6,14 +6,14 @@
    <ul class="nav nav-gradient w-100">
         
     <?php $user = Sentinel::getUser();?>
-    @if($user->hasAccess('user.view.manage_lab')||$user->hasAccess('user.add.manage_lab'))
+    {{-- @if($user->hasAccess('user.view.manage_lab')||$user->hasAccess('user.add.manage_lab')) --}}
         {{-- <li class="nav-item d-flex">
             <a class="nav-link {{ Route::is('manage.index','manage.create','manage.edit') ? "active" : "" }}" href="{{ route('manage.index') }}">
                 <i class="fa-building fa me-2"></i>
                 Manage Lab Master 
             </a> 
         </li> --}}
-    @endif
+    {{-- @endif --}}
     @if($user->hasAccess('user.view.home_visit_area')||$user->hasAccess('user.add.home_visit_area'))
         <li class="nav-item d-flex">
             <a class="nav-link {{ Route::is('home-visit-area.index','home-visit-area.view') ? "active" : "" }}" href="{{ route('home-visit-area.index') }}">
@@ -21,7 +21,7 @@
                 Home Visit Area
             </a> 
         </li>
-    @endif
+    @endif 
     @if($user->hasAccess('user.view.sample_collection')||$user->hasAccess('user.delete.sample_collection'))
     <li class="nav-item d-flex">
         <a class="nav-link {{ Route::is('sample-collection-center.index','sample-collection-center.view') ? "active" : "" }}" href="{{ route('sample-collection-center.index') }}">

@@ -12,6 +12,7 @@ use App\Models\Admin\Speciality;
 use App\Models\Admin\Condition;
 use App\Models\Admin\ManageTest;
 use App\Models\Admin\TimingDay;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Carbon;
@@ -20,14 +21,23 @@ class ManagePackageController extends Controller
     public function index(Request $request)
     {
 
-     
+        $user = Sentinel::getUser();
+        if($user->hasAccess('user.view.manage_package'))
+        {
         if($request->ajax()) {
             $data = ManagePackage::with(['condition','specialty','organ'])->select('*');
             return DataTables::eloquent($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
+
+                    $user = Sentinel::getUser();
+                    $edit = '';
+                    $delete = '';
                     $view =  button('view',route('manage_package.view', $data->id));
+                    if($user->hasAccess('user.edit.manage_package'))
                     $edit =  button('edit',route('manage_package.edit', $data->id));
+
+                    if($user->hasAccess('user.delete.manage_package'))
                     $delete = button('delete',route('manage_package.delete', $data->id));
                     return $view.$edit.$delete;
 
@@ -39,6 +49,12 @@ class ManagePackageController extends Controller
             ->make(true);
         }
         return view('admin.manage_package.index');
+        }
+        else
+        {
+            Flash::error( __('action.permission'));
+            return redirect()->route('admin.dashboard');
+        }
     }
     public function view($id)
     {

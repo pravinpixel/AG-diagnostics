@@ -15,7 +15,9 @@ class FeatureController extends Controller
 {
     public function index(Request $request)
     {
-       
+        $user = Sentinel::getUser();
+        if($user->hasAccess('user.view.media_gallery')||$user->hasAccess('user.add.media_gallery'))
+        {
         if($request->ajax()) {
             $data = FeatureStories::select('*');
             return DataTables::eloquent($data)
@@ -39,6 +41,20 @@ class FeatureController extends Controller
             ->make(true);
         }
         return view('admin.media.feature.index');
+        }
+        else
+        {
+            if($user->hasAccess('user.view.media_news_event'))
+            {
+                return redirect()->route('events.index');
+            }
+            else{
+                Flash::error( __('action.permission'));
+                return redirect()->route('admin.dashboard');
+                // return redirect()->back();
+            }
+
+        }
     }
     public function create(Type $var = null)
     {

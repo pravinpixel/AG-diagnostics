@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\HomeVisit;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -12,6 +13,9 @@ class HomeVisitController extends Controller
 {
     public function index(Request $request)
     {
+        $user = Sentinel::getUser();
+        if($user->hasAccess('user.view.home_visit'))
+        {
         if($request->ajax()) {
             // $data = HomeVisit::select('home_visits.*','manage_packages.packageName as package')
             // ->join('manage_packages','manage_packages.id','=','home_visits.packageId');
@@ -19,9 +23,12 @@ class HomeVisitController extends Controller
             return DataTables::eloquent($data)
                 ->addIndexColumn()   
                 ->addColumn('action', function ($data) {
-                    $delete = button('delete',route('home_visit.delete', $data->id));
-
+                    $user = Sentinel::getUser();
+                    $delete = '';
                     $view = button('view',route('home_visit.view', $data->id));
+                    
+                    if($user->hasAccess('user.delete.home_visit'))
+                    $delete = button('delete',route('home_visit.delete', $data->id));
                     return $view.$delete;
                 })
                 ->addColumn('created_at', function ($data) {
@@ -34,6 +41,25 @@ class HomeVisitController extends Controller
             ->make(true);
         }
         return view('admin.enquiry.home_visit.index');
+        }
+        else
+        {
+            if($user->hasAccess('user.view.packages')){
+                return redirect()->route('enquiry_package.index');
+            }
+            else if($user->hasAccess('user.view.contact_us'))
+            {
+                return redirect()->route('contact_us.index');
+            }
+            // else if($user->hasAccess('user.view.test_booking'))
+            // {
+            //     return redirect()->route('book_test.index');
+            // }
+            else{
+                Flash::error( __('action.permission'));
+                return redirect()->route('admin.dashboard');
+            }
+        }
     }
     public function view($id)
     {

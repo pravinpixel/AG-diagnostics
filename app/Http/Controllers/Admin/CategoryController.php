@@ -14,42 +14,46 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
-       
+        
         $user = Sentinel::getUser();
         if($user->hasAccess('user.view.category'))
         {
+            if($request->ajax()) {
 
+                $data = Category::select('*');
+               
+                return DataTables::eloquent($data)
+    
+                    ->addIndexColumn()     
+                    ->addColumn('action', function ($data) {
+                        $user = Sentinel::getUser();
+                        $edit = '';
+                        $delete = '';
+                        if($user->hasAccess('user.edit.category'))
+                        $edit=button('edit',route('category.edit', $data->id));
+    
+                        if($user->hasAccess('user.delete.category'))
+                        $delete = button('delete',route('category.delete', $data->id));
+    
+                        return $edit.$delete;
+                    })
+    
+                    
+                    ->addColumn('status', function($data) {
+                       
+                       return toggleButton('status',route('category.edit', $data->id),$data);
+                    })
+                ->rawColumns(['action','status'])
+                ->make(true);
+            }
+            return view('admin.category.index');
         }
-        
-        if($request->ajax()) {
-
-            $data = Category::select('*');
-           
-            return DataTables::eloquent($data)
-
-                ->addIndexColumn()     
-                ->addColumn('action', function ($data) {
-                    $user = Sentinel::getUser();
-                    $edit = '';
-                    $delete = '';
-                    if($user->hasAccess('user.edit.category'))
-                    $edit=button('edit',route('category.edit', $data->id));
-
-                    if($user->hasAccess('user.delete.category'))
-                    $delete = button('delete',route('category.delete', $data->id));
-
-                    return $edit.$delete;
-                })
-
-                
-                ->addColumn('status', function($data) {
-                   
-                   return toggleButton('status',route('category.edit', $data->id),$data);
-                })
-            ->rawColumns(['action','status'])
-            ->make(true);
+        else
+        {
+            Flash::error( __('action.permission'));
+            return redirect()->route('admin.dashboard');
         }
-        return view('admin.category.index');
+ 
     }
     public function create()
     {

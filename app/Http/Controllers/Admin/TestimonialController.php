@@ -13,7 +13,9 @@ class TestimonialController extends Controller
 {
     public function index(Request $request)
     {
-       
+        $user = Sentinel::getUser();
+        if($user->hasAccess('user.view.manage_testimonial')||$user->hasAccess('user.add.manage_testimonial'))
+        {
         if($request->ajax()) {
             $data = Testimonial::select('*');
             return DataTables::eloquent($data)
@@ -37,6 +39,12 @@ class TestimonialController extends Controller
             ->make(true);
         }
         return view('admin.testimonial.index');
+        }
+        else
+        {
+            Flash::error( __('action.permission'));
+            return redirect()->route('admin.dashboard');
+        }
     }
     public function create()
     {

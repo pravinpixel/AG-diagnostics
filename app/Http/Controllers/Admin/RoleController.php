@@ -29,14 +29,13 @@ class RoleController extends Controller
                 'name',
                 'created_at',
                 'updated_at',
-            ])->whereNotIn('slug',['admin','superadmin']);
+            ]);
                 return DataTables::eloquent($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $action = button('edit',route('role.edit', $data->id)).button('delete',route('role.delete', $data->id)); 
                     return $action;
                 })
-                
             ->make(true);
         }
         return view('admin.settings.role.index');
@@ -114,6 +113,21 @@ class RoleController extends Controller
             'user.add.manage_testimonial'     =>  $request -> user_add_manage_testimonial   == 'true' ? true : false,
             'user.edit.manage_testimonial'    =>  $request -> user_edit_manage_testimonial   == 'true' ? true : false,
             'user.delete.manage_testimonial'  =>  $request -> user_delete_manage_testimonial   == 'true' ? true : false,
+
+            'user.view.manage_test'    =>  $request -> user_view_manage_test   == 'true' ? true : false,
+            'user.add.manage_test'     =>  $request -> user_add_manage_test   == 'true' ? true : false,
+            'user.edit.manage_test'    =>  $request -> user_edit_manage_test   == 'true' ? true : false,
+            'user.delete.manage_test'  =>  $request -> user_delete_manage_test   == 'true' ? true : false,
+
+            'user.view.banner'    =>  $request -> user_view_banner   == 'true' ? true : false,
+            'user.add.banner'     =>  $request -> user_add_banner   == 'true' ? true : false,
+            'user.edit.banner'    =>  $request -> user_edit_banner   == 'true' ? true : false,
+            'user.delete.banner'  =>  $request -> user_delete_banner   == 'true' ? true : false,
+
+            'user.view.manage_package'    =>  $request -> user_view_manage_package   == 'true' ? true : false,
+            'user.add.manage_package'     =>  $request -> user_add_manage_package   == 'true' ? true : false,
+            'user.edit.manage_package'    =>  $request -> user_edit_manage_package   == 'true' ? true : false,
+            'user.delete.manage_package'  =>  $request -> user_delete_manage_package   == 'true' ? true : false,
 
             'user.view.manage_country'    =>  $request -> user_view_manage_country   == 'true' ? true : false,
             'user.add.manage_country'     =>  $request -> user_add_manage_country   == 'true' ? true : false,
@@ -281,7 +295,21 @@ class RoleController extends Controller
             'user.edit.manage_testimonial'    =>  $request -> user_edit_manage_testimonial   == 'true' ? true : false,
             'user.delete.manage_testimonial'  =>  $request -> user_delete_manage_testimonial   == 'true' ? true : false,
 
-            
+            'user.view.manage_test'    =>  $request -> user_view_manage_test   == 'true' ? true : false,
+            'user.add.manage_test'     =>  $request -> user_add_manage_test   == 'true' ? true : false,
+            'user.edit.manage_test'    =>  $request -> user_edit_manage_test   == 'true' ? true : false,
+            'user.delete.manage_test'  =>  $request -> user_delete_manage_test   == 'true' ? true : false,
+
+            'user.view.banner'    =>  $request -> user_view_banner   == 'true' ? true : false,
+            'user.add.banner'     =>  $request -> user_add_banner   == 'true' ? true : false,
+            'user.edit.banner'    =>  $request -> user_edit_banner   == 'true' ? true : false,
+            'user.delete.banner'  =>  $request -> user_delete_banner   == 'true' ? true : false,
+
+            'user.view.manage_package'    =>  $request -> user_view_manage_package   == 'true' ? true : false,
+            'user.add.manage_package'     =>  $request -> user_add_manage_package   == 'true' ? true : false,
+            'user.edit.manage_package'    =>  $request -> user_edit_manage_package   == 'true' ? true : false,
+            'user.delete.manage_package'  =>  $request -> user_delete_manage_package   == 'true' ? true : false,
+
             'user.view.manage_country'    =>  $request -> user_view_manage_country   == 'true' ? true : false,
             'user.add.manage_country'     =>  $request -> user_add_manage_country   == 'true' ? true : false,
             'user.edit.manage_country'    =>  $request -> user_edit_manage_country   == 'true' ? true : false,
@@ -366,6 +394,7 @@ class RoleController extends Controller
         Flash::success( __('auth.role_update_successful'));
 
         return redirect()->route('role.index');
+        // return redirect()->back();
     }
 
     /**

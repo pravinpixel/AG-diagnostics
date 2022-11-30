@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\JobPost;
 use Illuminate\Http\Request;
 use App\Models\Website\Careers;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -13,7 +14,9 @@ class CareersController extends Controller
 {
     public function index(Request $request)
     {
-
+        $user = Sentinel::getUser();
+        if($user->hasAccess('user.view.careers'))
+        {
         if ($request->ajax()) {
             $data = Careers::with('job')->select('*');
             return DataTables::eloquent($data)
@@ -24,6 +27,10 @@ class CareersController extends Controller
                     </a>';
                 })
                 ->addColumn('action', function ($data) {
+                    $user = Sentinel::getUser();
+                    $delete = '';
+
+                    if($user->hasAccess('user.delete.careers'))
                     $delete = button('delete', route('admin_careers.delete', $data->id));
                     $view = button('view', route('admin_careers.view', $data->id));
                     return $view.$delete;
@@ -36,6 +43,21 @@ class CareersController extends Controller
                 ->make(true);
         }
         return view('admin.manage_career.careers.careers');
+        }
+        else{
+
+            if($user->hasAccess('user.view.job-post')||$user->hasAccess('user.add.job-post'))
+            {
+                return redirect()->route('job-post.index');
+            }
+            else if($user->hasAccess('user.view.department')||$user->hasAccess('user.add.department')){
+                return redirect()->route('department.index');
+            }
+            else{
+                Flash::error( __('action.permission'));
+                return redirect()->route('admin.dashboard');
+            }
+        }
     }
     public function delete($id = null)
     {

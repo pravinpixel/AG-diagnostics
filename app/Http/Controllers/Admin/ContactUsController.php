@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Website\Contact;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -12,14 +13,21 @@ class ContactUsController extends Controller
 {
     public function index(Request $request)
     {
-        
+        $user = Sentinel::getUser();
+        if($user->hasAccess('user.view.contact_us'))
+        {
         if($request->ajax()) {
             $data = Contact::select('*');
             return DataTables::eloquent($data)
                 ->addIndexColumn()
                        
                 ->addColumn('action', function ($data) {
-                    return button('delete',route('contact_us.delete', $data->id));
+                    $user = Sentinel::getUser();
+                    $delete = '';
+
+                    if($user->hasAccess('user.delete.contact_us'))
+                    $delete =  button('delete',route('contact_us.delete', $data->id));
+                    return $delete;
                 })
              
                 ->addColumn('status', function($data) {
@@ -32,6 +40,25 @@ class ContactUsController extends Controller
             ->make(true);
         }
         return view('admin.enquiry.contact_us.contact-us');
+        }
+        else
+        {
+            if($user->hasAccess('user.view.home_visit')){
+                return redirect()->route('home_visit.index');
+            }
+            else if($user->hasAccess('user.view.packages'))
+            {
+                return redirect()->route('enquiry_package.index');
+            }
+            // else if($user->hasAccess('user.view.test_booking'))
+            // {
+            //     return redirect()->route('book_test.index');
+            // }
+            else{
+                Flash::error( __('action.permission'));
+                return redirect()->route('admin.dashboard');
+            }
+        }
     }
     public function delete($id = null)
     {
