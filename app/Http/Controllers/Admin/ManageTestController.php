@@ -25,10 +25,12 @@ class ManageTestController extends Controller
                 ->addColumn('action', function ($data) {
                     $user = Sentinel::getUser();
                     $delete = '';
+                    $view = '';
                     // return button('edit',route('manage_test.edit', $data->id));
+                    $view =  button('view',route('manage_test.view', $data->id));
                     if($user->hasAccess('user.delete.manage_test'))
                     $delete = button('delete',route('manage_test.delete', $data->id));
-                    return $delete;
+                    return $view.$delete;
                 })
                 ->addColumn('status', function($data) {
                    return toggleButton('status',route('manage_test.edit', $data->id),$data);
@@ -67,6 +69,11 @@ class ManageTestController extends Controller
         $category = Category::pluck('category','id');
        
         return view('admin.manage_test.edit', compact('test','category'));
+    }
+    public function view($id)
+    {
+        $data = ManageTest::where('id',$id)->first();
+        return view('admin.manage_test.view',compact('data'));
     }
     public function delete($id = null)
     {

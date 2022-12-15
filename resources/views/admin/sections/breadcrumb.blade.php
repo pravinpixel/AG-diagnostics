@@ -70,6 +70,7 @@
         {{ Route::is('manage_test.index') ? "Manage Test List" : '' }}
         {{ Route::is('manage_test.create') ? "Create Manage Test" : '' }}
         {{ Route::is('manage_test.edit') ? "Edit Manage Test" : '' }} 
+        {{ Route::is('manage_test.view') ? "View Test" : '' }} 
 
         {{ Route::is('manage_package.index') ? "Manage Package List" : '' }}
         {{ Route::is('manage_package.create') ? "Create Package" : '' }}
@@ -140,6 +141,8 @@
                 {{ Route::is('manage_test.index') ? "Manage Test / Manage Test List" : '' }}
                 {{ Route::is('manage_test.create') ? "Manage Test / Create Manage Test" : '' }}
                 {{ Route::is('manage_test.edit') ? "Manage Test / Edit Manage Test" : '' }} 
+                {{ Route::is('manage_test.view') ? "Manage Test / View Test" : '' }} 
+
 
                 {{ Route::is('testimonial.index') ? "Manage Testimonial / Manage Testimonial List" : '' }}
                 {{ Route::is('testimonial.create') ? "Manage Testimonial / Create Manage Testimonial" : '' }}

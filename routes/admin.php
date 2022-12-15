@@ -206,6 +206,8 @@ Route::middleware(['auth_users'])->group(function () {
         Route::get('manage/test', [ManageTestController::class, 'index'])->name('manage_test.index');
         Route::get('manage/test/create', [ManageTestController::class, 'create'])->name('manage_test.create');
         Route::get('manage/test/{id}', [ManageTestController::class, 'edit'])->name('manage_test.edit'); 
+        Route::get('manage/test/view/{id}', [ManageTestController::class, 'view'])->name('manage_test.view');
+
         Route::post('manage_test/store/{id?}', [ManageTestController::class, 'store'])->name('manage_test.store');
         Route::post('manage/test/delete/{id?}', [ManageTestController::class, 'delete'])->name('manage_test.delete'); 
         Route::get('manage/test/status/{id}', [ManageTestController::class, 'status'])->name('manage_test.status');

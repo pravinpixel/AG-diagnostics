@@ -49,7 +49,7 @@
         @endif
         @if($user->hasAccess('user.view.manage_test'))
         <li>
-            <a href="{{ route('manage_test.index') }}" class="nav-link text-white {{ Route::is(['manage_test.index','manage_test.create','manage_test.edit']) ? "active" : "" }}">
+            <a href="{{ route('manage_test.index') }}" class="nav-link text-white {{ Route::is(['manage_test.index','manage_test.view','manage_test.create','manage_test.edit']) ? "active" : "" }}">
                 <i class="bi bi-sliders me-3"></i>Manage Test
             </a>
         </li>
