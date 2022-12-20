@@ -2973,13 +2973,13 @@ textarea.form-control-lg {
 
 .btn-primary {
   color: #fff;
-  background-color: var(--primary);
-  border-color: var(--primary);
+  background-color: #ee7427;
+  border-color: #ee7427;
 }
 .btn-primary:hover {
   color: #fff;
-  background-color: var(--primary2);
-  border-color: var(--primary3);
+  background-color: #c0540f;
+  border-color: #c0540f;
 }
 .btn-check:focus + .btn-primary, .btn-primary:focus {
   color: #fff;
@@ -3157,9 +3157,9 @@ textarea.form-control-lg {
   border-color: #f8f9fa;
 }
 .btn-light:hover {
-  color: #000;
-  background-color: #f9fafb;
-  border-color: #f9fafb;
+  color: #000 !important;
+  background-color: #dbdfe3 !important;
+  border-color: #dbdfe3 !important;
 }
 .btn-check:focus + .btn-light, .btn-light:focus {
   color: #000;
@@ -3759,7 +3759,7 @@ textarea.form-control-lg {
 }
 .dropdown-menu-dark .dropdown-item:hover, .dropdown-menu-dark .dropdown-item:focus {
   color: #fff;
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: #F1922A;
 }
 .dropdown-menu-dark .dropdown-item.active, .dropdown-menu-dark .dropdown-item:active {
   color: #fff;
@@ -4778,7 +4778,6 @@ textarea.form-control-lg {
   z-index: 3;
   color: #fff;
   background-color: var(--primary);
-  border-color: var(--primary);
 }
 .page-item.disabled .page-link {
   color: #6c757d;

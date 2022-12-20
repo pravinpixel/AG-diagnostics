@@ -19,11 +19,20 @@ class PackagesController extends Controller
     {
         $title = "Packages";
         $id = $request['cityId'];
-        $packages = ManagePackage::where('status',1)->select('id','primaryId','packageName','packageCode','cityId','cityName','testLists','testSchedule','sampleType','ageRestrictions','preRequisties','reportAvailability','comments','fees','homeVisit','discountFees','is_selected','meta_title','meta_description','meta_keyword')
-        ->when(!empty($id), function($q) use ($id){
-            $q->where('cityId',$id);
-        })
+        $name = $request['package_name'];
+        $packages = ManagePackage::where('status',1)->select('id','primaryId','packageName','packageCode','cityId','cityName'
+        ,'testLists','testSchedule','sampleType','ageRestrictions','preRequisties','reportAvailability','comments','fees','homeVisit'
+        ,'discountFees','is_selected','meta_title','meta_description','meta_keyword')
+        ->where('cityId','like',"%{$id}%")
+        ->where('packageName','like',"%{$name}%")
         ->get();
+     
+        // ->when(!empty($id), function($q) use ($id){
+        //     $q->where('cityId',$id);
+        // })
+        // ->when(!empty($name), function($q) use ($name){
+        //     $q->where('packageName',$name);
+        // })->get();
         return response()->json(['packages'=>$packages,'title'=>$title]);
     }
     public function store(Request $request)
