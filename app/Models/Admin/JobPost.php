@@ -26,7 +26,7 @@ class JobPost extends Model
     }
     public function city()
     {
-        return $this->belongsTo(City::class,'cityId','cityId')->select('cityId','city');
+        return $this->belongsTo(City::class,'cityId','cityId')->select('cityId','city','state','stateId');
     }
     
 }

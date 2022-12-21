@@ -16,7 +16,7 @@ use Validator;
 class PackagesController extends Controller
 {
     public function index(Request $request)
-    {
+    {       
         $title = "Packages";
         $id = $request['cityId'];
         $name = $request['package_name'];
@@ -26,14 +26,14 @@ class PackagesController extends Controller
         ->where('cityId','like',"%{$id}%")
         ->where('packageName','like',"%{$name}%")
         ->get();
-     
+        $package_count = count($packages);
         // ->when(!empty($id), function($q) use ($id){
         //     $q->where('cityId',$id);
         // })
         // ->when(!empty($name), function($q) use ($name){
         //     $q->where('packageName',$name);
         // })->get();
-        return response()->json(['packages'=>$packages,'title'=>$title]);
+        return response()->json(['package_count'=>$package_count,'packages'=>$packages,'title'=>$title]);
     }
     public function store(Request $request)
     {
