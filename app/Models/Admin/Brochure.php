@@ -12,6 +12,7 @@ class Brochure extends Model
     protected $fillable = [
         'title',
         'brochure',
+        'image',
         'type',
         'status',
     ];

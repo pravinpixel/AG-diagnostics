@@ -25,7 +25,7 @@
 <div class="row mb-3">
     <label class="col-2 text-end col-form-label">Experience</label>
     <div class="col-10">
-        {!! Form::number('experience', null, ['class' => 'form-control','id'=>'experience', 'autocomplete' => 'off','required']) !!}
+        {!! Form::text('experience', null, ['class' => 'form-control','id'=>'experience', 'autocomplete' => 'off','required']) !!}
     </div>
 </div>
 <div class="row mb-3">
