@@ -21,6 +21,8 @@ class CreateCareersTable extends Migration
             $table->string("job_id")->nullable();
             $table->string("file")->nullable();
             $table->longText("address")->nullable();
+            $table->string("location")->nullable();
+            $table->string("total_experience")->nullable();
             $table->longText("cover_letter")->nullable();
             $table->softDeletes();
             $table->timestamps();

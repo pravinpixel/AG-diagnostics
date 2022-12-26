@@ -39,7 +39,10 @@
                             </a></td>
                     </tr>
                     <tr>
-                        <td>Address:</td> <td>{{ $data['address'] }}</td>
+                        <td>Total Experience:</td> <td>{{ $data['total_experience'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Location:</td> <td>{{ $data['location'] }}</td>
                     </tr>
                     <tr>
                         <td>Cover Letter:</td> <td>{{ $data['cover_letter'] }}</td>

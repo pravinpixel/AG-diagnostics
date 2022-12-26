@@ -47,7 +47,9 @@ class CareersController extends Controller
         $data->phone = $request->phone;
         $data->email = $request->email;
         $data->job_id = $request->job_id;
-        $data->address = $request->address;
+        // $data->address = $request->address;
+        $data->location = $request->location;
+        $data->total_experience = $request->total_experience;
         $data->cover_letter = $request->cover_letter;
         
         if($request->file)
