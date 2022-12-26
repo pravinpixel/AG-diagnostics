@@ -12,7 +12,7 @@ class BrochureController extends Controller
     public function index(Request $request)
     {
         $type = $request['type'];
-        $brochure = Brochure::where('status',1)->select('id','title','brochure','type')
+        $brochure = Brochure::where('status',1)->select('id','title','brochure','image','type')
         ->when(!empty($type),function($q) use ($type){
             $q->where('type','=',$type);
         })
@@ -22,6 +22,10 @@ class BrochureController extends Controller
             if($val['brochure'])
             {
                 $val['brochure'] = asset('public/upload/brochure/'.$val['brochure']);
+            }
+            if($val['image'])
+            {
+                $val['image'] = asset('public/upload/brochure_image/'.$val['image']);
             }
         }
         return response()->json(['data'=>$brochure]);

@@ -37,7 +37,23 @@
         <input type="hidden" id="brochure_check" name="" value="{{ $brochure->brochure }}">
     </div>
 </div>
-@endif    
+@endif  
+<div class="row mb-3">
+    <label class="col-2 text-end col-form-label">Brochure Image</label>
+    <div class="col-10">
+        {!! Form::file('file', ['class' => 'form-control', "id"=>"image", 'autocomplete' => 'off',"accept"=>"image/*",'required']) !!}
+    </div>
+</div>  
+<div class="row mb-3 video_url">
+    <div class="col-2"></div>
+    <div class="col-5">
+        @if(isset($brochure))
+            @if($brochure->image)
+            <img src="{{asset('upload/brochure_image').'/'.$brochure->image}}" alt="No Image" id="image_tag" width="100" height="100">
+            @endif
+        @endif
+    </div>
+</div>  
 
 <div class="row mb-3">
     <label class="col-2 text-end col-form-label">Status</label>
@@ -66,6 +82,14 @@
     <script type="text/javascript">
 
        $(document).ready(function() {
+
+
+        if($('#image_tag').attr('src'))
+        {
+            $('#image').prop('required',false);
+            
+        }
+
             $('#status').click(function() {
                 if (!$(this).is(':checked')) {
                     $(this).val(0);

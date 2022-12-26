@@ -16,12 +16,14 @@ class BrochureSeeder extends Seeder
         DB::table('brochures')->insert([
             'title' => 'Package Booklets',
             'brochure' => 'blank.pdf',
+            'image' => 'ag_diagnostics.jpg',
             'type' => 'package_booklets',
             'Status' => '1',
         ]);
         DB::table('brochures')->insert([
             'title' => 'Technical Leaflets',
             'brochure' => 'blank.pdf',
+            'image' => 'ag_diagnostics.jpg',
             'type' => 'technical_leaflets',
             'Status' => '1',
         ]);

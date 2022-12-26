@@ -17,6 +17,7 @@ class CreateBrochuresTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('brochure')->nullable();
+            $table->string('image')->nullable();
             $table->string('type');
             $table->integer('status')->default(1);
             $table->softDeletes();

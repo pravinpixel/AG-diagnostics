@@ -94,7 +94,6 @@ class BrochureController extends Controller
     }
     public function store(Request $request,$id=null)
     {
-        // dd($request->all());
         $this->validate($request, [
             'title' => 'required|unique:brochures,title,'. $id.',id,deleted_at,NULL',
             'brochure' => 'required|mimes:pdf,',
@@ -134,6 +133,26 @@ class BrochureController extends Controller
             
                 $data->brochure = $name;
             }
+                $filePath = 'upload/brochure_image';
+                $path = public_path($filePath); 
+                if(!file_exists($path))
+                {
+                    mkdir($path, 0777, true);
+                }
+                    
+                $files = [];
+                
+                if($request->hasfile('file'))
+                {
+                    $file = $request->file('file');
+                        if($file->extension() ==  "png" || "jpg" || "jpeg")
+                        {
+                        $name = $file->getClientOriginalName();
+                        $file->move(public_path('upload/brochure_image'), $name);  
+                        
+                        }
+                        $data->image = $name;
+                }
             $res =  $data->save();
         if($data->save())
         {
@@ -183,7 +202,26 @@ class BrochureController extends Controller
             }
             $data->brochure = $name;
         }
-
+        $filePath = 'upload/brochure_image';
+        $path = public_path($filePath); 
+        if(!file_exists($path))
+        {
+            mkdir($path, 0777, true);
+        }
+            
+        $files = [];
+        
+        if($request->hasfile('file'))
+        {
+            $file = $request->file('file');
+                if($file->extension() ==  "png" || "jpg" || "jpeg")
+                {
+                $name = $file->getClientOriginalName();
+                $file->move(public_path('upload/brochure_image'), $name);  
+                
+                }
+                $data->image = $name;
+        }
 
         $res =  $data->update();
         if($res)
