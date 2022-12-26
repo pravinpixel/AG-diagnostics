@@ -17,7 +17,7 @@ class CurrentOpeningSeeder extends Seeder
             'job_title' => 'TechSales Executive',
             'cityId' => '490',
             'department_id' => '1',
-            'experience' => '2 years',
+            'experience' => '2',
             'education' => 'Any Degree',
             'job_purpose' => 'This position’s main Role & Responsibility is to operate Radiology Department and conduct tests related to X-Ray/CT/MRI/OPG/MAMMO and maintenance of their respective Department.',
             'responsibilities' => 'Fastest TAT possible for every patient.',

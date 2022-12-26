@@ -11,7 +11,7 @@
 <div class="row mb-3">
     <label class="col-2 text-end col-form-label">City Id</label>
     <div class="col-10">
-        {{ Form::select('cityId', $city, null, array('class'=>'form-control', 'placeholder'=>'Please select City' )) }}
+        {{ Form::select('cityId', $city, null, array('class'=>'form-control', 'placeholder'=>'Please select City','required' )) }}
 
     </div>
 </div>
@@ -25,7 +25,7 @@
 <div class="row mb-3">
     <label class="col-2 text-end col-form-label">Experience</label>
     <div class="col-10">
-        {!! Form::text('experience', null, ['class' => 'form-control','id'=>'experience', 'autocomplete' => 'off']) !!}
+        {!! Form::number('experience', null, ['class' => 'form-control','id'=>'experience', 'autocomplete' => 'off','required']) !!}
     </div>
 </div>
 <div class="row mb-3">

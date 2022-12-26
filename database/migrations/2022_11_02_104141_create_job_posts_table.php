@@ -18,7 +18,7 @@ class CreateJobPostsTable extends Migration
             $table->string("job_title")->nullable();
             $table->string("cityId")->nullable();
             $table->integer("department_id")->nullable();
-            $table->string("experience")->nullable();
+            $table->integer("experience")->nullable();
             $table->string("education")->nullable();
             $table->longText("job_purpose")->nullable();
             $table->longText("responsibilities")->nullable();
