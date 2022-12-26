@@ -82,7 +82,18 @@ class PackagesController extends Controller
         else{
             return response()->json(['Message'=>"Data not Find"]);
         }
-        
-
+    }
+    public function homeVisitPackageList(Request $request)
+    {
+        $title = "Packages";
+        $id = $request['cityId'];
+        $name = $request['package_name'];
+        $packages = ManagePackage::where('status',1)->select('id','primaryId','packageName','packageCode','cityId','cityName'
+        ,'fees','discountFees')
+        ->where('cityId','like',"%{$id}%")
+        ->where('packageName','like',"%{$name}%")
+        ->get();
+        $package_count = count($packages);
+        return response()->json(['package_count'=>$package_count,'packages'=>$packages,'title'=>$title]);
     }
 }
