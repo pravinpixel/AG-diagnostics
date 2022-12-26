@@ -70,5 +70,19 @@ class PackagesController extends Controller
         $package_count = count($selectedPackages);
         return response()->json(['package_count'=>$package_count,'selectedPackages'=>$selectedPackages]); 
     }
-    
+    public function packageDetails($id)
+    {
+        $package_detail = ManagePackage::select('id','primaryId','packageName','packageCode','cityId','cityName'
+        ,'testLists','testSchedule','sampleType','ageRestrictions','preRequisties','reportAvailability','comments','fees','homeVisit'
+        ,'discountFees','is_selected','meta_title','meta_description','meta_keyword')->find($id);
+        if(!empty($package_detail))
+        {
+            return response()->json(['package_detail'=>$package_detail]);
+        }
+        else{
+            return response()->json(['Message'=>"Data not Find"]);
+        }
+        
+
+    }
 }
