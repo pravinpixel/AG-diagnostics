@@ -13,12 +13,12 @@
     </div>
 </div>
 
-{{-- <div class="row mb-3">
+<div class="row mb-3">
     <label class="col-2 text-end col-form-label">Story Url</label>
     <div class="col-10">
         {!! Form::text('story_url', null, ['class' => 'form-control','id'=>'story_url', 'autocomplete' => 'off']) !!}
     </div>
-</div> --}}
+</div>
 {{-- <div class="row mb-3">
     <label class="col-2 text-end col-form-label">Source *</label>
     <div class="col-10">
