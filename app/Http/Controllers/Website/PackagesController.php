@@ -67,7 +67,8 @@ class PackagesController extends Controller
         $selectedPackages = ManagePackage::where('status',1)
         ->select('id','primaryId','packageName','packageCode','cityId','cityName','testLists','testSchedule','sampleType','ageRestrictions','preRequisties','reportAvailability','comments','fees','homeVisit','discountFees','is_selected','meta_title','meta_description','meta_keyword')
         ->where('is_selected',1)->get();
-        return response()->json(['selectedPackages'=>$selectedPackages]); 
+        $package_count = count($selectedPackages);
+        return response()->json(['package_count'=>$package_count,'selectedPackages'=>$selectedPackages]); 
     }
     
 }
