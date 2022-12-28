@@ -81,7 +81,7 @@ class TestimonialController extends Controller
            }
             if($request->file)
             {
-                $filePath = 'upload/testimonial/photo';
+                $filePath = 'upload/testimonial/photo/';
                 $path = public_path($filePath); 
                 if(!file_exists($path))
                 {
@@ -96,8 +96,8 @@ class TestimonialController extends Controller
                         if($file->extension() == "png" || "jpg" || "jpeg")
                         {
                         $name = $file->getClientOriginalName();
-                        $file->move(public_path('upload/testimonial/photo'), $name);  
-                        $files = $name; 
+                        $file->move(public_path('upload/testimonial/photo/'), $name);  
+                        $files = $filePath.$name; 
                         
                         }
                 }
@@ -105,7 +105,7 @@ class TestimonialController extends Controller
             }
             if($request->video_cover_image)
             {
-                $filePath = 'upload/testimonial/video_cover_image';
+                $filePath = 'upload/testimonial/video_cover_image/';
                 $path = public_path($filePath); 
                 if(!file_exists($path))
                 {
@@ -120,8 +120,8 @@ class TestimonialController extends Controller
                         if($file->extension() == "png" || "jpg" || "jpeg")
                         {
                         $name = $file->getClientOriginalName();
-                        $file->move(public_path('upload/testimonial/video_cover_image'), $name);  
-                        $files = $name; 
+                        $file->move(public_path('upload/testimonial/video_cover_image/'), $name);  
+                        $files = $filePath.$name; 
                         
                         }
                 }
@@ -156,7 +156,7 @@ class TestimonialController extends Controller
             }
             if($request->file)
             {
-                $filePath = 'upload/testimonial/photo';
+                $filePath = 'upload/testimonial/photo/';
                 $path = public_path($filePath); 
                 if(!file_exists($path))
                 {
@@ -171,8 +171,8 @@ class TestimonialController extends Controller
                         if($file->extension() == "png" || "jpg" || "jpeg")
                         {
                         $name = $file->getClientOriginalName();
-                        $file->move(public_path('upload/testimonial/photo'), $name);  
-                        $files = $name; 
+                        $file->move(public_path('upload/testimonial/photo/'), $name);  
+                        $files = $filePath.$name; 
                         
                         }
                 }
@@ -185,7 +185,7 @@ class TestimonialController extends Controller
 
             if($request->video_cover_image)
             {
-                $filePath = 'upload/testimonial/video_cover_image';
+                $filePath = 'upload/testimonial/video_cover_image/';
                 $path = public_path($filePath); 
                 if(!file_exists($path))
                 {
@@ -200,12 +200,12 @@ class TestimonialController extends Controller
                         if($file->extension() == "png" || "jpg" || "jpeg")
                         {
                         $name = $file->getClientOriginalName();
-                        $file->move(public_path('upload/testimonial/video_cover_image'), $name);  
+                        $file->move(public_path('upload/testimonial/video_cover_image/'), $name);  
                         $files = $name; 
                         
                         }
                 }
-                $data->video_cover_image = $files;
+                $data->video_cover_image = $filePath.$files;
             }
             else{
                 $data->video_cover_image = "cover_image.png";

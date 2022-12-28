@@ -57,7 +57,7 @@
     <div class="col-5">
         @if(isset($test))
             @if($test->photo)
-            <img src="{{asset('upload/testimonial/photo').'/'.$test->photo}}" alt="No image" id="image_tag" width="100" height="100">
+            <img src="{{asset('/'.$test->photo)}}" alt="No image" id="image_tag" width="100" height="100">
             @endif
         @endif
     </div>
