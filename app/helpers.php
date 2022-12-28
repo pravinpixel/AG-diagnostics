@@ -202,7 +202,7 @@ function insertApiCityData()
   }
   function successCall()
   {
-    return response()->json(['Status'=>200,'Errors'=>true,'Message'=>'Created Success']);
+    return response()->json(['Status'=>200,'Errors'=>false,'Message'=>'Created Successfully']);
   }
   function failedCall($data)
   {
