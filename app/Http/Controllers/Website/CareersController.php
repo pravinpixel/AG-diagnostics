@@ -18,8 +18,11 @@ class CareersController extends Controller
 {
     public function getJobDetail($id)
     {
-        $jobDetail = JobPost::where('id',$id)->select('id','job_title','department_id','cityId','experience','education','job_purpose','responsibilities')
-        ->with('city')->first();
+        $jobDetail = JobPost::where('job_posts.id',$id)
+        ->select('job_posts.id','job_posts.job_title','job_posts.department_id','job_posts.experience','job_posts.education','job_posts.job_purpose','job_posts.responsibilities','cities.cityId',
+        'cities.city','cities.stateId','cities.state')
+        ->leftJoin('cities','cities.cityId','=','job_posts.cityId')
+        ->first();
         if(!empty($jobDetail))
         {
             return response()->json(['job'=>$jobDetail]);
