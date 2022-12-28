@@ -18,7 +18,7 @@ class PackagesController extends Controller
         if($user->hasAccess('user.view.packages'))
         {
         if($request->ajax()) {
-            $data = Packages::with('areas')->select('*');
+            $data = Packages::with('areas')->select('*')->orderBy('created_at','desc');
             return DataTables::eloquent($data)
                 ->addIndexColumn()  
                 ->addColumn('action', function ($data) {

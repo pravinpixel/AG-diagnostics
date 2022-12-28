@@ -19,7 +19,7 @@ class BrochureController extends Controller
         {
         if($request->ajax())
         {
-            $data = Brochure::select('*');
+            $data = Brochure::select('*')->orderBy('created_at','desc');
             return DataTables::eloquent($data)
             ->addIndexColumn()
             ->addColumn('action',function($data){
@@ -47,7 +47,6 @@ class BrochureController extends Controller
                     }
                 }
                 return $type;
-                // return $data->user->firstname.' '.$orders->user->lastname;
             })
             ->addColumn('download',function($data){
                 return '<a href="' .url('/'). '/upload/brochure/'.$data['brochure']. '" class="m-1 shadow-sm btn btn-sm text-primary btn-outline-light" title="Download" download>

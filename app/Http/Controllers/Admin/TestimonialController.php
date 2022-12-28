@@ -17,7 +17,7 @@ class TestimonialController extends Controller
         if($user->hasAccess('user.view.manage_testimonial')||$user->hasAccess('user.add.manage_testimonial'))
         {
         if($request->ajax()) {
-            $data = Testimonial::select('*');
+            $data = Testimonial::select('*')->orderBy('created_at','desc');
             return DataTables::eloquent($data)
                 ->addIndexColumn()              
                 ->addColumn('action', function ($data) {

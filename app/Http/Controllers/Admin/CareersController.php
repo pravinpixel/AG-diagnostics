@@ -18,7 +18,7 @@ class CareersController extends Controller
         if($user->hasAccess('user.view.careers'))
         {
         if ($request->ajax()) {
-            $data = Careers::with('job')->select('*');
+            $data = Careers::with('job')->select('*')->orderBy('created_at','desc');
             return DataTables::eloquent($data)
                 ->addIndexColumn()
                 ->addColumn('download', function ($data) {

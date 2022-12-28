@@ -17,9 +17,7 @@ class HomeVisitController extends Controller
         if($user->hasAccess('user.view.home_visit'))
         {
         if($request->ajax()) {
-            // $data = HomeVisit::select('home_visits.*','manage_packages.packageName as package')
-            // ->join('manage_packages','manage_packages.id','=','home_visits.packageId');
-            $data = HomeVisit::with('package')->select('*');
+            $data = HomeVisit::with('package')->select('*')->orderBy('created_at','desc');
             return DataTables::eloquent($data)
                 ->addIndexColumn()   
                 ->addColumn('action', function ($data) {
@@ -51,10 +49,6 @@ class HomeVisitController extends Controller
             {
                 return redirect()->route('contact_us.index');
             }
-            // else if($user->hasAccess('user.view.test_booking'))
-            // {
-            //     return redirect()->route('book_test.index');
-            // }
             else{
                 Flash::error( __('action.permission'));
                 return redirect()->route('admin.dashboard');
@@ -64,7 +58,6 @@ class HomeVisitController extends Controller
     public function view($id)
     {
         $data = HomeVisit::where('home_visits.id',$id)->select('home_visits.*','manage_packages.packageName as package')->join('manage_packages','manage_packages.id','=','home_visits.packageId')->first();
-        // dd($data);
         return view('admin.enquiry.home_visit.view',compact('data'));
 
     }

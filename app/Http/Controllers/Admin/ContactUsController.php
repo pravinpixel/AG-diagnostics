@@ -17,7 +17,7 @@ class ContactUsController extends Controller
         if($user->hasAccess('user.view.contact_us'))
         {
         if($request->ajax()) {
-            $data = Contact::select('*');
+            $data = Contact::select('*')->orderBy('created_at','desc');
             return DataTables::eloquent($data)
                 ->addIndexColumn()
                        

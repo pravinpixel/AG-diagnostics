@@ -17,7 +17,7 @@ class DepartmentController extends Controller
         if($user->hasAccess('user.view.department') || $user->hasAccess('user.add.department'))
         {
             if ($request->ajax()) {
-                $data = Department::select('*');
+                $data = Department::select('*')->orderBy('created_at','desc');
                 return DataTables::eloquent($data)
                     ->addIndexColumn()
     

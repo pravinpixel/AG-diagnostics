@@ -20,7 +20,7 @@ class NewsEventsController extends Controller
         if($user->hasAccess('user.view.media_news_event')||$user->hasAccess('user.add.media_news_event'))
         {
             if($request->ajax()) {
-                $data = NewsEvents::select('*');
+                $data = NewsEvents::select('*')->orderBy('created_at','desc');
                 return DataTables::eloquent($data)
                     ->addIndexColumn()              
                     ->addColumn('action', function ($data) {

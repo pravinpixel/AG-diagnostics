@@ -19,7 +19,7 @@ class FeatureController extends Controller
         if($user->hasAccess('user.view.media_gallery')||$user->hasAccess('user.add.media_gallery'))
         {
         if($request->ajax()) {
-            $data = FeatureStories::select('*');
+            $data = FeatureStories::select('*')->orderBy('created_at','desc');
             return DataTables::eloquent($data)
                 ->addIndexColumn()              
                 ->addColumn('action', function ($data) {
@@ -51,7 +51,6 @@ class FeatureController extends Controller
             else{
                 Flash::error( __('action.permission'));
                 return redirect()->route('admin.dashboard');
-                // return redirect()->back();
             }
 
         }
@@ -181,7 +180,6 @@ class FeatureController extends Controller
                             
                             }
                     }
-                //    dd($name);
             $data->status = $request->status;
             $data->pdf = $name;
             $data->save();
@@ -205,7 +203,6 @@ class FeatureController extends Controller
     }
     public function status(Request $request)
     {
-        // dd($request->all());
         $state  = FeatureStories::find($request->id);
         if($request->val == 1)
         {

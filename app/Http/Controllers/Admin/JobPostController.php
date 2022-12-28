@@ -20,7 +20,7 @@ class JobPostController extends Controller
         if($user->hasAccess('user.view.job-post') || $user->hasAccess('user.add.job-post') )
         {
         if ($request->ajax()) {
-            $data = JobPost::with('department')->with('city')->select('*');
+            $data = JobPost::with('department')->with('city')->select('*')->orderBy('created_at','desc');
             return DataTables::eloquent($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {

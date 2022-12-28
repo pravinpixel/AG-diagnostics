@@ -20,7 +20,7 @@ class CategoryController extends Controller
         {
             if($request->ajax()) {
 
-                $data = Category::select('*');
+                $data = Category::select('*')->orderBy('created_at','desc');
                
                 return DataTables::eloquent($data)
     
@@ -72,7 +72,6 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::find($id);
-        // dd("d");
         return view('admin.category.edit', compact('category'));
     }
     public function delete($id = null)
