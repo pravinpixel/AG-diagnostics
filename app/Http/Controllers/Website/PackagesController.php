@@ -54,7 +54,7 @@ class PackagesController extends Controller
         if($res)
         {
         //    return successCall();
-        return response()->json(['Status'=>200,'Errors'=>false,'Message'=>'Packages Enquiry Created Successfully']);
+        return response()->json(['Status'=>200,'Errors'=>false,'Message'=>'Package Enquiry Created Successfully']);
 
         }
         $error = 1;
