@@ -8,11 +8,16 @@ use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $test = ManageTest::where('status',1)
-        ->select('id','primaryId','testName','testCode','cityId','cityName','details','sample','container','qty','storage','method','comments','fees','homeVisit','discountFees')
+        $title = "Packages";
+        $id = $request['cityId'];
+
+        $test = ManageTest::where('status',1)->select('id','primaryId','testName','testCode','cityId','cityName','details','sample','container','qty','storage',
+        'method','comments','fees','homeVisit','discountFees')
+        ->where('cityId','like',"%{$id}%")
         ->get();
-        return response()->json(['test'=>$test]);
+        $test_count = count($test);
+        return response()->json(['test_count'=>$test_count,'test'=>$test]);
     }
 }
