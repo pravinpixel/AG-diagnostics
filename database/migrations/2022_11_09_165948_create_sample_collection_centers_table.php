@@ -18,7 +18,7 @@ class CreateSampleCollectionCentersTable extends Migration
             $table->integer("centerId");
             $table->integer("localityId")->nullable();
             $table->string("location")->nullable();
-            $table->string("timing");
+            $table->string("timing")->nullable();
             $table->longText("address");
             $table->integer("cityId");
             $table->string("city");
@@ -26,10 +26,10 @@ class CreateSampleCollectionCentersTable extends Migration
             $table->string("state");
             $table->string("phone");
             $table->string("email");
-            $table->string("latitude");
-            $table->string("longitude");
-            $table->string("googleReviewLink");
-            $table->string("whatsAppLink");
+            $table->string("latitude")->nullable();
+            $table->string("longitude")->nullable();
+            $table->string("googleReviewLink")->nullable();
+            $table->string("whatsAppLink")->nullable();
             $table->integer("status")->default(1);
             $table->softDeletes();
             $table->timestamps();
