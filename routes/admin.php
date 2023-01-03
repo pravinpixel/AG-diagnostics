@@ -249,14 +249,14 @@ Route::middleware(['auth_users'])->group(function () {
         Route::post('careers/department/delete/{id?}', [DepartmentController::class, 'delete'])->name('department.delete'); 
         Route::get('careers/department/{id}', [DepartmentController::class, 'edit'])->name('department.edit'); 
 
-        Route::get('master/brochures', [BrochureController::class, 'index'])->name('brochures.index');
-        Route::get('master/brochures/create', [BrochureController::class, 'create'])->name('brochures.create');
-        Route::get('master/brochures/{id}', [BrochureController::class, 'edit'])->name('brochures.edit'); 
-        Route::post('master/brochures/{id?}', [BrochureController::class, 'store'])->name('brochures.store');
-        Route::post('master/brochures/delete/{id?}', [BrochureController::class, 'delete'])->name('brochures.delete'); 
-        Route::get('master/brochures/status/{id}', [BrochureController::class, 'status'])->name('brochures.status');
-        Route::get('master/brochures_delete/{id}', [BrochureController::class, 'brochureDelete'])->name('brochures_delete');
-        Route::post('master/update/{id}', [BrochureController::class, 'update'])->name('brochures.update');
+        Route::get('brochures', [BrochureController::class, 'index'])->name('brochures.index');
+        Route::get('brochures/create', [BrochureController::class, 'create'])->name('brochures.create');
+        Route::get('brochures/{id}', [BrochureController::class, 'edit'])->name('brochures.edit'); 
+        Route::post('brochures/{id?}', [BrochureController::class, 'store'])->name('brochures.store');
+        Route::post('brochures/delete/{id?}', [BrochureController::class, 'delete'])->name('brochures.delete'); 
+        Route::get('brochures/status/{id}', [BrochureController::class, 'status'])->name('brochures.status');
+        Route::get('brochures_delete/{id}', [BrochureController::class, 'brochureDelete'])->name('brochures_delete');
+        Route::post('brochures/update/{id}', [BrochureController::class, 'update'])->name('brochures.update');
 
         Route::get('home-visit-area', [HomeVisitAreaController::class, 'index'])->name('home-visit-area.index');
         Route::get('home-visit-area/status/{id}', [HomeVisitAreaController::class, 'status'])->name('home-visit-area.status');

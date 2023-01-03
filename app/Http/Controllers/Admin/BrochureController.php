@@ -61,7 +61,7 @@ class BrochureController extends Controller
             ->make(true);
 
         }
-        return view('admin.master.brochures.index');
+        return view('admin.brochures.index');
         }
         else
         {
@@ -89,7 +89,7 @@ class BrochureController extends Controller
     }
     public function create()
     {
-        return view('admin.master.brochures.create');
+        return view('admin.brochures.create');
     }
     public function store(Request $request,$id=null)
     {
@@ -234,7 +234,7 @@ class BrochureController extends Controller
 
         $brochure = Brochure::find($id);
        
-        return view('admin.master.brochures.edit',compact('brochure'));
+        return view('admin.brochures.edit',compact('brochure'));
     }
     public function brochureDelete($id)
     {
@@ -243,7 +243,7 @@ class BrochureController extends Controller
         $data = $brochure->update();
         // dd($data);
         return redirect()->back();
-        return view('admin.master.brochures.edit');
+        return view('admin.brochures.edit');
     }
     public function delete($id = null)
     {

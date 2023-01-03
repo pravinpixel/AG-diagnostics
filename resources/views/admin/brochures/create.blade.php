@@ -1,4 +1,4 @@
-@extends('admin.master.layout')
+@extends('admin.brochures.layout')
 
 @section('admin_master_content')
 <style>
@@ -21,7 +21,7 @@
         <div class="card-body"> 
             {!! Form::open(['route' => 'brochures.store','class'=>'needs-validation','novalidate',  'id' => 'brochures_form', 'method'=> 'post', 'files' => true]) !!}
                 @csrf
-                @include('admin.master.brochures.form')
+                @include('admin.brochures.form')
                 <div class="row ">
                     <div class="col-10 offset-2">
                         <a href="{{ route('brochures.index') }}" class="btn btn-light">Back</a>

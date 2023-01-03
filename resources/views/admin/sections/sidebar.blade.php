@@ -63,11 +63,22 @@
         @endif
         @if($user->hasAccess('user.view.manage_country')||$user->hasAccess('user.view.manage_state')||$user->hasAccess('user.view.manage_city')|| $user->hasAccess('user.view.brochures'))
         <li>
-            <a href="{{ route('banner.index') }}" class="nav-link text-white {{ Route::is(['master.index','branch.show','area.index','area.create','area.edit','city.index','city.create','city.edit','country.index','country.create','country.edit','brochures.index','brochures.create','brochures.edit','state.index','state.create','state.edit', 'banner.edit', 'test.edit' , 'banner.create', 'banner.index']) ? "active" : "" }}">
+            <a href="{{ route('banner.index') }}" class="nav-link text-white {{ Route::is(['master.index','branch.show','area.index','area.create','area.edit','city.index','city.create','city.edit','country.index','country.create','country.edit','state.index','state.create','state.edit', 'banner.edit', 'test.edit' , 'banner.create', 'banner.index']) ? "active" : "" }}">
                 <i class="fa fa-cogs me-3"></i>Manage Master
             </a>
         </li>
         @endif
+
+
+        @if($user->hasAccess('user.view.brochures')||$user->hasAccess('user.add.brochures'))
+        <li>
+            <a href="{{ route('brochures.index') }}" class="nav-link text-white {{ Route::is(['brochures.index','brochures.create','brochures.edit']) ? "active" : "" }}">
+                <i class="fa fa-file-pdf-o me-3"></i>Brochure Upload
+            </a>
+        </li>
+        @endif
+
+
         @if($user->hasAccess('user.view.home_visit')||$user->hasAccess('user.view.packages')||$user->hasAccess('user.view.contact_us'))
         <li>
             <a href="{{ route('home_visit.index') }}" class="nav-link text-white {{ Route::is(['home_visit.index','home_visit.view','book_test.index','contact_us.index','enquiry_request_call.index','enquiry_package.index']) ? "active" : "" }}">

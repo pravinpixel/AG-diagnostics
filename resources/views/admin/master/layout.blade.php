@@ -59,14 +59,6 @@
             </a> 
         </li> --}}
         {{-- @endif --}}
-        @if($user->hasAccess('user.view.brochures')||$user->hasAccess('user.add.brochures'))
-        <li class="nav-item d-flex">
-            <a class="nav-link {{ Route::is('brochures.index','brochures.create','brochures.edit') ? "active" : "" }}" href="{{ route('brochures.index') }}">
-                <i class="fa-building fa me-2"></i>
-                Brochures 
-            </a> 
-        </li>
-        @endif
         {{-- <li class="nav-item d-flex">
             <a class="nav-link {{ Route::is('manage.index','manage.create','manage.edit') ? "active" : "" }}" href="{{ route('manage.index') }}">
                 <i class="fa-building fa me-2"></i>
