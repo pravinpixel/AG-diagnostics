@@ -9,7 +9,7 @@
         <li class="nav-item">
             <a class="nav-link {{ Route::is(['brochures.index','brochures.create','brochures.edit']) ? "active" : "" }}" href="{{ route('brochures.index') }}">
                 <i class="fa fa-picture-o me-2"></i>
-                Brochure
+                Brochures
             </a>
         </li>
         @endif
