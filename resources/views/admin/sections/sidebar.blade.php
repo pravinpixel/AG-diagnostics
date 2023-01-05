@@ -35,7 +35,7 @@
         @endif
         @if($user->hasAccess('user.view.home_visit_area')||$user->hasAccess('user.view.sample_collection'))
         <li>
-            <a href="{{ route('home-visit-area.index') }}" class="nav-link text-white {{ Route::is(['manage.index','manage.create','manage.edit','home-visit-area.index','sample-collection-center.index','sample-collection-center.view']) ? "active" : "" }}">
+            <a href="{{ route('home-visit-area.index') }}" class="nav-link text-white {{ Route::is(['manage.index','manage.create','manage.edit','home-visit-area.index','sample-collection-center.index','sample-collection-center.edit','sample-collection-center.view']) ? "active" : "" }}">
                 <i class="fa fa-thermometer-three-quarters me-4"></i>Manage Lab
             </a>
         </li>

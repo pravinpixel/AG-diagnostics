@@ -25,6 +25,7 @@ class SampleCollectionCenters extends Model
         'longitude',
         'googleReviewLink',
         'whatsAppLink',
+        'sorting_order',
         'status',
     ];
 }

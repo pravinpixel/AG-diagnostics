@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\City;
 use App\Models\Admin\SampleCollectionCenters;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
@@ -23,13 +24,16 @@ class SampleCollectionCenterController extends Controller
                 ->addColumn('action', function ($data) {
                     $user = Sentinel::getUser();
                     $delete = '';
+                    $view = '';
+                    $edit = '';
 
                     $view = button('view',route('sample-collection-center.view', $data->id));
+                    $edit = button('edit',route('sample-collection-center.edit', $data->id));
 
                     if($user->hasAccess('user.delete.sample_collection'))
                     $delete = button('delete',route('sample-collection-center.delete', $data->id));
 
-                    return $view.$delete;
+                    return $view.$edit.$delete;
                 })
                 ->addColumn('created_at', function ($data) {
                     return date('d M Y', strtotime($data['created_at']));
@@ -49,11 +53,35 @@ class SampleCollectionCenterController extends Controller
 
         }
     }
+    public function store(Request $request,$id = null)
+    {
+        $this->validate($request, [
+            'sorting_order' => 'nullable|unique:sample_collection_centers,sorting_order,'.$id.',id,deleted_at,NULL',
+        ]);
+        if($id)
+        {
+            $data = SampleCollectionCenters::where('id',$id)->first();
+
+           
+         
+            $data->sorting_order = $request->sorting_order;
+            $data->status = $request->status;
+            $data->update();
+        }
+        Flash::success( __('action.saved', ['type' => 'Sample collection center']));
+        return redirect()->route('sample-collection-center.index');
+    }
     public function view($id)
     {
         $data = SampleCollectionCenters::where('id',$id)->first();
         return view('admin.manage_lab.samplecollection.view',compact('data'));
 
+    }
+    public function edit($id = null)
+    {
+        $data = SampleCollectionCenters::where('id',$id)->first();
+        $city =City::where('status',1)->get();
+        return view('admin.manage_lab.samplecollection.edit',compact('data','city'));
     }
     public function delete($id = null)
     {

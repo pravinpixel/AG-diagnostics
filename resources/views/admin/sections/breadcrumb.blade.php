@@ -104,6 +104,7 @@
 
         {{ Route::is('home-visit-area.index') ? "Home Visit Area" : '' }}
         {{ Route::is('sample-collection-center.index') ? "Sample Collection Center List" : '' }}
+        {{ Route::is('sample-collection-center.edit') ? "Sample Collection Center Edit" : '' }}
         {{ Route::is('sample-collection-center.view') ? "Sample Collection Center List" : '' }}
 
         {{ Route::is('admin.profile') ? "Profile" : '' }}
@@ -229,6 +230,7 @@
                 {{ Route::is('home-visit-area.index') ? "Manage Lab / Home Visit Area List" : '' }}
                 {{ Route::is('sample-collection-center.index') ? "Manage Lab / Sample Collection Center List" : '' }}
                 {{ Route::is('sample-collection-center.view') ? "Manage Lab / Sample Collection Center List" : '' }}
+                {{ Route::is('sample-collection-center.edit') ? "Manage Lab / Sample Collection Center Edit" : '' }}
                 
                 
                 

@@ -24,7 +24,7 @@
     @endif 
     @if($user->hasAccess('user.view.sample_collection')||$user->hasAccess('user.delete.sample_collection'))
     <li class="nav-item d-flex">
-        <a class="nav-link {{ Route::is('sample-collection-center.index','sample-collection-center.view') ? "active" : "" }}" href="{{ route('sample-collection-center.index') }}">
+        <a class="nav-link {{ Route::is('sample-collection-center.index','sample-collection-center.view','sample-collection-center.edit') ? "active" : "" }}" href="{{ route('sample-collection-center.index') }}">
             <i class="fa-building fa me-2"></i>
             Sample Collection Center
         </a> 

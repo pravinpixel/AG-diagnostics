@@ -265,6 +265,8 @@ Route::middleware(['auth_users'])->group(function () {
 
         Route::get('sample-collection-center', [SampleCollectionCenterController::class, 'index'])->name('sample-collection-center.index');
         Route::get('sample-collection-center/view/{id}', [SampleCollectionCenterController::class, 'view'])->name('sample-collection-center.view');
+        Route::get('sample-collection-center/edit/{id?}', [SampleCollectionCenterController::class, 'edit'])->name('sample-collection-center.edit');
+        Route::post('sample-collection-center/{id?}', [SampleCollectionCenterController::class, 'store'])->name('sample-collection-center.store');
         Route::get('sample-collection-center/status/{id}', [SampleCollectionCenterController::class, 'status'])->name('sample-collection-center.status');
         Route::post('sample-collection-center/delete/{id?}', [SampleCollectionCenterController::class, 'delete'])->name('sample-collection-center.delete'); 
 
