@@ -18,6 +18,7 @@ class CreateManagePackagesTable extends Migration
             $table->integer("primaryId")->nullable();
             $table->string("packageName")->nullable();
             $table->string("packageCode")->nullable();
+            $table->string("icon")->nullable();
             $table->string("cityId")->nullable();
             $table->string("cityName")->nullable();
             $table->longText("testLists")->nullable();
@@ -34,6 +35,7 @@ class CreateManagePackagesTable extends Migration
             $table->string("meta_title")->nullable();
             $table->longText("meta_description")->nullable();
             $table->string("meta_keyword")->nullable();
+            $table->integer("sorting_order")->nullable();
             $table->integer("status")->default(0);
             $table->softDeletes();
             $table->timestamps();

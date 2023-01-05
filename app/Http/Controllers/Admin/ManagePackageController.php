@@ -69,14 +69,41 @@ class ManagePackageController extends Controller
        $condition =Condition::get()->pluck('condition', 'id');
        $test_include =ManageTest::select('testName','id')->get(); //->paginate(7)
        $city =City::where('status',1)->get();
-        // return view('admin.manage_package.create',compact('specialty','organ','condition','test_include'));
         return view('admin.manage_package.create',compact('specialty','organ','condition','test_include','city'));
     }
     public function store(Request $request,$id = null)
     {
+        $this->validate($request, [
+            'sorting_order' => 'unique:manage_packages,sorting_order,'.$id.',id,deleted_at,NULL',
+        ]);
         if($id)
         {
             $data = ManagePackage::where('id',$id)->first();
+
+            if($request->icon)
+            {
+                $filePath = 'upload/packages/'.$request->primaryId;
+                $path = public_path($filePath);
+                if(!file_exists($path)){
+                    mkdir($path,0777,true);
+                }
+                if($request->hasfile('icon')){
+                    $file = $request->icon;
+                    if($file->extension() == ('png'||'jpg'||'jpeg'))
+                    {
+                        $name = $file->getClientOriginalName();
+                        $name = str_replace(" ","_",$name);
+                        
+                        $file->move(public_path($filePath), $name);  
+                        $attachPath= public_path($filePath);
+                       
+                        $attachement =  $filePath.'/'.$name;
+                    }   
+                }
+                $data->icon = $attachement;
+            }
+         
+            $data->sorting_order = $request->sorting_order;
 
             $data->meta_title = $request->meta_title;
             $data->meta_description = $request->meta_description;
@@ -91,12 +118,30 @@ class ManagePackageController extends Controller
                 $data->is_selected = 0;
             }
             $data->update();
-           
         }
         else{
         
             $data = new ManagePackage;
-          
+            if($request->icon)
+            {
+                $filePath = 'upload/packages/'.$request->primaryId;
+                $path = public_path($filePath);
+                if(!file_exists($path)){
+                    mkdir($path,0777,true);
+                }
+                if($request->hasfile('icon')){
+                    $file = $request->icon;
+                    if($file->extension() == ('png'||'jpg'||'jpeg'))
+                    {
+                        $name = $file->getClientOriginalName();
+                        $file->move(public_path($filePath), $name);  
+                        $attachPath= public_path($filePath);
+                        $attachement =  $filePath.'/'.$name;
+                    }   
+                }
+                $data->icon = $name;
+            }
+            $data->sorting_order = $request->sorting_order;
             $data->meta_title = $request->meta_title;
             $data->meta_description = $request->meta_description;
             $data->meta_keyword = $request->meta_keyword;
@@ -139,5 +184,12 @@ class ManagePackageController extends Controller
         }
         Flash::success( __('action.status', ['type' => 'Manage Package']));
 
+    }
+    public function imageDelete($id = null)
+    {
+        $package = ManagePackage::find($id);
+        $package->icon = NULL;
+        $data = $package->update();
+        return redirect()->back();
     }
 }

@@ -13,10 +13,31 @@
     </div>
 </div>
 <div class="row mb-3">
+    <label class="col-2 text-end col-form-label">Package Icon </label>
+    <div class="col-10">
+        <input type="file" name="icon" id="icon" class="form-control" autocomplete="off" value="{{ $manage_package->icon ?? '' }}">
+    </div>
+</div>
+<div class="row mb-3 video_url">
+    {{-- <label class="col-2 text-end col-form-label">Description</label> --}}
+    <div class="col-2"></div>
+    <div class="col-5">
+        @if(isset($manage_package))
+            @if($manage_package->icon)
+            <img src="{{asset('/').$manage_package->icon}}" alt="No Image" id="image_tag" width="100" height="100">
+            <a href="{{ route('package_image_delete',$manage_package->id) }}" class="m-1 shadow-sm btn btn-sm text-primary btn-outline-light">
+                <i class="bi bi-trash-fill"></i>
+            </a>
+            @endif
+
+        @endif
+        
+    </div>
+</div>
+<div class="row mb-3">
     <label class="col-2 text-end col-form-label">Primary Id</label>
     <div class="col-10">
-        <input type="number" disabled value="{{ $manage_package->packageCode }}" name="primaryId" placeholder="Primary Id " class="form-control" required >
-
+        <input type="number" readonly value="{{ $manage_package->primaryId }}" name="primaryId" placeholder="Primary Id " class="form-control" required >
     </div>
 </div>
 <div class="row mb-3">
@@ -80,12 +101,6 @@
         <input type="text" class="form-control" id="reportAvailability" name="reportAvailability" disabled value="{{ $manage_package->reportAvailability }}" >
     </div>
 </div>
-{{-- <div class="row mb-3">
-    <label class="col-2 text-end col-form-label">Condition *</label>
-    <div class="col-10">
-        {!! Form::select('condition_id', $condition ,null, ['class' => 'form-control', 'placeholder'=>'Please Select Condition', 'autocomplete' => 'off','required']) !!}
-    </div>
-</div> --}}
 <div class="row mb-3">
     <label class="col-2 text-end col-form-label">Comments</label>
     <div class="col-10">
@@ -137,32 +152,16 @@
         {!! Form::text('meta_keyword',null, ['class' => 'form-control', 'placeholder'=>'Meta Keyword', 'autocomplete' => 'off']) !!}
     </div>
 </div>
-
-
-{{-- <div class="row mb-3">
-    <label class="col-2 text-end col-form-label">Test Include *</label>
-    <div class="col-10" id="form_checkbox">
-        @if(isset($manage_package))
-            <?php 
-            // $include = json_decode($manage_package->tests_included); 
-             ?>
-            @foreach($test_include as $key=>$val)
-            <label><input type="checkbox" name="tests_included[]"  class ="form-check-input tests_included" value="{{ $val->id }}"<?php  echo in_array($val->id,$include)? "checked" : '';?> required > {{ $val->test }}</label><br>
-            @endforeach
-        @else
-            @foreach($test_include as $key=>$val)
-            <label><input type="checkbox" name="tests_included[]" class ="form-check-input tests_included" value="{{ $val->id }}"  > {{ $val->testName }}</label><br>
-            @endforeach
-       @endif
-
+<div class="row mb-3">
+    <label class="col-2 text-end col-form-label">Sorting Order</label>
+    <div class="col-10">
+        {!! Form::text('sorting_order',null, ['class' => 'form-control', 'placeholder'=>'Sorting Order', 'autocomplete' => 'off']) !!}
     </div>
-</div> --}}
-
+</div>
 <div class="row mb-3">
     <label class="col-2 text-end col-form-label">Is Selected</label>
     <input type="hidden" name="status" value="0" checked="checked">
     <div class="col-10" >
-        {{-- {!! Form::checkbox('status',1,null, ['checked' => 'checked']) !!} --}}
         <input type="checkbox" id="is_selected" name="is_selected" value="1" @if(isset($manage_package->is_selected)&& $manage_package->is_selected == '1') checked @endif>
         
     </div>
@@ -171,7 +170,6 @@
     <label class="col-2 text-end col-form-label">Status</label>
     <input type="hidden" name="status" value="0" checked="checked">
     <div class="col-10" >
-        {{-- {!! Form::checkbox('status',1,null, ['checked' => 'checked']) !!} --}}
         @if(isset($feature))
             @if($feature->status)
                 <input type="checkbox" id="status" name="status" value="1" checked="checked">

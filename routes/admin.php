@@ -227,6 +227,7 @@ Route::middleware(['auth_users'])->group(function () {
         Route::post('manage/package/delete/{id?}', [ManagePackageController::class, 'delete'])->name('manage_package.delete'); 
         Route::get('manage/package/status/{id}', [ManagePackageController::class, 'status'])->name('manage_package.status');
         Route::get('manage/package/view/{id}', [ManagePackageController::class, 'view'])->name('manage_package.view');
+        Route::get('package_image_delete/{id}', [ManagePackageController::class, 'imageDelete'])->name('package_image_delete');
 
 
         Route::get('enquiry/careers', [CareersController::class, 'index'])->name('admin_careers.index');

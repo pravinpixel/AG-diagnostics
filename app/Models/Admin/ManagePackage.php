@@ -13,6 +13,7 @@ class ManagePackage extends Model
         'primaryId',
         'packageName',
         'packageCode',
+        'icon',
         'cityId',
         'cityName',
         'testLists',
@@ -29,6 +30,7 @@ class ManagePackage extends Model
         'meta_title',
         'meta_description',
         'meta_keyword',
+        'sorting_order',
         'status',
         'is_selected'
     ];

@@ -241,9 +241,7 @@ class BrochureController extends Controller
         $brochure = Brochure::find($id);
         $brochure->brochure = NULL;
         $data = $brochure->update();
-        // dd($data);
         return redirect()->back();
-        return view('admin.brochures.edit');
     }
     public function delete($id = null)
     {

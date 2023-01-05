@@ -145,6 +145,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'sorting_order' => [
+            'unique' => 'The sorting order has already been created'
+        ],
     ],
 
     /*

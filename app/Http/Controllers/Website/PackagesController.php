@@ -20,15 +20,27 @@ class PackagesController extends Controller
         $title = "Packages";
         $id = $request['cityId'];
         $name = $request['package_name'];
-        $packages = ManagePackage::where('status',1)->select('id','primaryId','packageName','packageCode','cityId','cityName'
+        $packages = ManagePackage::where('status',1)->select('id','primaryId','packageName','icon','packageCode','cityId','cityName'
         ,'testLists','testSchedule','sampleType','ageRestrictions','preRequisties','reportAvailability','comments','fees','homeVisit'
-        ,'discountFees','is_selected','meta_title','meta_description','meta_keyword')
+        ,'discountFees','sorting_order','is_selected','meta_title','meta_description','meta_keyword')
         ->where('cityId','like',"%{$id}%")
         ->where('packageName','like',"%{$name}%")
+        ->orderBy('sorting_order','desc')
         ->get();
         foreach($packages as $key=>$val)
         {
             $val['test_count'] = count(explode(",", $val['testLists']));
+        }
+        foreach($packages as $key=>$val)
+        {
+            if($val['icon'])
+            {
+                $val['icon'] = asset('public/'.$val['icon']);
+            }
+            else{
+                $val['icon'] = asset('public/upload/packages/default_image/package_image.png');
+            }
+          
         }
         $package_count = count($packages);
         return response()->json(['package_count'=>$package_count,'packages'=>$packages,'title'=>$title]);
