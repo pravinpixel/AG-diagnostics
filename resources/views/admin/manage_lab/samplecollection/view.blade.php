@@ -62,6 +62,9 @@
                     <tr>
                         <td>whatsAppLink:</td> <td ><a href="{{ $data['whatsAppLink'] }}" target="_blank">{{ $data['whatsAppLink'] }}</a></td>
                     </tr>
+                    <tr>
+                        <td>Sorting Order:</td> <td ><a href="{{ $data['sorting_order'] }}" target="_blank">{{ $data['sorting_order'] }}</a></td>
+                    </tr>
                    
                     <tr>
                         <td>  </td>
