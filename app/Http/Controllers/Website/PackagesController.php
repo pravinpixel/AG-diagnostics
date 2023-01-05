@@ -113,9 +113,10 @@ class PackagesController extends Controller
         $id = $request['cityId'];
         $name = $request['package_name'];
         $packages = ManagePackage::where('status',1)->select('id','primaryId','packageName','packageCode','cityId','cityName'
-        ,'fees','discountFees')
+        ,'fees','discountFees','sorting_order')
         ->where('cityId','like',"%{$id}%")
         ->where('packageName','like',"%{$name}%")
+        ->orderBy('sorting_order','asc')
         ->get();
         $package_count = count($packages);
         return response()->json(['package_count'=>$package_count,'packages'=>$packages,'title'=>$title]);
