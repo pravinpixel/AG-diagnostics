@@ -81,6 +81,9 @@
                     <tr>
                         <td>Meta Keyword :</td> <td>{{ $data['meta_keyword'] }}</td>
                     </tr>
+                    <tr>
+                        <td>Sorting Order :</td> <td>{{ $data['sorting_order'] }}</td>
+                    </tr>
 
                     <tr>
                         <td>  </td>

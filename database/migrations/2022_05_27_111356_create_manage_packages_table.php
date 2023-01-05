@@ -35,7 +35,7 @@ class CreateManagePackagesTable extends Migration
             $table->string("meta_title")->nullable();
             $table->longText("meta_description")->nullable();
             $table->string("meta_keyword")->nullable();
-            $table->integer("sorting_order")->nullable();
+            $table->integer("sorting_order")->nullable()->unique();
             $table->integer("status")->default(0);
             $table->softDeletes();
             $table->timestamps();

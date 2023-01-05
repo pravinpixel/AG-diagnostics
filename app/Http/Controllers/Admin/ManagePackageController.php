@@ -74,7 +74,7 @@ class ManagePackageController extends Controller
     public function store(Request $request,$id = null)
     {
         $this->validate($request, [
-            'sorting_order' => 'unique:manage_packages,sorting_order,'.$id.',id,deleted_at,NULL',
+            'sorting_order' => 'nullable|unique:manage_packages,sorting_order,'.$id.',id,deleted_at,NULL',
         ]);
         if($id)
         {
@@ -93,7 +93,7 @@ class ManagePackageController extends Controller
                     {
                         $name = $file->getClientOriginalName();
                         $name = str_replace(" ","_",$name);
-                        
+
                         $file->move(public_path($filePath), $name);  
                         $attachPath= public_path($filePath);
                        
