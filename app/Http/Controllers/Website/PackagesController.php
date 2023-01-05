@@ -25,7 +25,7 @@ class PackagesController extends Controller
         ,'discountFees','sorting_order','is_selected','meta_title','meta_description','meta_keyword')
         ->where('cityId','like',"%{$id}%")
         ->where('packageName','like',"%{$name}%")
-        ->orderBy('sorting_order','desc')
+        ->orderBy('sorting_order','asc')
         ->get();
         foreach($packages as $key=>$val)
         {
