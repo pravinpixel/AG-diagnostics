@@ -49,7 +49,7 @@
                     {data: 'DT_RowIndex', name: 'id',orderable: false, searchable: false},
                     {data:"job_title", name : "job_title"},
                     {data:"city.city", name : "city.city"},
-                    {data:"department.name", name : "department.name"},
+                    {data:"department_name", name : "department_name"},
                     {data:"experience", name : "experience"},
                     {data:"education", name : "education"},
                     {data:"posts", name : "posts"},

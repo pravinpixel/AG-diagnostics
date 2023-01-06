@@ -1,4 +1,4 @@
-@extends('admin.manage_package.layout')
+@extends('admin.manage_career.layout')
 
 @section('admin_master_content')
 <style>

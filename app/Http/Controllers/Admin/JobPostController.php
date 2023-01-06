@@ -20,7 +20,9 @@ class JobPostController extends Controller
         if($user->hasAccess('user.view.job-post') || $user->hasAccess('user.add.job-post') )
         {
         if ($request->ajax()) {
-            $data = JobPost::with('department')->with('city')->select('*')->orderBy('created_at','desc');
+            $data = JobPost::with('city')
+            ->leftJoin('departments','departments.id','=','job_posts.department_id')
+            ->select('job_posts.*','departments.name as department_name')->orderBy('created_at','desc');
             return DataTables::eloquent($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
@@ -36,6 +38,16 @@ class JobPostController extends Controller
                     return $edit.$delete;
 
                 })
+                ->editColumn('department_name', function ($data) {
+                    if($data->department_name == "")
+                    {
+                        return $department_name = "";
+                    }
+                   else{
+                    return $department_name = $data->department_name;
+                   }
+                })
+                
                 ->addColumn('created_at', function ($data) {
                     return date('d M Y', strtotime($data['created_at']));
                 })
