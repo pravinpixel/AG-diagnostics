@@ -22,6 +22,7 @@ class CreateJobPostsTable extends Migration
             $table->string("education")->nullable();
             $table->longText("job_purpose")->nullable();
             $table->longText("responsibilities")->nullable();
+            $table->string("posts")->nullable();
             $table->integer("status")->default(0);
             $table->softDeletes();
             $table->timestamps();

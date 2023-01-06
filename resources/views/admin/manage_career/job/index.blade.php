@@ -25,6 +25,7 @@
                         <th>Department</th>
                         <th>Experience </th>
                         <th>Education</th>
+                        <th>Number Vacancies</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -51,6 +52,7 @@
                     {data:"department.name", name : "department.name"},
                     {data:"experience", name : "experience"},
                     {data:"education", name : "education"},
+                    {data:"posts", name : "posts"},
                     {data:"status", name : "status",orderable: false},
                     {data:"action", name : "action",orderable: false},
                 ],

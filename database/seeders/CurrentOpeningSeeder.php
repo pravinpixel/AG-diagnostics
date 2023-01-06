@@ -21,7 +21,8 @@ class CurrentOpeningSeeder extends Seeder
             'education' => 'Any Degree',
             'job_purpose' => 'This position’s main Role & Responsibility is to operate Radiology Department and conduct tests related to X-Ray/CT/MRI/OPG/MAMMO and maintenance of their respective Department.',
             'responsibilities' => 'Fastest TAT possible for every patient.',
-            'Status' => '1',
+            'posts' => '1',
+            'status' => '1',
         ]);
        
     }

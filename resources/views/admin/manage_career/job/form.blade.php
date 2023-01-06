@@ -42,6 +42,12 @@
     </div>
 </div>
 <div class="row mb-3">
+    <label class="col-2 text-end col-form-label">Number Vacancies </label>
+    <div class="col-10">
+        {!! Form::text('posts', null, ['class' => 'form-control','id'=>'posts', 'autocomplete' => 'off']) !!}
+    </div>
+</div>
+<div class="row mb-3">
     <label class="col-2 text-end col-form-label">Responsibilities</label>
     <div class="col-10">
         <div class="form-group">

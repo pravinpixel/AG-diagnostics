@@ -85,6 +85,7 @@ class JobPostController extends Controller
             $data->education = $request->education;
             $data->job_purpose = $request->job_purpose;
             $data->responsibilities = $request->responsibilities;
+            $data->posts = $request->posts;
             $data->status = $request->status;
             $res =  $data->update();
            
@@ -98,6 +99,7 @@ class JobPostController extends Controller
             $data->education = $request->education;
             $data->job_purpose = $request->job_purpose;
             $data->responsibilities = $request->responsibilities;
+            $data->posts = $request->posts;
             $data->status = $request->status;
             $res =  $data->save();
         }
