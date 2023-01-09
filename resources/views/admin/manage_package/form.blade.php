@@ -127,7 +127,7 @@
 <div class="row mb-3">
     <label class="col-2 text-end col-form-label">Discount Fees</label>
     <div class="col-10">
-        <input type="text" class="form-control" id="discountFees" name="discountFees" value="{{ $manage_package->discountFees }}" disabled >
+        <input type="text" class="form-control" id="discountFees" name="discountFees" value="{{ $manage_package->discountFees }}" >
     </div>
 </div>
 
