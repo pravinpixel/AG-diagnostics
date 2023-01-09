@@ -104,7 +104,7 @@ class ManagePackageController extends Controller
             }
          
             $data->sorting_order = $request->sorting_order;
-
+            $data->discountFees = $request->discountFees;
             $data->meta_title = $request->meta_title;
             $data->meta_description = $request->meta_description;
             $data->meta_keyword = $request->meta_keyword;
@@ -142,6 +142,7 @@ class ManagePackageController extends Controller
                 $data->icon = $name;
             }
             $data->sorting_order = $request->sorting_order;
+            $data->discountFees = $request->discountFees;
             $data->meta_title = $request->meta_title;
             $data->meta_description = $request->meta_description;
             $data->meta_keyword = $request->meta_keyword;
