@@ -28,6 +28,7 @@ class ContactUsMail extends Mailable
     public function build()
     {
         return $this->from('example@example.com')->with('details', $this->details)
-                ->view('website.email.contact_us');
+                ->subject('Contact us')
+                ->view('admin.email.contact_us');
     }
 }

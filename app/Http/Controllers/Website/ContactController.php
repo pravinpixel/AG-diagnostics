@@ -40,7 +40,23 @@ class ContactController extends Controller
         $res = $data->save();
         if($res)
         {
-        //    return successCall();
+            $details = [
+             
+                'name'          =>$requests->name,
+                'email'         =>$requests->email,
+                'mobile'        =>$requests->phone,
+                'message'       =>$requests->message,
+                
+            ];
+            try{
+                $sent_mail = "info@agdiagnostics.com";
+                // $sent_mail = "santhoshd.pixel@gmail.com";
+
+                Mail::to($sent_mail)->send(new ContactUsMail($details));
+            }catch(\Exception $e){
+                $message = 'Thanks for reach us, our team will get back to you shortly. Please setup your <a href="setting/mail_setting">mail setting</a> to send mail.';
+                return response()->json(['Status'=>200,'Errors'=>false,'Message'=>$message]);
+            }
         return response()->json(['Status'=>200,'Errors'=>false,'Message'=>'Thanks for reach us, our team will get back to you shortly']);
 
         }
