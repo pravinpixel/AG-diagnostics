@@ -12,7 +12,7 @@
                         <td>Email:</td> <td>{{ $details['email'] }}</td>
                     </tr>
                     <tr>
-                        <td>Address:</td> <td>{{ $details['message'] }}</td>
+                        <td>Message:</td> <td>{{ $details['message'] }}</td>
                     </tr>
                  
                 </tbody>

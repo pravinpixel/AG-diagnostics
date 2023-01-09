@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Website\Careers;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CareersMail;
-use App\Mail\CareersAdminMail;
 use App\Models\Admin\JobPost;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\Facades\DataTables;
@@ -83,7 +82,27 @@ class CareersController extends Controller
         $res = $data->save();
     if($res)
         {
-            // return successCall();
+            $jobData  = JobPost::find($request->job_id);
+            $details = [
+                'name'                  =>$request->name,
+                'email'                 =>$request->email,
+                'phone'                 =>$request->phone,
+                'job'                   =>$jobData['job_title'],
+                'address'               =>$request->address,
+                'location'              =>$request->location,
+                'total_experience'      =>$request->total_experience,
+                'cover_letter'          =>$request->cover_letter,
+                
+            ];
+            try{
+                $sent_mail = "info@agdiagnostics.com";
+                // $sent_mail = "santhoshd.pixel@gmail.com";
+
+                Mail::to($sent_mail)->send(new CareersMail($details));
+            }catch(\Exception $e){
+                $message = 'Thanks for reach us, our team will get back to you shortly. Please setup your <a href="setting/mail_setting">mail setting</a> to send mail.';
+                return response()->json(['Status'=>200,'Errors'=>false,'Message'=>$message]);
+            }
             return response()->json(['Status'=>200,'Errors'=>false,'Message'=>'Thank you for Applying']);
 
         }
