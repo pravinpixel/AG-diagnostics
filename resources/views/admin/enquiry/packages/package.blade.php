@@ -16,6 +16,7 @@
                     <tr>
                         <th>S.No </th>
                         <th>Date</th>
+                        <th>Package Name</th>
                         <th>Full Name</th>
                         <th>Mobile</th>
                         <th>Email</th>
@@ -41,6 +42,7 @@
                 columns: [
                     {data: 'DT_RowIndex', name: 'id',orderable: false, searchable: false},
                     {data:"created_at", name : "created_at"},
+                    {data:"package_data.packageName", name : "package_data.packageName"},
                     {data:"name", name : "name"},
                     {data:"mobile", name : "mobile"},
                     {data:"email", name : "email"},
