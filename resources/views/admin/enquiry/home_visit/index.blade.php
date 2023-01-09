@@ -15,18 +15,10 @@
                 <thead> 
                     <tr>
                         <th>S.No </th>
-                        <th>Package</th>
-                        <th>Title</th>
                         <th>First Name</th>
-                        <th>Last Name</th>
                         <th>Mobile</th>
                         <th>Email</th>
-                        <th>Gender</th>
-                        <th>DOB </th>
-                        <th>Address</th>
-                        {{-- <th>Date</th> --}}
-                        {{-- <th>Timing</th> --}}
-                        {{-- <th>Status</th> --}}
+                        <th>Date</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -47,17 +39,11 @@
                 ajax: "{{ route('home_visit.index') }}",
                 columns: [
                     {data: 'DT_RowIndex', name: 'id',orderable: false, searchable: false},
-                    {data:"package.packageName", name : "package.packageName"},
-                    {data:"title", name : "title"},
                     {data:"first_name", name : "first_name"},
-                    {data:"last_name", name : "last_name"},
                     {data:"mobile", name : "mobile"},
                     {data:"email", name : "email"},
-                    {data:"gender", name : "gender"},
-                    {data:"dob", name : "dob"},
                     {data:"date", name : "date"},
                     {data:"action", name : "action"},
-                    
                 ],
             });
         });

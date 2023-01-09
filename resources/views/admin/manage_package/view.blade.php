@@ -40,6 +40,16 @@
                         <td>testSchedule:</td> <td>{{ $data['testSchedule'] }}</td>
                     </tr>
                     <tr>
+                        <td>Icon:</td> 
+                        <td>
+                            @if($data['icon'])
+                            <img src="{{asset('/').$data->icon}}" alt="No Image" id="image_tag" width="100" height="100">
+                            @else
+                            <img src="{{asset('/upload/packages/default_image/package_image.png')}}" alt="No Image" id="image_tag" width="100" height="100">
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
                         <td>sampleType:</td> <td>{{ $data['sampleType'] }}</td>
                     </tr>
                     <tr>

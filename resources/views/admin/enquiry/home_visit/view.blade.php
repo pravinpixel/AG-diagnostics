@@ -13,22 +13,65 @@
             
               <table class="table table-bordered table-centered m-0 tr-sm table-hover" id="data-table">
                 
-            {{-- <thead class="row">  --}}
-              
+           
                    
                 <tbody>
                     
                     <tr>
-                        <td>Package:</td> <td>{{ $data['package'] }}</td>
+                        <td>Package Name:</td> 
+                        <td>
+                            <table class="table table-striped" style="max-width:60%">
+                                <tbody> 
+                            <?php
+                            if(!empty($data['packageName']))
+                            {
+                                foreach($data['packageName'] as $key =>$title)
+                                {
+                                    ?>
+                                    <tr>
+                                        <?php echo $title ?>
+                                    </tr>
+                                    <?php
+                                }
+                            }
+                            else{
+                                echo "-";
+                            }
+                            ?>
+                                </tbody>
+                            </table>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Title:</td> <td>{{ $data['title'] }}</td>
+                        <td> Test Name:</td> 
+                            <td>
+                                
+                                <table class="table table-striped" style="max-width:60%">
+                                    <tbody> 
+                            <?php
+                            if(!empty($data['testName']))
+                            {
+                                foreach($data['testName'] as $key =>$title)
+                                {
+                                    ?>
+                                    <tr>
+                                        <?php echo $title ?>
+                                    </tr>
+                                   <?php
+                                }
+                            }
+                            else{
+                                echo "-";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                        </td>
                     </tr>
+
+
                     <tr>
                         <td>First Name:</td> <td>{{ $data['first_name'] }}</td>
-                    </tr>
-                    <tr>
-                        <td>Last Name:</td> <td>{{ $data['last_name'] }}</td>
                     </tr>
                     <tr>
                         <td>Mobile:</td> <td>{{ $data['mobile'] }}</td>
@@ -37,19 +80,19 @@
                         <td>Email:</td> <td>{{ $data['email'] }}</td>
                     </tr>
                     <tr>
-                        <td>Gender:</td> <td>{{ $data['gender'] }}</td>
-                    </tr>
-                    <tr>
-                        <td>DOB:</td> <td>{{ $data['dob'] }}</td>
-                    </tr>
-                    <tr>
                         <td>Address:</td> <td>{{ $data['address'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>City:</td> <td>{{ $data['city'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Area:</td> <td>{{ $data['area'] }}</td>
                     </tr>
                     <tr>
                         <td>Date:</td> <td>{{ $data['date'] }}</td>
                     </tr>
                     <tr>
-                        <td>Timing:</td> <td>{{ $data['timing'] }}</td>
+                        <td>Remark:</td> <td>{{ $data['remark'] }}</td>
                     </tr>
                     <tr>
                         <td>  </td>

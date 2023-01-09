@@ -27,7 +27,6 @@ class HomeVisitMail extends Mailable
      */
     public function build()
     {
-        return $this->from('example@example.com')->with('details', $this->details)
-                ->view('website.email.home_visit');
+        return $this->from('example@example.com')->markdown('admin.email.home_visit')->with('details', $this->details);
     }
 }

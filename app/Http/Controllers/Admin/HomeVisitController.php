@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\HomeVisit;
+use App\Models\Admin\HomeVisitArea;
+use App\Models\Admin\ManagePackage;
+use App\Models\Admin\ManageTest;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\Facades\DataTables;
@@ -57,9 +60,76 @@ class HomeVisitController extends Controller
     }
     public function view($id)
     {
-        $data = HomeVisit::where('home_visits.id',$id)->select('home_visits.*','manage_packages.packageName as package')->join('manage_packages','manage_packages.id','=','home_visits.packageId')->first();
-        return view('admin.enquiry.home_visit.view',compact('data'));
+        $data = HomeVisit::where('home_visits.id',$id)
+        ->first();
+        $packageName            = [];
+        $testName               = [];
+        $packageAmount          = '';
+        $testAmount             = '';
+        $location               = '';
+        
+        $package_split_data = str_replace(["[","]"],"",$data['packageId']);
+        $package_explode_data = explode(",",$package_split_data);
+        foreach($package_explode_data as $key=>$val)
+        {
+            $package_exploade_id = (explode(":",$val));
+            $package_data= ManagePackage::select('manage_packages.packageName')->find($package_exploade_id[0]);
+            array_push($packageName,"<td>".$package_data['packageName']."</td><td style='text-align:right'>".$package_exploade_id[1]." ₹ </td>");
+        };
 
+
+        $test_split_data = str_replace(["[","]"],"",$data['title']);
+        $test_explode_data = explode(",",$test_split_data);
+        foreach($test_explode_data as $key=>$val)
+        {
+            $test_exploade_id = (explode(":",$val));
+            $test_data= ManageTest::select('manage_tests.testName')->find($test_exploade_id[0]);
+            array_push($testName,"<td>".$test_data['testName']."</td><td style='text-align:right'>".$test_exploade_id[1].' ₹ </td>');
+        };
+
+
+        // dd($testName);
+        // die();
+        // if($data['packageId'] != null)
+        // {
+        //     $packageId  = json_decode($data['packageId']);
+
+        //     foreach($packageId as $key =>$val)
+        //     {
+        //         $package_data= ManagePackage::select('manage_packages.packageName')->find($val);
+        //         array_push($packageName,$package_data['packageName']);
+        //     }
+        // }
+
+        // if($data['title'] != null)
+        // {
+        //     $testId  = json_decode($data['title']);
+
+        //     foreach($testId as $key =>$val)
+        //     {
+        //         $test_data= ManageTest::select('manage_tests.testName')->find($val);
+        //         array_push($testName,$test_data['testName']);
+        //     }
+        // }
+        // if(!empty($data['package_amount']))
+        // {
+        //     $packageAmount  = json_decode($data['package_amount']);
+        // }
+        // if(!empty($data['test_amount']))
+        // {
+        //     $testAmount  = json_decode($data['test_amount']);
+        // }
+        if($data->cityId)
+        {
+            $location = HomeVisitArea::select('area','city')->where('areaId',$data->areaId)->where('cityId',$data->cityId)->first();
+        }
+        $data ['packageName'] = $packageName;
+        $data ['testName'] = $testName;
+        $data ['packageAmount'] = $packageAmount;
+        $data ['testAmount'] = $testAmount;
+        $data ['city'] = $location['city'];
+        $data ['area'] = $location['area'];
+        return view('admin.enquiry.home_visit.view',compact('data'));
     }
     public function delete($id = null)
     {
