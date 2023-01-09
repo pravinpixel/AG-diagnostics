@@ -28,7 +28,7 @@ class PackagesMail extends Mailable
      */
     public function build()
     {
-        return $this->from('example@example.com')->with('details', $this->details)
-        ->view('website.email.packages');
+        return $this->from('example@example.com') ->subject('Package Enquiry')->with('details', $this->details)
+        ->view('admin.email.packages');
     }
 }

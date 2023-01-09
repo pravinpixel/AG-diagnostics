@@ -65,8 +65,25 @@ class PackagesController extends Controller
         $res = $data->save();
         if($res)
         {
-        //    return successCall();
-        return response()->json(['Status'=>200,'Errors'=>false,'Message'=>'Package Enquiry Created Successfully']);
+            $package_data = ManagePackage::find($request->packageId);
+            $details = [
+                'packageName'   => $package_data['packageName'],
+                'name'          =>$request->name,
+                'mobile'        =>$request->mobile,
+                'email'         =>$request->email,
+                'message'       =>$request->message,
+                
+            ];
+            
+            try{
+                $sent_mail = "info@agdiagnostics.com";
+                // $sent_mail = "santhoshd.pixel@gmail.com";
+                Mail::to($sent_mail)->send(new PackagesMail($details));
+            }catch(\Exception $e){
+                $message = 'Data inserted successfully. Please setup your <a href="setting/mail_setting">mail setting</a> to send mail.';
+                return response()->json(['Status'=>200,'Errors'=>false,'Message'=>$message]);
+            }
+            return response()->json(['Status'=>200,'Errors'=>false,'Message'=>'Package Enquiry Created Successfully']);
 
         }
         $error = 1;

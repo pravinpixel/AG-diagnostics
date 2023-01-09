@@ -141,7 +141,7 @@ class HomeVisitController extends Controller
                 
             ];
             try{
-                $sent_mail = "santhoshd.pixel@gmail.com";
+                $sent_mail = "info@agdiagnostics.com";
                 Mail::to($sent_mail)->send(new HomeVisitMail($details));
             }catch(\Exception $e){
                 $message = 'Data inserted successfully. Please setup your <a href="setting/mail_setting">mail setting</a> to send mail.';
