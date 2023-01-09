@@ -80,7 +80,7 @@ class PackagesController extends Controller
                 // $sent_mail = "santhoshd.pixel@gmail.com";
                 Mail::to($sent_mail)->send(new PackagesMail($details));
             }catch(\Exception $e){
-                $message = 'Data inserted successfully. Please setup your <a href="setting/mail_setting">mail setting</a> to send mail.';
+                $message = 'Package Enquiry Created Successfully. Please setup your <a href="setting/mail_setting">mail setting</a> to send mail.';
                 return response()->json(['Status'=>200,'Errors'=>false,'Message'=>$message]);
             }
             return response()->json(['Status'=>200,'Errors'=>false,'Message'=>'Package Enquiry Created Successfully']);
