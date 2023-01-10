@@ -18,10 +18,9 @@ class PackagesController extends Controller
         if($user->hasAccess('user.view.packages'))
         {
         if($request->ajax()) {
-            $data = Packages::with('packageData')
-            ->select('*')
-            ->orderBy('created_at','desc');
-            return DataTables::eloquent($data)
+            $data = Packages::with('package_data')->select('*')
+            ->orderBy('packages.created_at','desc');
+            return DataTables::eloquent($data)         
                 ->addIndexColumn()  
                 ->addColumn('action', function ($data) {
                     $user = Sentinel::getUser();

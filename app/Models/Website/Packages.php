@@ -23,10 +23,10 @@ class Packages extends Model
     // {
     //     return $this->belongsTo(Area::class,'area_id','id');
     // }
-    public function packageData()
+    public function package_data()
     {
         return $this->belongsTo(ManagePackage::class,'packageId','id')
-        ->select('primaryId','packageName','id');
+        ->select('primaryId','packageName','id','packageCode');
     }
    
 }
