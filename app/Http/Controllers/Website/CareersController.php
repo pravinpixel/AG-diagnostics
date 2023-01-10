@@ -93,8 +93,8 @@ class CareersController extends Controller
                 
             ];
             try{
-                // $sent_mail = "info@agdiagnostics.com";
-                $sent_mail = "santhoshd.pixel@gmail.com";
+                $sent_mail = "info@agdiagnostics.com";
+                // $sent_mail = "santhoshd.pixel@gmail.com";
 
                 Mail::to($sent_mail)->send(new CareersMail($details));
             }catch(\Exception $e){
