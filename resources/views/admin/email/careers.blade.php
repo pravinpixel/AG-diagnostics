@@ -21,9 +21,6 @@
                         <td>Location:</td> <td>{{ $details['location'] }}</td>
                     </tr>
                     <tr>
-                        <td>Total Experience:</td> <td>{{ $details['total_experience'] }}</td>
-                    </tr>
-                    <tr>
                         <td>Cover Letter:</td> <td>{{ $details['cover_letter'] }}</td>
                     </tr>
                     

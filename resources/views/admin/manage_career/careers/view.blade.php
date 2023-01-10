@@ -39,7 +39,7 @@
                             </a></td>
                     </tr>
                     <tr>
-                        <td>Total Experience:</td> <td>{{ $data['total_experience'] }}</td>
+                        <td>Address:</td> <td>{{ $data['address'] }}</td>
                     </tr>
                     <tr>
                         <td>Location:</td> <td>{{ $data['location'] }}</td>

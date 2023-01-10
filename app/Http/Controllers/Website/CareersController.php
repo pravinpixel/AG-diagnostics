@@ -47,13 +47,12 @@ class CareersController extends Controller
         }
 
         $data = new Careers;
-        $data->name = $request->name;
-        $data->phone = $request->phone;
-        $data->email = $request->email;
         $data->job_id = $request->job_id;
-        // $data->address = $request->address;
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->phone = $request->phone;
+        $data->address = $request->address;
         $data->location = $request->location;
-        $data->total_experience = $request->total_experience;
         $data->cover_letter = $request->cover_letter;
         
         if($request->file)
@@ -90,13 +89,12 @@ class CareersController extends Controller
                 'job'                   =>$jobData['job_title'],
                 'address'               =>$request->address,
                 'location'              =>$request->location,
-                'total_experience'      =>$request->total_experience,
                 'cover_letter'          =>$request->cover_letter,
                 
             ];
             try{
-                $sent_mail = "info@agdiagnostics.com";
-                // $sent_mail = "santhoshd.pixel@gmail.com";
+                // $sent_mail = "info@agdiagnostics.com";
+                $sent_mail = "santhoshd.pixel@gmail.com";
 
                 Mail::to($sent_mail)->send(new CareersMail($details));
             }catch(\Exception $e){
