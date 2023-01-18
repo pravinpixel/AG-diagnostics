@@ -111,8 +111,12 @@ class PackagesController extends Controller
         {
             if($val['icon'])
             {
-            $val['icon'] = asset('public/'.$val['icon']);
+                $val['icon'] = asset('public/'.$val['icon']);
             }
+            else{
+                $val['icon'] = asset('public/upload/packages/default_image/package_image.png');
+            }
+          
         }
         $package_count = count($selectedPackages);
         return response()->json(['package_count'=>$package_count,'selectedPackages'=>$selectedPackages]); 
@@ -123,13 +127,20 @@ class PackagesController extends Controller
         ,'testLists','testSchedule','sampleType','ageRestrictions','preRequisties','reportAvailability','comments','fees','homeVisit'
         ,'discountFees','is_selected','meta_title','meta_description','meta_keyword')->find($id);
         $package_detail['test_count'] = count(explode(",", $package_detail['testLists']));
+        if($package_detail['icon'])
+        {
+            $package_detail['icon'] = asset('public/'.$package_detail['icon']);
+        }
+        else{
+            $package_detail['icon'] = asset('public/upload/packages/default_image/package_image.png');
+        }
         if(!empty($package_detail))
         {
             return response()->json(['package_detail'=>$package_detail]);
         }
         else{
             return response()->json(['Message'=>"Data not Find"]);
-        }
+        }      
     }
     public function homeVisitPackageList(Request $request)
     {
@@ -142,6 +153,17 @@ class PackagesController extends Controller
         ->where('packageName','like',"%{$name}%")
         ->orderBy('sorting_order','asc')
         ->get();
+        foreach($packages as $key=>$val)
+        {
+            if($val['icon'])
+            {
+                $val['icon'] = asset('public/'.$val['icon']);
+            }
+            else{
+                $val['icon'] = asset('public/upload/packages/default_image/package_image.png');
+            }
+          
+        }
         $package_count = count($packages);
         return response()->json(['package_count'=>$package_count,'packages'=>$packages,'title'=>$title]);
     }
