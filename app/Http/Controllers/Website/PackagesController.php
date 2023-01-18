@@ -129,7 +129,7 @@ class PackagesController extends Controller
         $title = "Packages";
         $id = $request['cityId'];
         $name = $request['package_name'];
-        $packages = ManagePackage::where('status',1)->select('id','primaryId','packageName','packageCode','cityId','cityName'
+        $packages = ManagePackage::where('status',1)->select('id','primaryId','icon','packageName','packageCode','cityId','cityName'
         ,'fees','discountFees','sorting_order')
         ->where('cityId','like',"%{$id}%")
         ->where('packageName','like',"%{$name}%")
