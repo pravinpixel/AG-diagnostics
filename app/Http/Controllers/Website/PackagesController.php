@@ -96,7 +96,7 @@ class PackagesController extends Controller
         $title = "Packages";
         $id = $request['cityId'];
         $selectedPackages = ManagePackage::where('status',1)
-        ->select('id','primaryId','packageName','packageCode','cityId','cityName','testLists','testSchedule','sampleType','ageRestrictions',
+        ->select('id','primaryId','packageName','icon','packageCode','cityId','cityName','testLists','testSchedule','sampleType','ageRestrictions',
         'preRequisties','reportAvailability','comments','fees','homeVisit','discountFees','is_selected','meta_title',
         'meta_description','meta_keyword','sorting_order')
         ->where('is_selected',1)
@@ -112,7 +112,7 @@ class PackagesController extends Controller
     }
     public function packageDetails($id)
     {
-        $package_detail = ManagePackage::select('id','primaryId','packageName','packageCode','cityId','cityName'
+        $package_detail = ManagePackage::select('id','primaryId','icon','packageName','packageCode','cityId','cityName'
         ,'testLists','testSchedule','sampleType','ageRestrictions','preRequisties','reportAvailability','comments','fees','homeVisit'
         ,'discountFees','is_selected','meta_title','meta_description','meta_keyword')->find($id);
         $package_detail['test_count'] = count(explode(",", $package_detail['testLists']));
