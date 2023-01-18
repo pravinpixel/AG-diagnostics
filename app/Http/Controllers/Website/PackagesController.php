@@ -107,6 +107,13 @@ class PackagesController extends Controller
         {
             $val['test_count'] = count(explode(",", $val['testLists']));
         }
+        foreach($selectedPackages as $key=>$val)
+        {
+            if($val['icon'])
+            {
+            $val['icon'] = asset('public/'.$val['icon']);
+            }
+        }
         $package_count = count($selectedPackages);
         return response()->json(['package_count'=>$package_count,'selectedPackages'=>$selectedPackages]); 
     }
