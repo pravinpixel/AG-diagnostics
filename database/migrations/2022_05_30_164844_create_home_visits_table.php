@@ -15,8 +15,8 @@ class CreateHomeVisitsTable extends Migration
     {
         Schema::create('home_visits', function (Blueprint $table) {
             $table->id();
-            $table->string("packageId")->nullable();
-            $table->string("title")->nullable();
+            $table->longText("packageId")->nullable();
+            $table->longText("title")->nullable();
             $table->string("cityId")->nullable();
             $table->string("areaId")->nullable();
             $table->string("first_name")->nullable();
