@@ -39,7 +39,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth_users'])->group(function () {
 
-    Route::group(['prefix' => 'admin'], function(){
+    // Route::group(['prefix' => 'admin'], function(){
  
         Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
@@ -212,7 +212,7 @@ Route::middleware(['auth_users'])->group(function () {
         Route::post('manage/test/delete/{id?}', [ManageTestController::class, 'delete'])->name('manage_test.delete'); 
         Route::get('manage/test/status/{id}', [ManageTestController::class, 'status'])->name('manage_test.status');
 
-        Route::get('testimonial', [TestimonialController::class, 'index'])->name('testimonial.index');
+        // Route::get('testimonial', [TestimonialController::class, 'index'])->name('testimonial.index');
         Route::get('testimonial/create', [TestimonialController::class, 'create'])->name('testimonial.create');
         Route::get('testimonial/{id}', [TestimonialController::class, 'edit'])->name('testimonial.edit'); 
         Route::post('testimonial/store/{id?}', [TestimonialController::class, 'store'])->name('testimonial.store');
@@ -259,7 +259,7 @@ Route::middleware(['auth_users'])->group(function () {
         Route::get('brochures_delete/{id}', [BrochureController::class, 'brochureDelete'])->name('brochures_delete');
         Route::post('brochures/update/{id}', [BrochureController::class, 'update'])->name('brochures.update');
 
-        Route::get('home-visit-area', [HomeVisitAreaController::class, 'index'])->name('home-visit-area.index');
+        // Route::get('home-visit-area', [HomeVisitAreaController::class, 'index'])->name('home-visit-area.index');
         Route::get('home-visit-area/status/{id}', [HomeVisitAreaController::class, 'status'])->name('home-visit-area.status');
         Route::post('home-visit-area/delete/{id?}', [HomeVisitAreaController::class, 'delete'])->name('home-visit-area.delete'); 
 
@@ -270,5 +270,5 @@ Route::middleware(['auth_users'])->group(function () {
         Route::get('sample-collection-center/status/{id}', [SampleCollectionCenterController::class, 'status'])->name('sample-collection-center.status');
         Route::post('sample-collection-center/delete/{id?}', [SampleCollectionCenterController::class, 'delete'])->name('sample-collection-center.delete'); 
 
-    }); 
+    // }); 
 });

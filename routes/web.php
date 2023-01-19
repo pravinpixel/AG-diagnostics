@@ -5,6 +5,9 @@ include 'api.php';
 // include 'website.php';
 
 use Illuminate\Support\Facades\Route; 
+use App\Http\Controllers\Admin\HomeVisitAreaController;
+use App\Http\Controllers\Admin\TestimonialController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +23,10 @@ use Illuminate\Support\Facades\Route;
 //     return redirect('/login');
 // }); 
 
-
-Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['auth_users']], function () {
-    \UniSharp\LaravelFilemanager\Lfm::routes();
+// Route::group([ 'middleware' => ['auth_users']], function () {
+Route::middleware(['auth_users'])->group(function () {
+    Route::get('home-visit-area', [HomeVisitAreaController::class, 'index'])->name('home-visit-area.index');
+    Route::get('testimonial', [TestimonialController::class, 'index'])->name('testimonial.index');
+    
+    // \UniSharp\LaravelFilemanager\Lfm::routes();
 });
