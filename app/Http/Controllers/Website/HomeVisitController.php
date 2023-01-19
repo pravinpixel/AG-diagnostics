@@ -24,6 +24,8 @@ class HomeVisitController extends Controller
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string',
             'date' => 'required',
+            'cityId' =>'required',
+            'areaId' =>'required',
             'mobile' => 'required|numeric|digits:10',
         ]);
         if ($validator->fails()) {
