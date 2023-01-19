@@ -12,7 +12,8 @@
                             <?php
                             if(!empty($details['packageName']))
                             {
-                                foreach($details['packageName'] as $key =>$title)
+                                $data = json_decode($details['packageName']);
+                                foreach($data as $key =>$title)
                                 {
                                     ?>
                                     <tr>
@@ -38,7 +39,8 @@
                                         <?php
                                         if(!empty($details['test']))
                                         {
-                                            foreach($details['test'] as $key =>$title)
+                                            $data = json_decode($details['test']);
+                                            foreach($data as $key =>$title)
                                             {
                                                 ?>
                                                 <tr>
