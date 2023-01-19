@@ -46,13 +46,13 @@ class HomeVisitController extends Controller
         $data->remark               = $request->remark ;
         if(!empty($request['packageId'])){
         $packageName        = [];
-        $package_split_data = str_replace(["[","]"],"",$request['packageId']);
-        $package_explode_data = explode(",",$package_split_data);
+        // $package_split_data = str_replace(["[","]"],"",$request['packageId']);
+        $package_explode_data = explode(",",$request['packageId']);
         foreach($package_explode_data as $key=>$val)
         {
-            $package_exploade_id = (explode(":",$val));
-            $package_data= ManagePackage::select('manage_packages.packageName')->find($package_exploade_id[0]);
-            array_push($packageName,"<td>".$package_data['packageName']."</td><td style='text-align:right'>".$package_exploade_id[1]." ₹ </td>");
+            // $package_exploade_id = (explode(":",$val));
+            $package_data= ManagePackage::select('packageName','fees')->find($val);
+            array_push($packageName,"<td>".$package_data['packageName']."</td><td style='text-align:right'>".$package_data['fees']." ₹ </td>");
         };
         $packageName = json_encode($packageName);
         $data->packageId       = $packageName;
@@ -62,21 +62,20 @@ class HomeVisitController extends Controller
 
         $testName          = [];
 
-        $test_split_data = str_replace(["[","]"],"",$request['title']);
-        $test_explode_data = explode(",",$test_split_data);
+        // $test_split_data = str_replace(["[","]"],"",$request['title']);
+        // $test_explode_data = explode(",",$test_split_data);
+        $test_explode_data = explode(",",$request['title']);
         foreach($test_explode_data as $key=>$val)
         {
-            $test_exploade_id = (explode(":",$val));
-            
-            $test_data= ManageTest::select('manage_tests.testName')->find($test_exploade_id[0]);
-            array_push($testName,"<td>".$test_data['testName']."</td><td style='text-align:right'>".$test_exploade_id[1]." ₹ </td>");
+            // $test_exploade_id = (explode(":",$val));
+            // $test_data= ManageTest::select('manage_tests.testName')->find($test_exploade_id[0]);
+            $test_data= ManageTest::select('testName','fees')->find($val);
+            array_push($testName,"<td>".$test_data['testName']."</td><td style='text-align:right'>".$test_data['fees']." ₹ </td>");
         }
         $testName = json_encode($testName);
         $data->title       = $testName;
     }
     $res = $data->save();
-
-
             if($request->cityId)
             {
                 $location = HomeVisitArea::where('cityId',$request->cityId)
@@ -102,7 +101,6 @@ class HomeVisitController extends Controller
                 'remark'        =>$request->remark,
                 'city'          =>$location['city'],
                 'area'          =>$location['area'],
-                
             ];
             try{
                 // $sent_mail = "info@agdiagnostics.com";
