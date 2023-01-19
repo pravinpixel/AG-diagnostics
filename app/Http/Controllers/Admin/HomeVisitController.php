@@ -67,58 +67,42 @@ class HomeVisitController extends Controller
         $packageAmount          = '';
         $testAmount             = '';
         $location               = '';
+        // dd(json_decode($data['packageId']));
         
-        $package_split_data = str_replace(["[","]"],"",$data['packageId']);
-        $package_explode_data = explode(",",$package_split_data);
-        foreach($package_explode_data as $key=>$val)
+        // $package_split_data = str_replace(["[","]"],"",$data['packageId']);
+        // $package_explode_data = explode(",",$package_split_data);
+        if(empty($data['packageId']))
         {
-            $package_exploade_id = (explode(":",$val));
-            $package_data= ManagePackage::select('manage_packages.packageName')->find($package_exploade_id[0]);
-            array_push($packageName,"<td>".$package_data['packageName']."</td><td style='text-align:right'>".$package_exploade_id[1]." ₹ </td>");
-        };
-
-
-        $test_split_data = str_replace(["[","]"],"",$data['title']);
-        $test_explode_data = explode(",",$test_split_data);
-        foreach($test_explode_data as $key=>$val)
+            $packageName = '';
+        }else{
+            $packageName = json_decode($data['packageId']);
+        }
+        if(empty($data['title']))
         {
-            $test_exploade_id = (explode(":",$val));
-            $test_data= ManageTest::select('manage_tests.testName')->find($test_exploade_id[0]);
-            array_push($testName,"<td>".$test_data['testName']."</td><td style='text-align:right'>".$test_exploade_id[1].' ₹ </td>');
-        };
-
-
-        // dd($testName);
-        // die();
-        // if($data['packageId'] != null)
+            $testName = '';
+        }else{
+            $testName = json_decode($data['title']);
+        }
+        
+     
+        // foreach($package_explode_data as $key=>$val)
         // {
-        //     $packageId  = json_decode($data['packageId']);
+        //     $package_exploade_id = (explode(":",$val));
+        //     $package_data= ManagePackage::select('manage_packages.packageName')->find($package_exploade_id[0]);
+        //     array_push($packageName,"<td>".$package_data['packageName']."</td><td style='text-align:right'>".$package_exploade_id[1]." ₹ </td>");
+        // };
 
-        //     foreach($packageId as $key =>$val)
-        //     {
-        //         $package_data= ManagePackage::select('manage_packages.packageName')->find($val);
-        //         array_push($packageName,$package_data['packageName']);
-        //     }
-        // }
 
-        // if($data['title'] != null)
+        // $test_split_data = str_replace(["[","]"],"",$data['title']);
+        // $test_explode_data = explode(",",$test_split_data);
+        // foreach($test_explode_data as $key=>$val)
         // {
-        //     $testId  = json_decode($data['title']);
+        //     $test_exploade_id = (explode(":",$val));
+        //     $test_data= ManageTest::select('manage_tests.testName')->find($test_exploade_id[0]);
+        //     array_push($testName,"<td>".$test_data['testName']."</td><td style='text-align:right'>".$test_exploade_id[1].' ₹ </td>');
+        // };
 
-        //     foreach($testId as $key =>$val)
-        //     {
-        //         $test_data= ManageTest::select('manage_tests.testName')->find($val);
-        //         array_push($testName,$test_data['testName']);
-        //     }
-        // }
-        // if(!empty($data['package_amount']))
-        // {
-        //     $packageAmount  = json_decode($data['package_amount']);
-        // }
-        // if(!empty($data['test_amount']))
-        // {
-        //     $testAmount  = json_decode($data['test_amount']);
-        // }
+
         if($data->cityId)
         {
             $location = HomeVisitArea::select('area','city')->where('areaId',$data->areaId)->where('cityId',$data->cityId)->first();
@@ -129,6 +113,7 @@ class HomeVisitController extends Controller
         $data ['testAmount'] = $testAmount;
         $data ['city'] = $location['city'];
         $data ['area'] = $location['area'];
+        // dd($data);
         return view('admin.enquiry.home_visit.view',compact('data'));
     }
     public function delete($id = null)

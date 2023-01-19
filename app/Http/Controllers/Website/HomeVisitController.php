@@ -44,7 +44,6 @@ class HomeVisitController extends Controller
         $data->remark               = $request->remark ;
         if(!empty($request['packageId'])){
         $packageName        = [];
-        $testName          = [];
         $package_split_data = str_replace(["[","]"],"",$request['packageId']);
         $package_explode_data = explode(",",$package_split_data);
         foreach($package_explode_data as $key=>$val)
@@ -53,26 +52,23 @@ class HomeVisitController extends Controller
             $package_data= ManagePackage::select('manage_packages.packageName')->find($package_exploade_id[0]);
             array_push($packageName,"<td>".$package_data['packageName']."</td><td style='text-align:right'>".$package_exploade_id[1]." ₹ </td>");
         };
-
-       
-        // dd($packageName);
         $packageName = json_encode($packageName);
         $data->packageId       = $packageName;
-       
 
     }
     if(!empty($request['title'])){
+
+        $testName          = [];
 
         $test_split_data = str_replace(["[","]"],"",$request['title']);
         $test_explode_data = explode(",",$test_split_data);
         foreach($test_explode_data as $key=>$val)
         {
-            
             $test_exploade_id = (explode(":",$val));
             
             $test_data= ManageTest::select('manage_tests.testName')->find($test_exploade_id[0]);
             array_push($testName,"<td>".$test_data['testName']."</td><td style='text-align:right'>".$test_exploade_id[1]." ₹ </td>");
-        };
+        }
         $testName = json_encode($testName);
         $data->title       = $testName;
     }
