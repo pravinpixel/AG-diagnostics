@@ -14,11 +14,39 @@ class BannerSeeder extends Seeder
     public function run()
     {
         DB::table('banners')->insert([
-            'Title' => 'Banner1',
-            'Content' => 'Test content',
+            'Title' => 'Banner 1',
+            'Content' => 'Banner 1',
             'Url' => '',
-            'DesktopImage' => 'upload/files/mobile_images/dummy.jpg',
-            'MobileImage' => 'upload/files/desktop_images/dummy.jpg',
+            'OrderBy' => '1',
+            'DesktopImage' => 'upload/files/desktop_images/Banner-1.webp',
+            'MobileImage' => 'upload/files/mobile_images/Banner-Mobile1.webp',
+            'Status' => '1',
+        ]);
+        DB::table('banners')->insert([
+            'Title' => 'Banner 2',
+            'Content' => 'Banner 2',
+            'Url' => '',
+            'OrderBy' => '2',
+            'DesktopImage' => 'upload/files/desktop_images/Banner-2.webp',
+            'MobileImage' => 'upload/files/mobile_images/Banner-Mobile2.webp',
+            'Status' => '1',
+        ]);
+        DB::table('banners')->insert([
+            'Title' => 'Banner 3',
+            'Content' => 'Banner 3',
+            'Url' => '',
+            'OrderBy' => '3',
+            'DesktopImage' => 'upload/files/desktop_images/Banner-3.webp',
+            'MobileImage' => 'upload/files/mobile_images/Banner-Mobile3.webp',
+            'Status' => '1',
+        ]);
+        DB::table('banners')->insert([
+            'Title' => 'Banner 4',
+            'Content' => 'Banner 4',
+            'Url' => '',
+            'OrderBy' => '4',
+            'DesktopImage' => 'upload/files/desktop_images/Banner-4.webp',
+            'MobileImage' => 'upload/files/mobile_images/Banner-Mobile4.webp',
             'Status' => '1',
         ]);
     }
