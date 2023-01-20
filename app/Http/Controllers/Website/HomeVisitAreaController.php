@@ -9,9 +9,16 @@ use Illuminate\Http\Request;
 
 class HomeVisitAreaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-       $data = HomeVisitArea::where('status',1)->select('id','areaId','area','cityId','city','stateId','state')->get();
-       return response()->json(['data'=>$data]);
+        $cityId = $request['cityId'];
+
+       $data = HomeVisitArea::where('status',1)
+       ->select('id','areaId','area','cityId','city','stateId','state')
+       ->where('cityId','like',"%{$cityId}%")
+       ->get();
+       $test_count = count($data);
+
+       return response()->json(['count'=>$test_count,'data'=>$data]);
     }
 }

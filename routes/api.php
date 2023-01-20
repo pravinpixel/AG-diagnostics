@@ -44,7 +44,7 @@ Route::post('/find-a-lab', [SampleCollectionCenterController::class, 'index'])->
 // Route::post('/find-lab-filter', [SampleCollectionCenterController::class, 'findLabFilter'])->name('find-lab-filter');
 
 
-Route::get('/home-visit-area', [HomeVisitAreaController::class, 'index'])->name('home-visit-area');
+Route::post('/home-visit-area', [HomeVisitAreaController::class, 'index'])->name('home-visit-area');
 Route::get('/city', [CityController::class, 'index'])->name('city');
 Route::get('/current-opening', [CurrentOpeningController::class,'index'])->name('current-opening');
 
