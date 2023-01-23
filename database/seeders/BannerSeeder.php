@@ -49,5 +49,6 @@ class BannerSeeder extends Seeder
             'MobileImage' => 'upload/files/mobile_images/Banner-Mobile4.webp',
             'Status' => '1',
         ]);
+        // 11
     }
 }
