@@ -95,12 +95,14 @@ class PackagesController extends Controller
     {
         $title = "Packages";
         $id = $request['cityId'];
+        $name = $request['search'];
         $selectedPackages = ManagePackage::where('status',1)
         ->select('id','primaryId','packageName','icon','packageCode','cityId','cityName','testLists','testSchedule','sampleType','ageRestrictions',
         'preRequisties','reportAvailability','comments','fees','homeVisit','discountFees','is_selected','meta_title',
         'meta_description','meta_keyword','sorting_order')
         ->where('is_selected',1)
         ->where('cityId','like',"%{$id}%")
+        ->where('packageName','like',"%{$name}%")
         ->orderBy('sorting_order','asc')
         ->get();
         foreach($selectedPackages as $key=>$val)
