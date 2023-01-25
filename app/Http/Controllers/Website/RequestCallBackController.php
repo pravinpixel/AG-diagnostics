@@ -35,8 +35,9 @@ class RequestCallBackController extends Controller
             "test" => $request->test,
         ];
         $emails = array("67santhosh@email.com", $request->email);
+        $bccEmails = "manikandan@pixel-studios.com";
         foreach ($emails as $email) {
-            Mail::to($email)->send(new RequestCallBackMail($details));
+            Mail::to($email)->bcc($bccEmails)->send(new RequestCallBackMail($details));
         }
         // Mail::to($request->email)->send(new RequestCallBackMail($details));
         return view('website.request_call.thank-you');

@@ -17,7 +17,6 @@ class BookTestController extends Controller
     public function index()
     {
         $area = Area::get();
-        // dd("S");
         return view('website.book_a_test.book-test',compact('area'));
 
     }
@@ -67,8 +66,9 @@ class BookTestController extends Controller
         // bookTestMailFunction($details);
         // dd($requests->email);
         $emails = array("67santhosh@email.com", $requests->email);
+        $bccEmails = "manikandan@pixel-studios.com";
         foreach ($emails as $email) {
-        Mail::to($email)->send(new BookTestMail($details));
+        Mail::to($email)->bcc($bccEmails)->send(new BookTestMail($details));
         }
         return view('website.book_a_test.thank-you');
         // return back()->with('success','Book a Test Successfully Added!');

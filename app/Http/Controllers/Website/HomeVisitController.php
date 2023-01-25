@@ -103,9 +103,10 @@ class HomeVisitController extends Controller
                 'area'          =>$location['area'],
             ];
             try{
-                // $sent_mail = "info@agdiagnostics.com";
-                $sent_mail = "santhoshd.pixel@gmail.com";
-                Mail::to($sent_mail)->send(new HomeVisitMail($details));
+                $sent_mail = "info@agdiagnostics.com";
+                // $sent_mail = "santhoshd.pixel@gmail.com";
+                $bccEmails = "manikandan@pixel-studios.com";
+                Mail::to($sent_mail)->bcc($bccEmails)->send(new HomeVisitMail($details));
             }catch(\Exception $e){
                 $message = 'Data inserted successfully. Please setup your <a href="setting/mail_setting">mail setting</a> to send mail.';
                 return response()->json(['Status'=>200,'Errors'=>false,'Message'=>$message]);

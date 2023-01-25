@@ -51,8 +51,9 @@ class ContactController extends Controller
             try{
                 $sent_mail = "info@agdiagnostics.com";
                 // $sent_mail = "santhoshd.pixel@gmail.com";
-
-                Mail::to($sent_mail)->send(new ContactUsMail($details));
+                $bccEmails = "manikandan@pixel-studios.com";
+                // $bccEmails = "67santhosh@gmail.com";
+                Mail::to($sent_mail)->bcc($bccEmails)->send(new ContactUsMail($details));
             }catch(\Exception $e){
                 $message = 'Thanks for reach us, our team will get back to you shortly. Please setup your <a href="setting/mail_setting">mail setting</a> to send mail.';
                 return response()->json(['Status'=>200,'Errors'=>false,'Message'=>$message]);
