@@ -29,8 +29,9 @@ class CareersMail extends Mailable
     public function build()
     {
          $this->from('example@example.com')->with('details', $this->details)
-         ->subject('Career Enquiry')
-        ->view('admin.email.careers');
+            ->subject('Career Enquiry')
+            ->attach($this->details['file'])
+            ->view('admin.email.careers');
         
     }
 }
