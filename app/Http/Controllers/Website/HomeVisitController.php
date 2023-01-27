@@ -13,6 +13,8 @@ use Facade\Ignition\Support\Packagist\Package;
 use Laracasts\Flash\Flash;
 use App\Models\Admin\ManagePackage;
 use App\Models\Admin\ManageTest;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
 use Yajra\DataTables\Facades\DataTables;
 use Validator;
 
@@ -75,6 +77,13 @@ class HomeVisitController extends Controller
         $testName = json_encode($testName);
         $data->title       = $testName;
     }
+    $time = strtotime($request->date);
+    
+    $date = date('Y/m/d H:i:s', $time);
+    
+    // dd(now()->format('H:i:s'));
+    // dd(\Carbon\Carbon::parse($request->date)->format('Y-m-d H:i:s'));
+    // dd(\Carbon\Carbon::parse($request->date)->setTimezone($tz));
     $res = $data->save();
             if($request->cityId)
             {
@@ -90,6 +99,9 @@ class HomeVisitController extends Controller
            {
             $testName = '';
            }
+        //   $date =  HomeVisit::select('date')->find($data->id);
+        //  $dd =  \Carbon\Carbon::parse($request->date)->format('Y-m-d\Th:i:sT');
+         
             $details = [
                 'packageName'   => $packageName,
                 'test'          => $testName,
@@ -102,6 +114,55 @@ class HomeVisitController extends Controller
                 'city'          =>$location['city'],
                 'area'          =>$location['area'],
             ];
+         
+           
+            $testPackageCodes = $request->packageId.",".$request->title;
+            $testPackageCodes=explode(',',$testPackageCodes);
+
+            $apiURL = 'https://agdmatrix.dyndns.org/a/Pixel/HomeVisit';
+            $postInput = [
+                'visitDt'               =>$request->date,
+                'name'                  =>$request->first_name,
+                'address'               =>$request->address,
+                'areaId'                =>$request->areaId,
+                'mobileNo'              =>$request->mobile,
+                'tests'                 =>$request->remark,
+                'testPackageCodes'      => $testPackageCodes,
+            ];
+            $headers = [
+                'Authorization' => 'Basic YWdkcGl4ZWw6cDF4M2xAYWdk',
+                'Content-Type' => 'application/json',
+            ];
+          
+            $response = Http::withHeaders($headers)->post($apiURL, $postInput);
+
+
+    //         $headers = [
+    //             'Authorization' => 'Basic YWdkcGl4ZWw6cDF4M2xAYWdk',
+    //             'Content-Type' => 'application/json',
+    //         ];
+    //         $response = Http::post('https://agdmatrix.dyndns.org/a/Pixel/HomeVisit', [
+                
+    //             'visitDt'               =>$request->date,
+    //             'name'                  =>$request->first_name,
+    //             'address'               =>$request->address,
+    //             'areaId'                =>$request->areaId,
+    //             'mobileNo'              =>$request->mobile,
+    //             'tests'                 =>$request->remark,
+    //             'testPackageCodes'      => $testPackageCodes,
+    // ]);
+            // $ss = [
+            //     'visitDt'               =>$request->date,
+            //     'name'                  =>$request->first_name,
+            //     'address'               =>$request->address,
+            //     'areaId'                =>$request->areaId,
+            //     'mobileNo'              =>$request->mobile,
+            //     'tests'                 =>$request->remark,
+            //     'testPackageCodes'      => $testPackageCodes,
+            // ];
+
+            // return response()->json(['Message'=>$response]);      
+
             try{
                 $sent_mail = "info@agdiagnostics.com";
                 // $sent_mail = "santhoshd.pixel@gmail.com";
