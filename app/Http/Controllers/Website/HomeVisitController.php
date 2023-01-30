@@ -149,6 +149,7 @@ class HomeVisitController extends Controller
                 'testPackageCodes'      => $testPackageCodes,
             ];
             $apiResponse = clientApiDataPass($postInput);
+            dd( $apiResponse);
             try{
                 $sent_mail = "info@agdiagnostics.com";
                 // $sent_mail = "santhoshd.pixel@gmail.com";
@@ -158,7 +159,7 @@ class HomeVisitController extends Controller
                 $message = 'Data inserted successfully. Please setup your <a href="setting/mail_setting">mail setting</a> to send mail.';
                 return response()->json(['Status'=>200,'Errors'=>false,'Message'=>$message]);
             }
-          
+         
 
             return response()->json(['Status'=>200,'Errors'=>false,'Message'=>'Home Visit Booked Successfully']);       
         $error = 1;
