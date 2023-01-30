@@ -134,7 +134,7 @@ class HomeVisitController extends Controller
                 'tests'                 =>$request->remark,
                 'testPackageCodes'      => $testPackageCodes,
             ];
-            // dd($postInput);
+            dd($postInput);
             $headers = [
                 'Authorization' => 'Basic YWdkcGl4ZWw6cDF4M2xAYWdk',
                 'Content-Type' => 'application/json',
