@@ -115,10 +115,15 @@ class HomeVisitController extends Controller
                 'area'          =>$location['area'],
             ];
          
-           
+           if(!empty($request->packageId) || !empty($request->title) ){
             $testPackageCodes = $request->packageId.",".$request->title;
             $testPackageCodes=explode(',',$testPackageCodes);
-
+            $testPackageCodes=array_filter($testPackageCodes);
+           }
+           else{
+            $testPackageCodes= "";
+           }
+           
             $apiURL = 'https://agdmatrix.dyndns.org/a/Pixel/HomeVisit';
             $postInput = [
                 'visitDt'               =>$request->date,
@@ -136,6 +141,7 @@ class HomeVisitController extends Controller
             ];
           
             $response = Http::withHeaders($headers)->post($apiURL, $postInput);
+            dd($response);
 
 
     //         $headers = [
@@ -172,7 +178,6 @@ class HomeVisitController extends Controller
                 $message = 'Data inserted successfully. Please setup your <a href="setting/mail_setting">mail setting</a> to send mail.';
                 return response()->json(['Status'=>200,'Errors'=>false,'Message'=>$message]);
             }
- dd($response);
 
             return response()->json(['Status'=>200,'Errors'=>false,'Message'=>'Home Visit Booked Successfully']);       
         $error = 1;
