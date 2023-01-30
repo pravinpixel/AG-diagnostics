@@ -134,7 +134,7 @@ class HomeVisitController extends Controller
                 'tests'                 =>$request->remark,
                 'testPackageCodes'      => $testPackageCodes,
             ];
-            // dd($postInput);
+            dd($postInput);
             $headers = [
                 'Authorization' => 'Basic YWdkcGl4ZWw6cDF4M2xAYWdk',
                 'Content-Type' => 'application/json',
@@ -177,7 +177,7 @@ class HomeVisitController extends Controller
                 $message = 'Data inserted successfully. Please setup your <a href="setting/mail_setting">mail setting</a> to send mail.';
                 return response()->json(['Status'=>200,'Errors'=>false,'Message'=>$message]);
             }
-            dd($response);
+            // dd($response);
 
             return response()->json(['Status'=>200,'Errors'=>false,'Message'=>'Home Visit Booked Successfully']);       
         $error = 1;
