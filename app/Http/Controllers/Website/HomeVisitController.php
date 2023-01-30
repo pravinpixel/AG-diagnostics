@@ -123,25 +123,39 @@ class HomeVisitController extends Controller
            else{
             $testPackageCodes= "";
            }
+           if(empty($request->remark))
+           {
+            $tests = "";
+           }
+           else{
+            $tests = $request->remark;
+           }
+           if(empty($request->address))
+           {
+            $address = "";
+           }
+           else{
+            $address = $request->address;
+           }
            
             $apiURL = 'https://agdmatrix.dyndns.org/a/Pixel/HomeVisit';
             $postInput = [
                 'visitDt'               =>$request->date,
                 'name'                  =>$request->first_name,
-                'address'               =>$request->address,
+                'address'               =>$address,
                 'areaId'                =>$request->areaId,
                 'mobileNo'              =>$request->mobile,
-                'tests'                 =>$request->remark,
+                'tests'                 =>$tests,
                 'testPackageCodes'      => $testPackageCodes,
             ];
-            // dd($postInput);
+            dd($postInput);
             $headers = [
                 'Authorization' => 'Basic YWdkcGl4ZWw6cDF4M2xAYWdk',
                 'Content-Type' => 'application/json',
             ];
           
             $response = Http::withHeaders($headers)->post($apiURL, $postInput);
-return response()->json(['message'=>$response]);
+            return response()->json(['message'=>$response]);
             // dd($response);
     //         $headers = [
     //             'Authorization' => 'Basic YWdkcGl4ZWw6cDF4M2xAYWdk',
