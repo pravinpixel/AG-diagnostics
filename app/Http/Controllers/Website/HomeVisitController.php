@@ -114,16 +114,22 @@ class HomeVisitController extends Controller
                 'city'          =>$location['city'],
                 'area'          =>$location['area'],
             ];
-           
+      
            if(!empty($request->packageId) || !empty($request->title) ){
-            $testPackageCodes = $request->packageId.",".$request->title;
+            if(!empty($request->packageId) && !empty($request->title))
+            {
+                $testPackageCodes = ($request->packageId.",".$request->title);
+            }
+            else{
+                $testPackageCodes = ($request->packageId.$request->title);
+            }
             $testPackageCodes=explode(',',$testPackageCodes);
             $testPackageCodes=array_filter($testPackageCodes);
            }
            else{
             $testPackageCodes= null;
            }
-        //    dd($testPackageCodes);
+            //    dd($testPackageCodes);
            if(empty($request->remark))
            {
             $tests = "";
@@ -149,7 +155,6 @@ class HomeVisitController extends Controller
                 'tests'                 =>$tests,
                 'testPackageCodes'      => $testPackageCodes,
             ];
-            // dd($postInput);
             $apiResponse = clientApiDataPass($postInput);
             // dd($apiResponse);
             try{
