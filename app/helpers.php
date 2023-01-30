@@ -138,6 +138,15 @@ function insertApiCityData()
       }
       return "Packages data save successfully";
   }
+
+  function clientApiDataPass($data)
+  {
+    $apiURL = 'https://agdmatrix.dyndns.org/a/Pixel/HomeVisit';
+ 
+    $response = Http::withBasicAuth('agdpixel', 'p1x3l@agd')->post($apiURL, $data);
+    return $response;
+  }
+
   function insertApiHomeVisitAreaData()
   {
       $key ='agdpixel';

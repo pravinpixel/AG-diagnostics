@@ -148,40 +148,7 @@ class HomeVisitController extends Controller
                 'tests'                 =>$tests,
                 'testPackageCodes'      => $testPackageCodes,
             ];
-            dd($postInput);
-            $headers = [
-                'Authorization' => 'Basic YWdkcGl4ZWw6cDF4M2xAYWdk',
-                'Content-Type' => 'application/json',
-            ];
-          
-            $response = Http::withHeaders($headers)->post($apiURL, $postInput);
-            return response()->json(['message'=>$response]);
-            // dd($response);
-    //         $headers = [
-    //             'Authorization' => 'Basic YWdkcGl4ZWw6cDF4M2xAYWdk',
-    //             'Content-Type' => 'application/json',
-    //         ];
-    //         $response = Http::post('https://agdmatrix.dyndns.org/a/Pixel/HomeVisit', [
-                
-    //             'visitDt'               =>$request->date,
-    //             'name'                  =>$request->first_name,
-    //             'address'               =>$request->address,
-    //             'areaId'                =>$request->areaId,
-    //             'mobileNo'              =>$request->mobile,
-    //             'tests'                 =>$request->remark,
-    //             'testPackageCodes'      => $testPackageCodes,
-    // ]);
-            // $ss = [
-            //     'visitDt'               =>$request->date,
-            //     'name'                  =>$request->first_name,
-            //     'address'               =>$request->address,
-            //     'areaId'                =>$request->areaId,
-            //     'mobileNo'              =>$request->mobile,
-            //     'tests'                 =>$request->remark,
-            //     'testPackageCodes'      => $testPackageCodes,
-            // ];
-            // return response()->json(['Message'=>$response]);      
-
+            $apiResponse = clientApiDataPass($postInput);
             try{
                 $sent_mail = "info@agdiagnostics.com";
                 // $sent_mail = "santhoshd.pixel@gmail.com";
