@@ -143,7 +143,7 @@ function insertApiCityData()
   {
     $apiURL = 'https://agdmatrix.dyndns.org/a/Pixel/HomeVisit';
  
-    $response = Http::withBasicAuth('agdpixel', 'p1x3l@agd')->post($apiURL, $data);
+    $response = Http::withToken('token')->withBasicAuth('agdpixel', 'p1x3l@agd')->post($apiURL, $data);
     return $response;
   }
 
