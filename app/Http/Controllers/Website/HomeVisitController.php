@@ -149,7 +149,7 @@ class HomeVisitController extends Controller
                 'testPackageCodes'      => $testPackageCodes,
             ];
             $apiResponse = clientApiDataPass($postInput);
-            // dd( $apiResponse);
+            dd( $apiResponse);
             try{
                 $sent_mail = "info@agdiagnostics.com";
                 // $sent_mail = "santhoshd.pixel@gmail.com";
