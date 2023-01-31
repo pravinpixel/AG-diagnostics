@@ -28,9 +28,9 @@ class Kernel extends ConsoleKernel
             insertApiPackagesData();
             insertApiHomeVisitAreaData();
             insertApiSampleCollectionCentersData();
-            // info("Test call");
+            info("Test call");
             Log::info("Test Run");
-        })->daily();
+        })->hourly();
     }
 
     /**
