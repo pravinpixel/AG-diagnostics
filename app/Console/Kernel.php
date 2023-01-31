@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
             insertApiSampleCollectionCentersData();
             info("Test call");
             Log::info("Test Run");
-        })->hourly();
+        })->everyMinute();
     }
 
     /**
