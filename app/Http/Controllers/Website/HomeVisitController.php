@@ -23,6 +23,7 @@ class HomeVisitController extends Controller
     
     public function store(Request $request)
     {
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string',
             'date' => 'required',
@@ -114,38 +115,47 @@ class HomeVisitController extends Controller
                 'city'          =>$location['city'],
                 'area'          =>$location['area'],
             ];
-      
-           if(!empty($request->packageId) || !empty($request->title) ){
-            if(!empty($request->packageId) && !empty($request->title))
+
+            $packageArrayData= [];
+            $testArrayData= [];
+            if(!empty($request->packageId))
             {
-                $testPackageCodes = ($request->packageId.",".$request->title);
+                $package_code = explode(',',$request->packageId);
+                $packageCodeArray = ManagePackage::whereIn('id',$package_code)->select('packageCode')->get();
+                foreach($packageCodeArray as $key=>$val){
+                    $packageArrayData[] = $val['packageCode'];
+                }
             }
-            else{
-                $testPackageCodes = ($request->packageId.$request->title);
+            if(!empty($request->title))
+            {
+                $test_code = explode(',',$request->title);
+                $testCodeArray = ManageTest::whereIn('id',$test_code)->select('testCode')->get();
+                foreach($testCodeArray as $key=>$val){
+                    $testArrayData[] = $val['testCode'];
+                }
+
             }
-            $testPackageCodes=explode(',',$testPackageCodes);
-            $testPackageCodes=array_filter($testPackageCodes);
-           }
-           else{
+
+           if(!empty($packageArrayData) || !empty($testArrayData) ){
+            $testPackageCodes = array_merge($packageArrayData,$testArrayData);
+           }else{
             $testPackageCodes= null;
            }
-            //    dd($testPackageCodes);
+
            if(empty($request->remark))
            {
             $tests = "";
-           }
-           else{
+           }else{
             $tests = $request->remark;
            }
+
            if(empty($request->address))
            {
             $address = "";
-           }
-           else{
+           }else{
             $address = $request->address;
            }
            
-            $apiURL = 'https://agdmatrix.dyndns.org/a/Pixel/HomeVisit';
             $postInput = [
                 'visitDt'               =>$request->date,
                 'name'                  =>$request->first_name,
@@ -156,7 +166,6 @@ class HomeVisitController extends Controller
                 'testPackageCodes'      => $testPackageCodes,
             ];
             $apiResponse = clientApiDataPass($postInput);
-            // dd($apiResponse);
             try{
                 $sent_mail = "info@agdiagnostics.com";
                 // $sent_mail = "santhoshd.pixel@gmail.com";
