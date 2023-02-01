@@ -28,13 +28,14 @@ if (!function_exists('asset_url')) {
 if (!function_exists('insertApiCityData')) {
   function insertApiCityData()
   {
+    info("insertApiCityData");
     $key = 'agdpixel';
     $secret = 'p1x3l@agd';
     $responseCity = Http::withBasicAuth($key, $secret)
       ->get('https://agdmatrix.dyndns.org/a/Pixel/Cities');
     $responseCity = json_decode($responseCity);
     if (!is_null($responseCity)) {
-      // City::truncate();
+      City::truncate();
       foreach ($responseCity as $key => $val) {
         $stateData = State::where('stateId', $val->stateId)->select('id', 'stateId')->first();
 
@@ -62,8 +63,8 @@ if (!function_exists('insertApiStateData')) {
       ->get('https://agdmatrix.dyndns.org/a/Pixel/States');
     $responseState = json_decode($responseState);
     if (!is_null($responseState)) {
+      // State::truncate();
       foreach ($responseState as $key => $val) {
-        // State::truncate();
         $data = [
           'country_id' => "1",
           'stateId' => $val->stateId,
@@ -80,14 +81,15 @@ if (!function_exists('insertApiStateData')) {
 if (!function_exists('insertApiTestData')) {
   function insertApiTestData()
   {
+    info("insertApiTestData");
     $key = 'agdpixel';
     $secret = 'p1x3l@agd';
     $responseTest = Http::withBasicAuth($key, $secret)
       ->get('https://agdmatrix.dyndns.org/a/Pixel/Tests');
     $responseTest = json_decode($responseTest);
       if (!is_null($responseTest)) {
+        ManageTest::truncate();
         foreach ($responseTest as $key => $val) {
-          // ManageTest::truncate();
           $data = [
             'primaryId' => $val->primaryId,
             'testName' => $val->testName,
@@ -121,8 +123,8 @@ if (!function_exists('insertApiPackagesData')) {
       ->get('https://agdmatrix.dyndns.org/a/Pixel/Packages');
     $responsePackages = json_decode($responsePackages);
     if (!is_null($responsePackages)) {
+      ManagePackage::truncate();
       foreach ($responsePackages as $key => $val) {
-        // ManageTest::truncate();
         $data = [
           'primaryId' => $val->primaryId,
           'packageName' => $val->packageName,
@@ -158,8 +160,8 @@ if (!function_exists('insertApiHomeVisitAreaData')) {
       ->get('https://agdmatrix.dyndns.org/a/Pixel/HomeVisitAreas');
     $responseHomeVisitArea = json_decode($responseHomeVisitArea);
     if (!is_null($responseHomeVisitArea)) {
+      HomeVisitArea::truncate();
       foreach ($responseHomeVisitArea as $key => $val) {
-        // ManageTest::truncate();
         $data = [
           'areaId' => $val->areaId,
           'area' => $val->area,
@@ -184,8 +186,8 @@ if (!function_exists('insertApiSampleCollectionCentersData')) {
       ->get('https://agdmatrix.dyndns.org/a/Pixel/SampleCollectionCenters');
     $responseSampleCollectionCenters = json_decode($responseSampleCollectionCenters);
     if (!is_null($responseSampleCollectionCenters)) {
+      SampleCollectionCenters::truncate();
       foreach ($responseSampleCollectionCenters as $key => $val) {
-        // ManageTest::truncate();
         $data = [
           'centerId' => $val->centerId,
           'localityId' => $val->localityId,
