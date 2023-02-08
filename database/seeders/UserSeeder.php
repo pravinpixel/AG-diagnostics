@@ -18,9 +18,9 @@ class UserSeeder extends Seeder
         
         #========Create User======
         $credentials = [
-            'email'     => 'alexia@gmail.com',
+            'email'     => 'superadmin@gmail.com',
             'password'  =>  '12345678',
-            'name'      =>  'Christopher',
+            'name'      =>  'SuperAdmin',
         ];
         $userDb = Sentinel::registerAndActivate( $credentials );
 
@@ -30,19 +30,19 @@ class UserSeeder extends Seeder
             'slug'       => 'admin',
         ])->users()->attach($userDb);
   
-        Sentinel::getRoleRepository()->createModel()->create([
-            'name'       => 'System Admin',
-            'slug'       => 'system-admin',
-            'permissions'=> config('permission'),
-        ]);
+        // Sentinel::getRoleRepository()->createModel()->create([
+        //     'name'       => 'System Admin',
+        //     'slug'       => 'system-admin',
+        //     'permissions'=> config('permission'),
+        // ]);
 
-        $employee = Sentinel::getRoleRepository()->createModel()->create([
-            'name'       => 'Staff',
-            'slug'       => 'staff',
-            'permissions'=> config('permission'),
-        ]);
+        // $employee = Sentinel::getRoleRepository()->createModel()->create([
+        //     'name'       => 'Staff',
+        //     'slug'       => 'staff',
+        //     'permissions'=> config('permission'),
+        // ]);
 
-        $employee->users()->attach(Sentinel::registerAndActivate(['email' => 'user@gmail.com','password'   => '12345678','name' => 'James Smith']));
-        $employee->users()->attach(Sentinel::registerAndActivate(['email' => 'sales@gmail.com','password'   => '12345678','name' => 'Alex']));
+        // $employee->users()->attach(Sentinel::registerAndActivate(['email' => 'user@gmail.com','password'   => '12345678','name' => 'James Smith']));
+        // $employee->users()->attach(Sentinel::registerAndActivate(['email' => 'sales@gmail.com','password'   => '12345678','name' => 'Alex']));
     }
 }
