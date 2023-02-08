@@ -16,8 +16,8 @@ class AuthController extends Controller
         if(Sentinel::check()) {
             return redirect()->route('admin.dashboard');
         }
-        // return view('admin.auth.login');
-        return view('admin.index_new');
+        return view('admin.auth.login');
+        // return view('admin.index_new');
 
     }
     
