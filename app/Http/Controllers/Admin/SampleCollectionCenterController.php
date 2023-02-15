@@ -7,6 +7,7 @@ use App\Models\Admin\City;
 use App\Models\Admin\SampleCollectionCenters;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -104,5 +105,39 @@ class SampleCollectionCenterController extends Controller
         }
         Flash::success( __('action.status', ['type' => 'Home Visit']));
 
+    }
+    public function syncRequest()
+    {
+        $key = 'agdpixel';
+        $secret = 'p1x3l@agd';
+        $responseSampleCollectionCenters = Http::withBasicAuth($key, $secret)
+          ->get('https://agdmatrix.dyndns.org/a/Pixel/SampleCollectionCenters');
+        $responseSampleCollectionCenters = json_decode($responseSampleCollectionCenters);
+        if (!is_null($responseSampleCollectionCenters)) {
+          // SampleCollectionCenters::truncate();
+          foreach ($responseSampleCollectionCenters as $key => $val) {
+            $data = [
+              'centerId' => $val->centerId,
+              'localityId' => $val->localityId,
+              'location' => $val->location,
+              'timing' => $val->timing,
+              'address' => $val->address,
+              'cityId' => $val->cityId,
+              'city' => $val->city,
+              'stateId' => $val->stateId,
+              'state' => $val->state,
+              'phone' => $val->phone,
+              'email' => $val->email,
+              'latitude' => $val->latitude,
+              'longitude' => $val->longitude,
+              'googleReviewLink' => $val->googleReviewLink,
+              'whatsAppLink' => $val->whatsAppLink,
+              'status' => 1,
+            ];
+            $res = SampleCollectionCenters::updateOrCreate($data);
+          }
+        }
+        Flash::success( __('masters.sync_success'));
+        return redirect()->back();
     }
 }

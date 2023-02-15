@@ -9,6 +9,8 @@ use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\Admin\State;
 use App\Models\Admin\Country;
+use Illuminate\Support\Facades\Http;
+
 
 class StateController extends Controller
 {
@@ -127,5 +129,27 @@ class StateController extends Controller
         }
         Flash::success( __('action.status', ['type' => 'State']));
 
+    }
+    public function syncRequest()
+    {
+    $key = 'agdpixel';
+    $secret = 'p1x3l@agd';
+    $responseState = Http::withBasicAuth($key, $secret)
+      ->get('https://agdmatrix.dyndns.org/a/Pixel/States');
+    $responseState = json_decode($responseState);
+    if (!is_null($responseState)) {
+      // State::truncate();
+      foreach ($responseState as $key => $val) {
+        $data = [
+          'country_id' => "1",
+          'stateId' => $val->stateId,
+          'state' => $val->state,
+          'status' => 1,
+        ];
+        $res = State::updateOrCreate($data);
+      }
+    }
+    Flash::success( __('masters.sync_success'));
+    return redirect()->back();
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Admin\Category;
 use Illuminate\Http\Request;
 use Laracasts\Flash\Flash;
 use App\Models\Admin\ManageTest;
+use Illuminate\Support\Facades\Http;
 use App\Models\Admin\TimingDay;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Yajra\DataTables\Facades\DataTables;
@@ -96,5 +97,39 @@ class ManageTestController extends Controller
         }
         Flash::success( __('action.status', ['type' => 'Manage Test']));
 
+    }
+    public function syncRequest()
+    {
+        $key = 'agdpixel';
+        $secret = 'p1x3l@agd';
+        $responseTest = Http::withBasicAuth($key, $secret)
+          ->get('https://agdmatrix.dyndns.org/a/Pixel/Tests');
+        $responseTest = json_decode($responseTest);
+          if (!is_null($responseTest)) {
+            // ManageTest::truncate();
+            foreach ($responseTest as $key => $val) {
+              $data = [
+                'primaryId' => $val->primaryId,
+                'testName' => $val->testName,
+                'testCode' => $val->testCode,
+                'cityId' => $val->cityId,
+                'cityName' => $val->cityName,
+                'details' => $val->details,
+                'sample' => $val->sample,
+                'container' => $val->container,
+                'qty' => $val->qty,
+                'storage' => $val->storage,
+                'method' => $val->method,
+                'comments' => $val->comments,
+                'fees' => $val->fees,
+                'homeVisit' => $val->homeVisit,
+                'discountFees' => $val->discountFees,
+                'status' => 1,
+              ];
+              $res = ManageTest::updateOrCreate($data);
+            }
+          }
+          Flash::success( __('masters.sync_success'));
+          return redirect()->back();
     }
 }

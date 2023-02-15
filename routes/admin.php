@@ -123,19 +123,26 @@ Route::middleware(['auth_users'])->group(function () {
         Route::post('master/country/delete/{id?}', [CountryController::class, 'delete'])->name('country.delete'); 
         Route::get('master/country/status/{id}', [CountryController::class, 'status'])->name('country.status');
 
+        
+
+
         Route::get('master/state', [StateController::class, 'index'])->name('state.index');
         Route::get('master/state/create', [StateController::class, 'create'])->name('state.create');
         Route::get('master/state/{id}', [StateController::class, 'edit'])->name('state.edit'); 
-        Route::post('master/state/{id?}', [StateController::class, 'store'])->name('state.store');
+        // Route::post('master/state/{id?}', [StateController::class, 'store'])->name('state.store');
         Route::post('master/state/delete/{id?}', [StateController::class, 'delete'])->name('state.delete'); 
         Route::get('master/state/status/{id}', [StateController::class, 'status'])->name('state.status');
+        Route::post('/master/state/sync', [StateController::class, 'syncRequest'])->name('state.sync');
+
 
         Route::get('master/city', [CityController::class, 'index'])->name('city.index');
         Route::get('master/city/create', [CityController::class, 'create'])->name('city.create');
         Route::get('master/city/{id}', [CityController::class, 'edit'])->name('city.edit'); 
-        Route::post('master/city/{id?}', [CityController::class, 'store'])->name('city.store');
+        // Route::post('master/city/{id?}', [CityController::class, 'store'])->name('city.store');
         Route::post('master/city/delete/{id?}', [CityController::class, 'delete'])->name('city.delete'); 
         Route::get('master/city/status/{id}', [CityController::class, 'status'])->name('city.status');
+        Route::post('/master/city/sync', [CityController::class, 'syncRequest'])->name('city.sync');
+
 
         Route::get('master/area', [AreaController::class, 'index'])->name('area.index');
         Route::get('master/area/create', [AreaController::class, 'create'])->name('area.create');
@@ -211,6 +218,8 @@ Route::middleware(['auth_users'])->group(function () {
         Route::post('manage_test/store/{id?}', [ManageTestController::class, 'store'])->name('manage_test.store');
         Route::post('manage/test/delete/{id?}', [ManageTestController::class, 'delete'])->name('manage_test.delete'); 
         Route::get('manage/test/status/{id}', [ManageTestController::class, 'status'])->name('manage_test.status');
+        Route::post('/manage/test/sync', [ManageTestController::class, 'syncRequest'])->name('manage_test.sync');
+
 
         // Route::get('testimonial', [TestimonialController::class, 'index'])->name('testimonial.index');
         Route::get('testimonial/create', [TestimonialController::class, 'create'])->name('testimonial.create');
@@ -223,12 +232,12 @@ Route::middleware(['auth_users'])->group(function () {
         Route::get('manage/package', [ManagePackageController::class, 'index'])->name('manage_package.index');
         Route::get('manage/package/create', [ManagePackageController::class, 'create'])->name('manage_package.create');
         Route::get('manage/package/{id}', [ManagePackageController::class, 'edit'])->name('manage_package.edit'); 
-        Route::post('manage_package/{id?}', [ManagePackageController::class, 'store'])->name('manage_package.store');
+        // Route::post('manage_package/{id?}', [ManagePackageController::class, 'store'])->name('manage_package.store');
         Route::post('manage/package/delete/{id?}', [ManagePackageController::class, 'delete'])->name('manage_package.delete'); 
         Route::get('manage/package/status/{id}', [ManagePackageController::class, 'status'])->name('manage_package.status');
         Route::get('manage/package/view/{id}', [ManagePackageController::class, 'view'])->name('manage_package.view');
         Route::get('package_image_delete/{id}', [ManagePackageController::class, 'imageDelete'])->name('package_image_delete');
-
+        Route::post('/manage/package/sync', [ManagePackageController::class, 'syncRequest'])->name('manage_package.sync');
 
         Route::get('enquiry/careers', [CareersController::class, 'index'])->name('admin_careers.index');
         Route::post('enquiry/careers/delete/{id?}', [CareersController::class, 'delete'])->name('admin_careers.delete'); 
@@ -262,13 +271,15 @@ Route::middleware(['auth_users'])->group(function () {
         // Route::get('home-visit-area', [HomeVisitAreaController::class, 'index'])->name('home-visit-area.index');
         Route::get('home-visit-area/status/{id}', [HomeVisitAreaController::class, 'status'])->name('home-visit-area.status');
         Route::post('home-visit-area/delete/{id?}', [HomeVisitAreaController::class, 'delete'])->name('home-visit-area.delete'); 
+        Route::post('/home-visit-area/sync', [HomeVisitAreaController::class, 'syncRequest'])->name('home-visit-area.sync');
 
         Route::get('sample-collection-center', [SampleCollectionCenterController::class, 'index'])->name('sample-collection-center.index');
         Route::get('sample-collection-center/view/{id}', [SampleCollectionCenterController::class, 'view'])->name('sample-collection-center.view');
         Route::get('sample-collection-center/edit/{id?}', [SampleCollectionCenterController::class, 'edit'])->name('sample-collection-center.edit');
-        Route::post('sample-collection-center/{id?}', [SampleCollectionCenterController::class, 'store'])->name('sample-collection-center.store');
+        // Route::post('sample-collection-center/{id?}', [SampleCollectionCenterController::class, 'store'])->name('sample-collection-center.store');
         Route::get('sample-collection-center/status/{id}', [SampleCollectionCenterController::class, 'status'])->name('sample-collection-center.status');
         Route::post('sample-collection-center/delete/{id?}', [SampleCollectionCenterController::class, 'delete'])->name('sample-collection-center.delete'); 
+        Route::post('/sample-collection-center/sync', [SampleCollectionCenterController::class, 'syncRequest'])->name('sample-collection-center.sync');
 
     // }); 
 });

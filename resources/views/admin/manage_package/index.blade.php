@@ -7,7 +7,12 @@
             <div class="card-title">
                 Manage Package List
             </div>
-           
+            <form action="{{ route('manage_package.sync') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-primary ms-3">
+                    <i class="fa fa-refresh me-2" aria-hidden="true"></i>
+                    Sync Data</button>
+            </form>
             {{-- <a href="{{ route('manage_package.create') }}" class="btn btn-primary ms-3">
                 <i class="fa fa-plus me-2" aria-hidden="true"></i>
                 Add New

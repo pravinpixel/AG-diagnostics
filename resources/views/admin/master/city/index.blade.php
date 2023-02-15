@@ -7,6 +7,12 @@
             <div class="card-title">
                 City List
             </div>
+            <form action="{{ route('city.sync') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-primary ms-3">
+                    <i class="fa fa-refresh me-2" aria-hidden="true"></i>
+                    Sync Data</button>
+            </form>
             <?php $user = Sentinel::getUser(); ?>
             <?php if($user->hasAccess('user.add.manage_city')){ ?>
             {{-- <a href="{{ route('city.create') }}" class="btn btn-primary ms-3">

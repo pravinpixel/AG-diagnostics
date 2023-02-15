@@ -35,7 +35,7 @@ if (!function_exists('insertApiCityData')) {
       ->get('https://agdmatrix.dyndns.org/a/Pixel/Cities');
     $responseCity = json_decode($responseCity);
     if (!is_null($responseCity)) {
-      City::truncate();
+      // City::truncate();
       foreach ($responseCity as $key => $val) {
         $stateData = State::where('stateId', $val->stateId)->select('id', 'stateId')->first();
 
@@ -57,6 +57,7 @@ if (!function_exists('insertApiCityData')) {
 if (!function_exists('insertApiStateData')) {
   function insertApiStateData()
   {
+    info("Test start....");
     $key = 'agdpixel';
     $secret = 'p1x3l@agd';
     $responseState = Http::withBasicAuth($key, $secret)
@@ -88,7 +89,7 @@ if (!function_exists('insertApiTestData')) {
       ->get('https://agdmatrix.dyndns.org/a/Pixel/Tests');
     $responseTest = json_decode($responseTest);
       if (!is_null($responseTest)) {
-        ManageTest::truncate();
+        // ManageTest::truncate();
         foreach ($responseTest as $key => $val) {
           $data = [
             'primaryId' => $val->primaryId,
@@ -123,7 +124,7 @@ if (!function_exists('insertApiPackagesData')) {
       ->get('https://agdmatrix.dyndns.org/a/Pixel/Packages');
     $responsePackages = json_decode($responsePackages);
     if (!is_null($responsePackages)) {
-      ManagePackage::truncate();
+      // ManagePackage::truncate();
       foreach ($responsePackages as $key => $val) {
         $data = [
           'primaryId' => $val->primaryId,
@@ -160,7 +161,7 @@ if (!function_exists('insertApiHomeVisitAreaData')) {
       ->get('https://agdmatrix.dyndns.org/a/Pixel/HomeVisitAreas');
     $responseHomeVisitArea = json_decode($responseHomeVisitArea);
     if (!is_null($responseHomeVisitArea)) {
-      HomeVisitArea::truncate();
+      // HomeVisitArea::truncate();
       foreach ($responseHomeVisitArea as $key => $val) {
         $data = [
           'areaId' => $val->areaId,
@@ -186,7 +187,7 @@ if (!function_exists('insertApiSampleCollectionCentersData')) {
       ->get('https://agdmatrix.dyndns.org/a/Pixel/SampleCollectionCenters');
     $responseSampleCollectionCenters = json_decode($responseSampleCollectionCenters);
     if (!is_null($responseSampleCollectionCenters)) {
-      SampleCollectionCenters::truncate();
+      // SampleCollectionCenters::truncate();
       foreach ($responseSampleCollectionCenters as $key => $val) {
         $data = [
           'centerId' => $val->centerId,
@@ -223,22 +224,27 @@ if (!function_exists('clientApiDataPass')) {
   }
 }
 
-
-
-
-
-function errorMessage()
-{
-  Flash::error(__('action.permission'));
+if (!function_exists('errorMessage')) {
+  function errorMessage()
+  {
+    Flash::error(__('action.permission'));
+  }
 }
-function successCall()
-{
-  return response()->json(['Status' => 200, 'Errors' => false, 'Message' => 'Created Successfully']);
+
+if (!function_exists('successCall')) {
+  
+  function successCall()
+  {
+    return response()->json(['Status' => 200, 'Errors' => false, 'Message' => 'Created Successfully']);
+  }
 }
-function failedCall($data)
-{
-  return response()->json(['Status' => 200, 'Errors' => true, 'Message' => $data]);
+if (!function_exists('failedCall')) {
+  function failedCall($data)
+  {
+    return response()->json(['Status' => 200, 'Errors' => true, 'Message' => $data]);
+  }
 }
+
 
 if (!function_exists('auth_id')) {
   function auth_id()

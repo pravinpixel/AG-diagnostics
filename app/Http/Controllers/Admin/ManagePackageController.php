@@ -193,4 +193,38 @@ class ManagePackageController extends Controller
         $data = $package->update();
         return redirect()->back();
     }
+    public function syncRequest()
+    {
+        $key = 'agdpixel';
+        $secret = 'p1x3l@agd';
+        $responsePackages = Http::withBasicAuth($key, $secret)
+          ->get('https://agdmatrix.dyndns.org/a/Pixel/Packages');
+        $responsePackages = json_decode($responsePackages);
+        if (!is_null($responsePackages)) {
+          // ManagePackage::truncate();
+          foreach ($responsePackages as $key => $val) {
+            $data = [
+              'primaryId' => $val->primaryId,
+              'packageName' => $val->packageName,
+              'packageCode' => $val->packageCode,
+              'cityId' => $val->cityId,
+              'cityName' => $val->cityName,
+              'testLists' => $val->testLists,
+              'testSchedule' => $val->testSchedule,
+              'sampleType' => $val->sampleType,
+              'ageRestrictions' => $val->ageRestrictions,
+              'preRequisties' => $val->preRequisties,
+              'reportAvailability' => $val->reportAvailability,
+              'comments' => $val->comments,
+              'fees' => $val->fees,
+              'homeVisit' => $val->homeVisit,
+              'discountFees' => $val->discountFees,
+              'status' => 1,
+            ];
+            $res = ManagePackage::updateOrCreate($data);
+          }
+        }
+        Flash::success( __('masters.sync_success'));
+        return redirect()->back();
+    }
 }

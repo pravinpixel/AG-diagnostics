@@ -120,4 +120,33 @@ class CityController extends Controller
         Flash::success( __('action.status', ['type' => 'City']));
 
     }
+    public function syncRequest()
+    {
+        info("insertApiCityData");
+    $key = 'agdpixel';
+    $secret = 'p1x3l@agd';
+    $responseCity = Http::withBasicAuth($key, $secret)
+      ->get('https://agdmatrix.dyndns.org/a/Pixel/Cities');
+    $responseCity = json_decode($responseCity);
+    if (!is_null($responseCity)) {
+      // City::truncate();
+      foreach ($responseCity as $key => $val) {
+        $stateData = State::where('stateId', $val->stateId)->select('id', 'stateId')->first();
+
+        $data = [
+          'country_id' => "1",
+          'cityId' => $val->cityId,
+          'city' => $val->city,
+          'stateId' => $val->stateId,
+          'state_id' => $stateData->id,
+          'state' => $val->state,
+          'status' => 1,
+        ];
+        $res = City::updateOrCreate($data);
+      }
+    }
+    Flash::success( __('masters.sync_success'));
+    return redirect()->back();
+    }
+    
 }

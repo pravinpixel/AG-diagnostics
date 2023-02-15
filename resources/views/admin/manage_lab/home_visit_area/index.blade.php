@@ -7,7 +7,12 @@
             <div class="card-title">
                 home Visit Area
             </div>
-           
+            <form action="{{ route('home-visit-area.sync') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-primary ms-3">
+                    <i class="fa fa-refresh me-2" aria-hidden="true"></i>
+                    Sync Data</button>
+            </form>
         </div>
         <div class="card-body"> 
             <table class="table table-bordered table-centered m-0 tr-sm table-hover" id="data-table">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\HomeVisitArea;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -80,5 +81,30 @@ class HomeVisitAreaController extends Controller
         }
         Flash::success( __('action.status', ['type' => 'Home Visit']));
 
+    }
+    public function syncRequest()
+    {
+    $key = 'agdpixel';
+    $secret = 'p1x3l@agd';
+    $responseHomeVisitArea = Http::withBasicAuth($key, $secret)
+      ->get('https://agdmatrix.dyndns.org/a/Pixel/HomeVisitAreas');
+    $responseHomeVisitArea = json_decode($responseHomeVisitArea);
+    if (!is_null($responseHomeVisitArea)) {
+      // HomeVisitArea::truncate();
+      foreach ($responseHomeVisitArea as $key => $val) {
+        $data = [
+          'areaId' => $val->areaId,
+          'area' => $val->area,
+          'cityId' => $val->cityId,
+          'city' => $val->city,
+          'stateId' => $val->stateId,
+          'state' => $val->state,
+          'status' => 1,
+        ];
+        $res = HomeVisitArea::updateOrCreate($data);
+      }
+    }
+        Flash::success( __('masters.sync_success'));
+        return redirect()->back();
     }
 }
