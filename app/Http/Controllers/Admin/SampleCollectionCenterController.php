@@ -56,9 +56,9 @@ class SampleCollectionCenterController extends Controller
     }
     public function store(Request $request,$id = null)
     {
-        $this->validate($request, [
-            'sorting_order' => 'nullable|unique:sample_collection_centers,sorting_order,'.$id.',id,deleted_at,NULL',
-        ]);
+        // $this->validate($request, [
+        //     'sorting_order' => 'nullable|unique:sample_collection_centers,sorting_order,'.$id.',id,deleted_at,NULL',
+        // ]);
         if($id)
         {
             $data = SampleCollectionCenters::where('id',$id)->first();
@@ -132,6 +132,7 @@ class SampleCollectionCenterController extends Controller
               'longitude' => $val->longitude,
               'googleReviewLink' => $val->googleReviewLink,
               'whatsAppLink' => $val->whatsAppLink,
+              'sorting_order' =>'',
               'status' => 1,
             ];
             $res = SampleCollectionCenters::updateOrCreate($data);

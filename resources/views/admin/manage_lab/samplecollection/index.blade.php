@@ -7,7 +7,7 @@
             <div class="card-title">
                 Sample Collection
             </div>
-            <form action="{{ route('sample-collection-center.sync') }}" method="POST">
+            <form action="{{ route('sample_collection_center.sync') }}" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-primary ms-3">
                     <i class="fa fa-refresh me-2" aria-hidden="true"></i>

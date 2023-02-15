@@ -279,7 +279,7 @@ Route::middleware(['auth_users'])->group(function () {
         Route::post('sample-collection-center/{id?}', [SampleCollectionCenterController::class, 'store'])->name('sample-collection-center.store');
         Route::get('sample-collection-center/status/{id}', [SampleCollectionCenterController::class, 'status'])->name('sample-collection-center.status');
         Route::post('sample-collection-center/delete/{id?}', [SampleCollectionCenterController::class, 'delete'])->name('sample-collection-center.delete'); 
-        Route::post('/sample-collection-center/sync', [SampleCollectionCenterController::class, 'syncRequest'])->name('sample-collection-center.sync');
+        Route::post('sample_collection_center/sync', [SampleCollectionCenterController::class, 'syncRequest'])->name('sample_collection_center.sync');
 
     // }); 
 });

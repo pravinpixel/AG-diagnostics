@@ -30,7 +30,7 @@ class CreateSampleCollectionCentersTable extends Migration
             $table->string("longitude")->nullable();
             $table->string("googleReviewLink")->nullable();
             $table->string("whatsAppLink")->nullable();
-            $table->integer("sorting_order")->nullable()->unique();
+            $table->string("sorting_order")->nullable();
             $table->integer("status")->default(1);
             $table->softDeletes();
             $table->timestamps();
