@@ -232,7 +232,7 @@ Route::middleware(['auth_users'])->group(function () {
         Route::get('manage/package', [ManagePackageController::class, 'index'])->name('manage_package.index');
         Route::get('manage/package/create', [ManagePackageController::class, 'create'])->name('manage_package.create');
         Route::get('manage/package/{id}', [ManagePackageController::class, 'edit'])->name('manage_package.edit'); 
-        // Route::post('manage_package/{id?}', [ManagePackageController::class, 'store'])->name('manage_package.store');
+        Route::post('manage_package/{id?}', [ManagePackageController::class, 'store'])->name('manage_package.store');
         Route::post('manage/package/delete/{id?}', [ManagePackageController::class, 'delete'])->name('manage_package.delete'); 
         Route::get('manage/package/status/{id}', [ManagePackageController::class, 'status'])->name('manage_package.status');
         Route::get('manage/package/view/{id}', [ManagePackageController::class, 'view'])->name('manage_package.view');
@@ -276,7 +276,7 @@ Route::middleware(['auth_users'])->group(function () {
         Route::get('sample-collection-center', [SampleCollectionCenterController::class, 'index'])->name('sample-collection-center.index');
         Route::get('sample-collection-center/view/{id}', [SampleCollectionCenterController::class, 'view'])->name('sample-collection-center.view');
         Route::get('sample-collection-center/edit/{id?}', [SampleCollectionCenterController::class, 'edit'])->name('sample-collection-center.edit');
-        // Route::post('sample-collection-center/{id?}', [SampleCollectionCenterController::class, 'store'])->name('sample-collection-center.store');
+        Route::post('sample-collection-center/{id?}', [SampleCollectionCenterController::class, 'store'])->name('sample-collection-center.store');
         Route::get('sample-collection-center/status/{id}', [SampleCollectionCenterController::class, 'status'])->name('sample-collection-center.status');
         Route::post('sample-collection-center/delete/{id?}', [SampleCollectionCenterController::class, 'delete'])->name('sample-collection-center.delete'); 
         Route::post('/sample-collection-center/sync', [SampleCollectionCenterController::class, 'syncRequest'])->name('sample-collection-center.sync');
