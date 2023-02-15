@@ -11,6 +11,7 @@ use App\Models\Admin\City;
 use App\Models\Admin\Speciality;
 use App\Models\Admin\Condition;
 use App\Models\Admin\ManageTest;
+use Illuminate\Support\Facades\File;
 use App\Models\Admin\TimingDay;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Yajra\DataTables\Facades\DataTables;
@@ -88,6 +89,7 @@ class ManagePackageController extends Controller
                     mkdir($path,0777,true);
                 }
                 if($request->hasfile('icon')){
+                    \File::deleteDirectory($filePath );
                     $file = $request->icon;
                     if($file->extension() == ('png'||'jpg'||'jpeg'))
                     {
@@ -130,6 +132,7 @@ class ManagePackageController extends Controller
                     mkdir($path,0777,true);
                 }
                 if($request->hasfile('icon')){
+                    \File::deleteDirectory($filePath );
                     $file = $request->icon;
                     if($file->extension() == ('png'||'jpg'||'jpeg'))
                     {
