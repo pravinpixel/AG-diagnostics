@@ -23,7 +23,6 @@ class HomeVisitController extends Controller
     
     public function store(Request $request)
     {
-        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string',
             'date' => 'required',
@@ -82,9 +81,6 @@ class HomeVisitController extends Controller
     
     $date = date('Y/m/d H:i:s', $time);
     
-    // dd(now()->format('H:i:s'));
-    // dd(\Carbon\Carbon::parse($request->date)->format('Y-m-d H:i:s'));
-    // dd(\Carbon\Carbon::parse($request->date)->setTimezone($tz));
     $res = $data->save();
             if($request->cityId)
             {
@@ -155,7 +151,6 @@ class HomeVisitController extends Controller
            }else{
             $address = $request->address;
            }
-           
             $postInput = [
                 'visitDt'               =>$request->date,
                 'name'                  =>$request->first_name,
@@ -167,16 +162,15 @@ class HomeVisitController extends Controller
             ];
             $apiResponse = clientApiDataPass($postInput);
             try{
-                $sent_mail = "info@agdiagnostics.com";
+                // $sent_mail = "info@agdiagnostics.com";
+                $sent_mail = "websupport@pixel-studios.com";
                 // $sent_mail = "santhoshd.pixel@gmail.com";
-                $bccEmails = "manikandan@pixel-studios.com";
-                Mail::to($sent_mail)->bcc($bccEmails)->send(new HomeVisitMail($details));
+                // $bccEmails = "manikandan@pixel-studios.com";
+                Mail::to($sent_mail)->send(new HomeVisitMail($details));
             }catch(\Exception $e){
                 $message = 'Data inserted successfully. Please setup your <a href="setting/mail_setting">mail setting</a> to send mail.';
                 return response()->json(['Status'=>200,'Errors'=>false,'Message'=>$message]);
             }
-         
-
             return response()->json(['Status'=>200,'Errors'=>false,'Message'=>'Home Visit Booked Successfully']);       
         $error = 1;
         return response()->json(['error'=>$error,'message'=>"something went wrong."]);
