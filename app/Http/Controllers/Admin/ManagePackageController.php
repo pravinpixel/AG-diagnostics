@@ -26,7 +26,7 @@ class ManagePackageController extends Controller
         if($user->hasAccess('user.view.manage_package'))
         {
         if($request->ajax()) {
-            $data = ManagePackage::with(['condition','specialty','organ'])->select('*');
+            $data = ManagePackage::select('*');
             return DataTables::eloquent($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
@@ -43,6 +43,17 @@ class ManagePackageController extends Controller
                     return $view.$edit.$delete;
 
                 })
+             
+                ->editColumn('sorting_order', function($data) {
+                    if($data->sorting_order)
+                    {
+                       return  $data->sorting_order = $data->sorting_order;
+                    }
+                    else
+                    {
+                        return $data->sorting_order = '';
+                    }
+                 })
                 ->addColumn('status', function($data) {
                    return toggleButton('status',route('manage_package.edit', $data->id),$data);
                 })

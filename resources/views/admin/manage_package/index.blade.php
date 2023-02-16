@@ -28,6 +28,7 @@
                         <th>City</th>
                         <th>Fees</th>
                         <th>Status</th>
+                        <th>Sorting Order</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -52,6 +53,7 @@
                     {data:"cityName", name : "cityName"},
                     {data:"fees", name : "fees"},
                     {data:"status", name : "status",orderable: false},
+                    {data:"sorting_order", name : "sorting_order"},
                     {data:"action", name : "action",orderable: false},
                     
                 ],
