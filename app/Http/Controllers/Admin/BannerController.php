@@ -106,9 +106,9 @@ class BannerController extends Controller
         $banner =  Banners::updateOrCreate(["id"=> $id],$request->except(['_token','MobileImage','DesktopImage']));
         if($banner) {
             if($request->has('MobileImage')) {
-                if(Storage::exists($banner->MobileImage)){
-                    Storage::delete($banner->MobileImage);
-                } 
+                // if(Storage::exists($banner->MobileImage)){
+                //     Storage::delete($banner->MobileImage);
+                // } 
                 // $MobileImage               =  $request->file('MobileImage')->store('public/files/mobile_images');
                 // $MobileImage               =  $request->file('MobileImage')->public_path('public/files/mobile_images');
                 
@@ -135,9 +135,9 @@ class BannerController extends Controller
             }
 
             if($request->has('DesktopImage')) {
-                if(Storage::exists($banner->DesktopImage)){
-                    Storage::delete($banner->DesktopImage);
-                }
+                // if(Storage::exists($banner->DesktopImage)){
+                //     Storage::delete($banner->DesktopImage);
+                // }
                 // $DesktopImage               =   $request->file('DesktopImage')->store('public/files/desktop_images');
                 // $DesktopImage               =   $request->file('DesktopImage')->public_path('public/files/desktop_images');
                 $filePath = 'upload/files/desktop_images';
