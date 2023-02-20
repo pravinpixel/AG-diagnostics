@@ -120,7 +120,7 @@ class BannerController extends Controller
                 }
                 
                 $file = $request->MobileImage;
-                if($file->extension() == "png" || "jpg" || "jpeg")
+                if($file->extension() == "png" || "jpg" || "jpeg" || "webp")
                 {
                 $name = $file->getClientOriginalName();
             
@@ -148,7 +148,7 @@ class BannerController extends Controller
                 }
                 
                 $file = $request->DesktopImage;
-                if($file->extension() == "png" || "jpg" || "jpeg")
+                if($file->extension() == "png" || "jpg" || "jpeg" || "webp")
                 {
                 $name = $file->getClientOriginalName();
             
