@@ -13,6 +13,7 @@ use App\Models\Admin\Condition;
 use App\Models\Admin\ManageTest;
 use Illuminate\Support\Facades\File;
 use App\Models\Admin\TimingDay;
+use Illuminate\Support\Str;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Http;
@@ -220,6 +221,7 @@ class ManagePackageController extends Controller
             $data = [
               'primaryId' => $val->primaryId,
               'packageName' => $val->packageName,
+              'slug' => Str::slug($val->packageName),
               'packageCode' => $val->packageCode,
               'cityId' => $val->cityId,
               'cityName' => $val->cityName,

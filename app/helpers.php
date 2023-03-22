@@ -10,6 +10,7 @@ use App\Models\Admin\HomeVisit;
 use App\Models\Admin\HomeVisitArea;
 use App\Models\Admin\SampleCollectionCenters;
 use Laracasts\Flash\Flash;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 
 
@@ -129,6 +130,7 @@ if (!function_exists('insertApiPackagesData')) {
         $data = [
           'primaryId' => $val->primaryId,
           'packageName' => $val->packageName,
+          'slug' => Str::slug($val->packageName),
           'packageCode' => $val->packageCode,
           'cityId' => $val->cityId,
           'cityName' => $val->cityName,

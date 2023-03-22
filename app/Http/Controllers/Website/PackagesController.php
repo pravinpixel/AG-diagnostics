@@ -20,7 +20,7 @@ class PackagesController extends Controller
         $title = "Packages";
         $id = $request['cityId'];
         $name = $request['package_name'];
-        $packages = ManagePackage::where('status',1)->select('id','primaryId','packageName','icon','packageCode','cityId','cityName'
+        $packages = ManagePackage::where('status',1)->select('id','primaryId','packageName','slug','icon','packageCode','cityId','cityName'
         ,'testLists','testSchedule','sampleType','ageRestrictions','preRequisties','reportAvailability','comments','fees','homeVisit'
         ,'discountFees','sorting_order','is_selected','meta_title','meta_description','meta_keyword')
         ->where('cityId','like',"%{$id}%")
@@ -99,7 +99,7 @@ class PackagesController extends Controller
         $id = $request['cityId'];
         $name = $request['search'];
         $selectedPackages = ManagePackage::where('status',1)
-        ->select('id','primaryId','packageName','icon','packageCode','cityId','cityName','testLists','testSchedule','sampleType','ageRestrictions',
+        ->select('id','primaryId','packageName','slug','icon','packageCode','cityId','cityName','testLists','testSchedule','sampleType','ageRestrictions',
         'preRequisties','reportAvailability','comments','fees','homeVisit','discountFees','is_selected','meta_title',
         'meta_description','meta_keyword','sorting_order')
         ->where('is_selected',1)
@@ -125,33 +125,39 @@ class PackagesController extends Controller
         $package_count = count($selectedPackages);
         return response()->json(['package_count'=>$package_count,'selectedPackages'=>$selectedPackages]); 
     }
-    public function packageDetails($id)
+    public function packageDetails(Request $request)
     {
-        $package_detail = ManagePackage::select('id','primaryId','icon','packageName','packageCode','cityId','cityName'
+        
+        $slug = $request->slug;
+        $cityId = $request->cityId;
+        $package_detail = ManagePackage::select('id','primaryId','icon','packageName','slug','packageCode','cityId','cityName'
         ,'testLists','testSchedule','sampleType','ageRestrictions','preRequisties','reportAvailability','comments','fees','homeVisit'
-        ,'discountFees','is_selected','meta_title','meta_description','meta_keyword')->find($id);
-        $package_detail['test_count'] = count(explode(",", $package_detail['testLists']));
-        if($package_detail['icon'])
-        {
-            $package_detail['icon'] = asset('public/'.$package_detail['icon']);
-        }
-        else{
-            $package_detail['icon'] = asset('public/upload/packages/default_image/package_image.png');
-        }
+        ,'discountFees','is_selected','meta_title','meta_description','meta_keyword')
+        ->where('slug',$slug)->where('cityId',$cityId)->first();
         if(!empty($package_detail))
         {
-            return response()->json(['package_detail'=>$package_detail]);
+            $package_detail['test_count'] = count(explode(",", $package_detail['testLists']));
+
+            if($package_detail['icon'])
+            {
+                $package_detail['icon'] = asset('public/'.$package_detail['icon']);
+            }
+            else{
+                $package_detail['icon'] = asset('public/upload/packages/default_image/package_image.png');
+            }
+                return response()->json(['package_detail'=>$package_detail]);
         }
         else{
             return response()->json(['Message'=>"Data not Find"]);
-        }      
+        } 
+       
     }
     public function homeVisitPackageList(Request $request)
     {
         $title = "Packages";
         $id = $request['cityId'];
         $name = $request['package_name'];
-        $packages = ManagePackage::where('status',1)->select('id','primaryId','icon','packageName','packageCode','cityId','cityName'
+        $packages = ManagePackage::where('status',1)->select('id','primaryId','icon','packageName','slug','packageCode','cityId','cityName'
         ,'fees','discountFees','sorting_order')
         ->where('cityId','like',"%{$id}%")
         ->where('packageName','like',"%{$name}%")

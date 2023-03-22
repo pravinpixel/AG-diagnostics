@@ -12,6 +12,7 @@ class ManagePackage extends Model
     protected $fillable = [
         'primaryId',
         'packageName',
+        'slug',
         'packageCode',
         'icon',
         'cityId',
