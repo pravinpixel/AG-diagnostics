@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\SampleCollectionCenters;
 use Illuminate\Http\Request;
-
+use DB;
 class SampleCollectionCenterController extends Controller
 {
   
@@ -16,6 +16,7 @@ class SampleCollectionCenterController extends Controller
         $data = SampleCollectionCenters::where('status',1)
         ->select('id','centerId','localityId','location','timing','address','cityId','city','stateId','state','phone','email','latitude',
         'longitude','googleReviewLink','whatsAppLink','sorting_order')
+
        
         ->when(!empty($id), function($q) use ($id){
             $q->where('cityId',$id);
@@ -26,7 +27,8 @@ class SampleCollectionCenterController extends Controller
             ->orWhere('sample_collection_centers.phone','like','%'.$search.'%')
             ->orWhere('sample_collection_centers.location','like','%'.$search.'%');
         })
-        ->orderBy('sorting_order','asc')
+        ->orderBy('sorting_order','desc')
+        // ->orderBy(DB::raw('sorting_order IS NOT NULL, sorting_order'), 'ASC')
         ->get();
         return response()->json(['data'=>$data]);
     }
