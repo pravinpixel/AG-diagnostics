@@ -135,7 +135,7 @@ class SampleCollectionCenterController extends Controller
               'sorting_order' =>'',
               'status' => 1,
             ];
-            $res = SampleCollectionCenters::updateOrCreate($data);
+            $res = SampleCollectionCenters::updateOrCreate(['centerId' => $val->centerId,'cityId' => $val->cityId],$data);
           }
         }
         Flash::success( __('masters.sync_success'));

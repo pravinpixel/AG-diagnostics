@@ -101,7 +101,7 @@ class HomeVisitAreaController extends Controller
           'state' => $val->state,
           'status' => 1,
         ];
-        $res = HomeVisitArea::updateOrCreate($data);
+        $res = HomeVisitArea::updateOrCreate(['areaId' => $val->areaId,'cityId' => $val->cityId],$data);
       }
     }
         Flash::success( __('masters.sync_success'));

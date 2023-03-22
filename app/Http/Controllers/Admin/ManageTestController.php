@@ -126,7 +126,7 @@ class ManageTestController extends Controller
                 'discountFees' => $val->discountFees,
                 'status' => 1,
               ];
-              $res = ManageTest::updateOrCreate($data);
+              $res = ManageTest::updateOrCreate(['primaryId' => $val->primaryId,'cityId' => $val->cityId],$data);
             }
           }
           Flash::success( __('masters.sync_success'));
