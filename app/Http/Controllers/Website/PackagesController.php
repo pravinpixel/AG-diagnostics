@@ -125,15 +125,13 @@ class PackagesController extends Controller
         $package_count = count($selectedPackages);
         return response()->json(['package_count'=>$package_count,'selectedPackages'=>$selectedPackages]); 
     }
-    public function packageDetails(Request $request)
+    public function packageDetails($id)
     {
         
-        $slug = $request->slug;
-        $cityId = $request->cityId;
         $package_detail = ManagePackage::select('id','primaryId','icon','packageName','slug','packageCode','cityId','cityName'
         ,'testLists','testSchedule','sampleType','ageRestrictions','preRequisties','reportAvailability','comments','fees','homeVisit'
         ,'discountFees','is_selected','meta_title','meta_description','meta_keyword')
-        ->where('slug',$slug)->where('cityId',$cityId)->first();
+        ->find($id);
         if(!empty($package_detail))
         {
             $package_detail['test_count'] = count(explode(",", $package_detail['testLists']));

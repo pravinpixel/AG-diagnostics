@@ -37,7 +37,7 @@ Route::post('/brochure', [BrochureController::class, 'index'])->name('brochure')
 Route::post('/selected-packages', [PackagesController::class, 'selectedPackages'])->name('selected-packages');
 Route::post('/packages', [PackagesController::class, 'index'])->name('packages');
 Route::post('/package', [PackagesController::class, 'store'])->name('package');
-Route::post('/package-detail', [PackagesController::class, 'packageDetails'])->name('package-detail');
+Route::get('/package-detail/{id}', [PackagesController::class, 'packageDetails'])->name('package-detail');
 Route::post('/home-visit-package-list', [PackagesController::class, 'homeVisitPackageList'])->name('home-visit-package-list');
 Route::post('/test', [TestController::class, 'index'])->name('test');
 Route::post('/find-a-lab', [SampleCollectionCenterController::class, 'index'])->name('find-a-lab');
