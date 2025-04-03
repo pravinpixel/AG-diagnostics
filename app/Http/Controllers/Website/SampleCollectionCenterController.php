@@ -26,8 +26,8 @@ class SampleCollectionCenterController extends Controller
             ->orWhere('sample_collection_centers.address','like','%'.$search.'%')
             ->orWhere('sample_collection_centers.phone','like','%'.$search.'%')
             ->orWhere('sample_collection_centers.location','like','%'.$search.'%');
-        })
-        ->orderBy('sorting_order','desc')->where('status',1)
+        })->where('sample_collection_centers.status',1)
+        ->orderBy('sorting_order','desc')
         // ->orderBy(DB::raw('sorting_order IS NOT NULL, sorting_order'), 'ASC')
         ->get();
         return response()->json(['data'=>$data]);
