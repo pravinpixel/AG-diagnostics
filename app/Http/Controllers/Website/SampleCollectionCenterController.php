@@ -21,12 +21,14 @@ class SampleCollectionCenterController extends Controller
         ->when(!empty($id), function($q) use ($id){
             $q->where('cityId',$id);
         })
-        ->when(!empty($search), function($q) use ($search){
-            $q->where('sample_collection_centers.city','like','%'.$search.'%')
-            ->orWhere('sample_collection_centers.address','like','%'.$search.'%')
-            ->orWhere('sample_collection_centers.phone','like','%'.$search.'%')
-            ->orWhere('sample_collection_centers.location','like','%'.$search.'%');
-        })
+               ->when(!empty($search), function($q) use ($search) {
+                $q->where(function($query) use ($search) {
+                    $query->where('sample_collection_centers.city', 'like', '%' . $search . '%')
+                          ->orWhere('sample_collection_centers.address', 'like', '%' . $search . '%')
+                          ->orWhere('sample_collection_centers.phone', 'like', '%' . $search . '%')
+                          ->orWhere('sample_collection_centers.location', 'like', '%' . $search . '%');
+                });
+            })
         ->orderBy('sorting_order','desc')
         // ->orderBy(DB::raw('sorting_order IS NOT NULL, sorting_order'), 'ASC')
         ->get();
