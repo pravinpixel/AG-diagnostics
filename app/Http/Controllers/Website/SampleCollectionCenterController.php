@@ -15,7 +15,7 @@ class SampleCollectionCenterController extends Controller
         $id = $request['cityId'];
         $data = SampleCollectionCenters::
         select('id','centerId','localityId','location','timing','address','cityId','city','stateId','state','phone','email','latitude',
-        'longitude','googleReviewLink','whatsAppLink','sorting_order')
+        'longitude','googleReviewLink','whatsAppLink','sorting_order','status')
 
        
         ->when(!empty($id), function($q) use ($id){
