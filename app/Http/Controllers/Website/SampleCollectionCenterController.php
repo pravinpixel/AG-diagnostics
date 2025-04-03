@@ -13,8 +13,8 @@ class SampleCollectionCenterController extends Controller
     {
         $search = $request['search'];
         $id = $request['cityId'];
-        $data = SampleCollectionCenters::where('status',1)
-        ->select('id','centerId','localityId','location','timing','address','cityId','city','stateId','state','phone','email','latitude',
+        $data = SampleCollectionCenters::
+        select('id','centerId','localityId','location','timing','address','cityId','city','stateId','state','phone','email','latitude',
         'longitude','googleReviewLink','whatsAppLink','sorting_order')
 
        
@@ -27,7 +27,7 @@ class SampleCollectionCenterController extends Controller
             ->orWhere('sample_collection_centers.phone','like','%'.$search.'%')
             ->orWhere('sample_collection_centers.location','like','%'.$search.'%');
         })
-        ->orderBy('sorting_order','desc')
+        ->orderBy('sorting_order','desc')->where('status',1)
         // ->orderBy(DB::raw('sorting_order IS NOT NULL, sorting_order'), 'ASC')
         ->get();
         return response()->json(['data'=>$data]);
