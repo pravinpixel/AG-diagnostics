@@ -27,7 +27,7 @@ class HomeVisitController extends Controller
             'first_name' => 'required|string',
             'date' => 'required',
             'cityId' =>'required',
-            'areaId' =>'required',
+            'areaId' =>'nullable',
             'mobile' => 'required|numeric|digits:10',
         ]);
         if ($validator->fails()) {
@@ -39,7 +39,7 @@ class HomeVisitController extends Controller
         // $test_amount                ="";
         $data = new HomeVisit;
         $data->cityId               = $request->cityId;
-        $data->areaId               = $request->areaId;
+        $data->areaId               = $request->areaId ?? NULL;
         $data->first_name           = $request->first_name ;
         $data->email                = $request->email ;
         $data->mobile               = $request->mobile ;
@@ -82,10 +82,13 @@ class HomeVisitController extends Controller
     $date = date('Y/m/d H:i:s', $time);
     
     $res = $data->save();
-            if($request->cityId)
+            if(isset($request->cityId) && isset($request->areaId))
             {
                 $location = HomeVisitArea::where('cityId',$request->cityId)
                 ->where('areaId',$request->areaId)
+                ->first();
+            }else{
+                $location = HomeVisitArea::where('cityId',$request->cityId)
                 ->first();
             }
            if(empty($packageName))
@@ -108,8 +111,8 @@ class HomeVisitController extends Controller
                 'address'       =>$request->address,
                 'date'          =>$request->date,
                 'remark'        =>$request->remark,
-                'city'          =>$location['city'],
-                'area'          =>$location['area'],
+                'city'          =>$location['city']?? '',
+                'area'          =>$location['area'] ?? '',
             ];
 
             $packageArrayData= [];
@@ -155,7 +158,7 @@ class HomeVisitController extends Controller
                 'visitDt'               =>$request->date,
                 'name'                  =>$request->first_name,
                 'address'               =>$address,
-                'areaId'                =>$request->areaId,
+                'areaId'                =>$request->areaId ?? '',
                 'mobileNo'              =>$request->mobile,
                 'tests'                 =>$tests,
                 'testPackageCodes'      => $testPackageCodes,
